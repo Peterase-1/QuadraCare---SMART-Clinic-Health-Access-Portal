@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patients - QuadraCare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-link">
+          <i class="fa-solid fa-house"></i> Dashboard
+        </a>
+        <a href="appointments.html" class="nav-link">
+          <i class="fa-solid fa-calendar-check"></i> Appointments
+        </a>
+        <a href="patients.html" class="nav-link active">
+          <i class="fa-solid fa-user-injured"></i> Patients
+        </a>
+        <a href="#" id="logoutBtn" class="nav-link" style="margin-top: auto;">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div></div>
+        <div class="user-profile">
+          <div class="text-right">
+            <h4 id="userName" style="font-size: 1rem; margin:0;">Dr. Name</h4>
+          </div>
+          <div class="avatar"><i class="fa-solid fa-user-doctor"></i></div>
+        </div>
+      </header>
+
+      <div class="container-fluid">
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+          <!-- Add Record Form -->
+          <div class="card">
+            <h3 style="margin-bottom: 1.5rem;">Add Medical Record</h3>
+            <form id="recordForm">
+              <div class="form-group">
+                <label class="form-label" for="patient">Select Patient</label>
+                <select id="patient" class="form-input" required>
+                  <option value="">Loading patients...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="diagnosis">Diagnosis</label>
+                <input type="text" id="diagnosis" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="prescription">Prescription</label>
+                <textarea id="prescription" rows="3" class="form-input" required></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="labResults">Lab Results URL (Optional)</label>
+                <input type="text" id="labResults" class="form-input" placeholder="http://...">
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%;">
+                <i class="fa-solid fa-plus" style="margin-right: 0.5rem;"></i> Add Record
+              </button>
+            </form>
+          </div>
+
+          <!-- Patients List (Simplified) -->
+          <div>
+            <h3 style="margin-bottom: 1rem;">Patient Directory</h3>
+            <div id="patientsList" style="display: grid; gap: 1rem;">
+              <p>Loading patients...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../js/doctor.js"></script>
+</body>
+
+</html>
