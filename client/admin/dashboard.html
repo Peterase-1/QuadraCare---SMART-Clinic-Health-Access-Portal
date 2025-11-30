@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - QuadraCare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-link active">
+          <i class="fa-solid fa-chart-line"></i> Dashboard
+        </a>
+        <a href="users.html" class="nav-link">
+          <i class="fa-solid fa-users-gear"></i> User Management
+        </a>
+        <a href="#" id="logoutBtn" class="nav-link" style="margin-top: auto;">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div></div>
+        <div class="user-profile">
+          <div class="text-right">
+            <h4 id="userName" style="font-size: 1rem; margin:0;">Admin Name</h4>
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">Administrator</span>
+          </div>
+          <div class="avatar" style="background: #334155;"><i class="fa-solid fa-user-shield"></i></div>
+        </div>
+      </header>
+
+      <div class="container-fluid">
+        <div style="margin-bottom: 2rem;">
+          <h1>System Overview</h1>
+          <p style="color: var(--text-secondary);">Monitor clinic performance and users.</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Total Users</p>
+                <h2 id="totalUsers" style="color: var(--primary-color);">0</h2>
+              </div>
+              <div style="background: #eff6ff; padding: 0.5rem; border-radius: 8px; color: var(--primary-color);">
+                <i class="fa-solid fa-users"></i>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Total Appointments</p>
+                <h2 id="totalAppts" style="color: #d97706;">0</h2>
+              </div>
+              <div style="background: #fffbeb; padding: 0.5rem; border-radius: 8px; color: #d97706;">
+                <i class="fa-solid fa-calendar-check"></i>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Active Doctors</p>
+                <h2 id="activeDoctors" style="color: #16a34a;">0</h2>
+              </div>
+              <div style="background: #dcfce7; padding: 0.5rem; border-radius: 8px; color: #16a34a;">
+                <i class="fa-solid fa-user-doctor"></i>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Patients</p>
+                <h2 id="totalPatients" style="color: #8b5cf6;">0</h2>
+              </div>
+              <div style="background: #f3e8ff; padding: 0.5rem; border-radius: 8px; color: #8b5cf6;">
+                <i class="fa-solid fa-user-injured"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../js/admin.js"></script>
+</body>
+
+</html>

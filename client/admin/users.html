@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Management - QuadraCare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-link">
+          <i class="fa-solid fa-chart-line"></i> Dashboard
+        </a>
+        <a href="users.html" class="nav-link active">
+          <i class="fa-solid fa-users-gear"></i> User Management
+        </a>
+        <a href="#" id="logoutBtn" class="nav-link" style="margin-top: auto;">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div></div>
+        <div class="user-profile">
+          <div class="text-right">
+            <h4 id="userName" style="font-size: 1rem; margin:0;">Admin Name</h4>
+          </div>
+          <div class="avatar" style="background: #334155;"><i class="fa-solid fa-user-shield"></i></div>
+        </div>
+      </header>
+
+      <div class="container-fluid">
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+          <!-- Add User Form -->
+          <div class="card">
+            <h3 style="margin-bottom: 1.5rem;">Add New User</h3>
+            <form id="addUserForm">
+              <div class="form-group">
+                <label class="form-label" for="name">Full Name</label>
+                <input type="text" id="name" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address</label>
+                <input type="email" id="email" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" id="password" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="role">Role</label>
+                <select id="role" class="form-input" required>
+                  <option value="doctor">Doctor</option>
+                  <option value="pharmacist">Pharmacist</option>
+                  <option value="lab_tech">Lab Technician</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%;">
+                <i class="fa-solid fa-plus" style="margin-right: 0.5rem;"></i> Create User
+              </button>
+            </form>
+          </div>
+
+          <!-- Users List -->
+          <div>
+            <h3 style="margin-bottom: 1rem;">System Users</h3>
+            <div id="usersList" style="display: grid; gap: 1rem;">
+              <p>Loading users...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../js/admin.js"></script>
+</body>
+
+</html>
