@@ -8,90 +8,56 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../css/style.css">
-  <style>
-    .dashboard-container {
-      display: flex;
-      min-height: 100vh;
-      padding-top: 80px;
-    }
-
-    .sidebar {
-      width: 250px;
-      background: var(--surface-dark);
-      border-right: 1px solid var(--glass-border);
-      padding: 2rem;
-      position: fixed;
-      height: 100%;
-    }
-
-    .sidebar a {
-      display: block;
-      padding: 1rem;
-      color: var(--text-dim);
-      border-radius: 8px;
-      margin-bottom: 0.5rem;
-    }
-
-    .sidebar a:hover,
-    .sidebar a.active {
-      background: rgba(37, 99, 235, 0.1);
-      color: var(--primary-color);
-    }
-
-    .main-content {
-      flex: 1;
-      margin-left: 250px;
-      padding: 2rem;
-    }
-
-    .record-card {
-      background: var(--surface-dark);
-      padding: 1.5rem;
-      border-radius: 12px;
-      border: 1px solid var(--glass-border);
-      margin-bottom: 1rem;
-    }
-
-    .record-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid var(--glass-border);
-      padding-bottom: 0.5rem;
-    }
-
-    .record-date {
-      color: var(--text-dim);
-      font-size: 0.9rem;
-    }
-  </style>
 </head>
 
 <body>
-  <div id="app">
-    <header class="glass-header">
-      <div class="container">
-        <div class="logo">QuadraCare</div>
-        <div class="user-info" id="userInfo">Loading...</div>
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <i class="fa-solid fa-heart-pulse"></i> QuadraCare
       </div>
-    </header>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-link">
+          <i class="fa-solid fa-house"></i> Dashboard
+        </a>
+        <a href="appointments.html" class="nav-link">
+          <i class="fa-solid fa-calendar-check"></i> Appointments
+        </a>
+        <a href="records.html" class="nav-link active">
+          <i class="fa-solid fa-file-medical"></i> Medical Records
+        </a>
+        <a href="#" id="logoutBtn" class="nav-link" style="margin-top: auto;">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+      </nav>
+    </aside>
 
-    <div class="dashboard-container">
-      <aside class="sidebar">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="appointments.html">Appointments</a>
-        <a href="records.html" class="active">Medical Records</a>
-        <a href="#" id="logoutBtn">Logout</a>
-      </aside>
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div></div>
+        <div class="user-profile">
+          <div class="text-right">
+            <h4 id="userName" style="font-size: 1rem; margin:0;">Patient</h4>
+          </div>
+          <div class="avatar"><i class="fa-solid fa-user"></i></div>
+        </div>
+      </header>
 
-      <main class="main-content">
-        <h1>Medical Records</h1>
-        <div id="recordsList">
+      <div class="container-fluid">
+        <div style="margin-bottom: 2rem;">
+          <h1>Medical Records</h1>
+          <p style="color: var(--text-secondary);">Access your history and prescriptions.</p>
+        </div>
+
+        <div id="recordsList" style="display: grid; gap: 1.5rem;">
           <p>Loading records...</p>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   </div>
   <script src="../js/patient.js"></script>
 </body>

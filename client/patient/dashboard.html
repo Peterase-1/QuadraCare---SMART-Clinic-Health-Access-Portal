@@ -8,112 +8,106 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../css/style.css">
-  <style>
-    .dashboard-container {
-      display: flex;
-      min-height: 100vh;
-      padding-top: 80px;
-    }
-
-    .sidebar {
-      width: 250px;
-      background: var(--surface-dark);
-      border-right: 1px solid var(--glass-border);
-      padding: 2rem;
-      position: fixed;
-      height: 100%;
-    }
-
-    .sidebar a {
-      display: block;
-      padding: 1rem;
-      color: var(--text-dim);
-      border-radius: 8px;
-      margin-bottom: 0.5rem;
-    }
-
-    .sidebar a:hover,
-    .sidebar a.active {
-      background: rgba(37, 99, 235, 0.1);
-      color: var(--primary-color);
-    }
-
-    .main-content {
-      flex: 1;
-      margin-left: 250px;
-      padding: 2rem;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .stat-card {
-      background: var(--surface-dark);
-      padding: 1.5rem;
-      border-radius: 12px;
-      border: 1px solid var(--glass-border);
-    }
-
-    .stat-card h3 {
-      font-size: 2rem;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-
-    .stat-card p {
-      color: var(--text-dim);
-    }
-  </style>
 </head>
 
 <body>
-  <div id="app">
-    <header class="glass-header">
-      <div class="container">
-        <div class="logo">QuadraCare</div>
-        <div class="user-info" id="userInfo">Loading...</div>
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <i class="fa-solid fa-heart-pulse"></i> QuadraCare
       </div>
-    </header>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-link active">
+          <i class="fa-solid fa-house"></i> Dashboard
+        </a>
+        <a href="appointments.html" class="nav-link">
+          <i class="fa-solid fa-calendar-check"></i> Appointments
+        </a>
+        <a href="records.html" class="nav-link">
+          <i class="fa-solid fa-file-medical"></i> Medical Records
+        </a>
+        <a href="#" id="logoutBtn" class="nav-link" style="margin-top: auto;">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+      </nav>
+    </aside>
 
-    <div class="dashboard-container">
-      <aside class="sidebar">
-        <a href="dashboard.html" class="active">Dashboard</a>
-        <a href="appointments.html">Appointments</a>
-        <a href="records.html">Medical Records</a>
-        <a href="#" id="logoutBtn">Logout</a>
-      </aside>
-
-      <main class="main-content">
-        <h1>Welcome Back, <span id="userName">Patient</span></h1>
-        <p style="color: var(--text-dim); margin-bottom: 2rem;">Here is your health overview.</p>
-
-        <div class="stats-grid">
-          <div class="stat-card">
-            <h3 id="totalAppts">0</h3>
-            <p>Total Appointments</p>
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div class="search-bar">
+          <!-- Optional Search -->
+        </div>
+        <div class="user-profile">
+          <div class="text-right">
+            <h4 id="userName" style="font-size: 1rem; margin:0;">Patient Name</h4>
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">Patient Account</span>
           </div>
-          <div class="stat-card">
-            <h3 id="pendingAppts">0</h3>
-            <p>Pending Requests</p>
+          <div class="avatar">
+            <i class="fa-solid fa-user"></i>
           </div>
-          <div class="stat-card">
-            <h3 id="totalRecords">0</h3>
-            <p>Medical Records</p>
+        </div>
+      </header>
+
+      <!-- Dashboard Content -->
+      <div class="container-fluid">
+        <div style="margin-bottom: 2rem;">
+          <h1>Overview</h1>
+          <p style="color: var(--text-secondary);">Welcome back! Here's your health summary.</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Total Appointments</p>
+                <h2 id="totalAppts" style="color: var(--primary-color);">0</h2>
+              </div>
+              <div style="background: #eff6ff; padding: 0.5rem; border-radius: 8px; color: var(--primary-color);">
+                <i class="fa-solid fa-calendar"></i>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Pending Requests</p>
+                <h2 id="pendingAppts" style="color: #d97706;">0</h2>
+              </div>
+              <div style="background: #fffbeb; padding: 0.5rem; border-radius: 8px; color: #d97706;">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Medical Records</p>
+                <h2 id="totalRecords" style="color: #16a34a;">0</h2>
+              </div>
+              <div style="background: #dcfce7; padding: 0.5rem; border-radius: 8px; color: #16a34a;">
+                <i class="fa-solid fa-file-waveform"></i>
+              </div>
+            </div>
           </div>
         </div>
 
-        <h2>Recent Activity</h2>
-        <div id="recentActivity" style="margin-top: 1rem;">
-          <!-- Activity list will be populated here -->
-          <p style="color: var(--text-dim);">Loading...</p>
+        <!-- Recent Activity -->
+        <div class="card">
+          <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Recent Activity</h3>
+          <div id="recentActivity">
+            <p style="color: var(--text-secondary);">Loading...</p>
+          </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   </div>
   <script src="../js/patient.js"></script>
 </body>
