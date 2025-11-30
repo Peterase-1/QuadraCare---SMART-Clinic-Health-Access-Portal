@@ -25,7 +25,10 @@ const init3DScene = () => {
 
     // Rotate Helix
     particlesMesh.rotation.y += 0.002;
-    particlesMesh.rotation.x += 0.001;
+    particlesMesh.rotation.x += 0.0005;
+
+    linesMesh.rotation.y += 0.002;
+    linesMesh.rotation.x += 0.0005;
 
     // Rotate Background
     bgMesh.rotation.y -= 0.0005;
@@ -33,6 +36,21 @@ const init3DScene = () => {
     // Mouse Parallax
     particlesMesh.rotation.y += mouseX * 0.01;
     particlesMesh.rotation.x += mouseY * 0.01;
+
+    linesMesh.rotation.y += mouseX * 0.01;
+    linesMesh.rotation.x += mouseY * 0.01;
+
+    // Scroll Interaction
+    const scrollY = window.scrollY;
+    const scrollPercent = scrollY / (document.body.scrollHeight - window.innerHeight);
+
+    // Move camera slightly based on scroll to create depth
+    camera.position.y = -scrollY * 0.01;
+    camera.position.z = 30 + scrollY * 0.005; // Zoom out slightly as we scroll down
+
+    // Rotate helix faster on scroll
+    particlesMesh.rotation.z = scrollY * 0.0005;
+    linesMesh.rotation.z = scrollY * 0.0005;
 
     renderer.render(scene, camera);
   };
@@ -50,6 +68,7 @@ const init3DScene = () => {
 document.addEventListener('DOMContentLoaded', () => {
   init3DScene();
   initStatsCounter();
+  initScrollAnimations();
 });
 
 // Stats Counter Animation
@@ -100,4 +119,19 @@ const initStatsCounter = () => {
   }, { threshold: 0.5 });
 
   stats.forEach(stat => observer.observe(stat));
+};
+
+// Scroll Reveal Animations
+const initScrollAnimations = () => {
+  const reveals = document.querySelectorAll('.reveal');
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(reveal => revealObserver.observe(reveal));
 };
