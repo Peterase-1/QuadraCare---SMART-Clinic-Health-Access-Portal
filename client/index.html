@@ -20,18 +20,29 @@
   <canvas id="bg-canvas"></canvas>
 
   <div id="app" class="relative-content">
-    <header class="glass-header">
-      <div class="container">
-        <div class="logo"><i class="fa-solid fa-heart-pulse"></i> QuadraCare</div>
-        <nav>
-          <a href="#home">Home</a>
+    <header class="modern-header">
+      <div class="container header-container">
+        <div class="logo">
+          <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+        </div>
+
+        <nav class="nav-pills">
+          <a href="#home" class="active">Home</a>
           <a href="#services">Services</a>
           <a href="#doctors">Doctors</a>
+          <a href="#blog">News</a>
           <a href="#contact">Contact</a>
         </nav>
-        <div class="auth-buttons">
-          <a href="login.html" class="btn btn-glass-secondary">Login</a>
-          <a href="register.html" class="btn btn-glass-primary">Register</a>
+
+        <div class="header-actions">
+          <button class="btn-icon-circle"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+          <div class="header-contact">
+            <i class="fa-solid fa-phone"></i>
+            <span>+1 (555) 123-4567</span>
+          </div>
+
+          <a href="login.html" class="btn btn-primary-pill">Book Appointment</a>
         </div>
       </div>
     </header>
