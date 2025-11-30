@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Appointments - QuadraCare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .dashboard-container {
+      display: flex;
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: var(--surface-dark);
+      border-right: 1px solid var(--glass-border);
+      padding: 2rem;
+      position: fixed;
+      height: 100%;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 1rem;
+      color: var(--text-dim);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--primary-color);
+    }
+
+    .main-content {
+      flex: 1;
+      margin-left: 250px;
+      padding: 2rem;
+    }
+
+    .form-card {
+      background: var(--surface-dark);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text-dim);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      font-family: var(--font-main);
+    }
+
+    .appt-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .appt-card {
+      background: var(--surface-dark);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .status-pending {
+      background: rgba(234, 179, 8, 0.2);
+      color: #eab308;
+    }
+
+    .status-approved {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+    }
+
+    .status-rejected {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <header class="glass-header">
+      <div class="container">
+        <div class="logo">QuadraCare</div>
+        <div class="user-info" id="userInfo">Loading...</div>
+      </div>
+    </header>
+
+    <div class="dashboard-container">
+      <aside class="sidebar">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="appointments.html" class="active">Appointments</a>
+        <a href="records.html">Medical Records</a>
+        <a href="#" id="logoutBtn">Logout</a>
+      </aside>
+
+      <main class="main-content">
+        <h1>Appointments</h1>
+
+        <div class="form-card">
+          <h2>Book New Appointment</h2>
+          <form id="bookingForm">
+            <div class="form-group">
+              <label for="doctor">Select Doctor</label>
+              <select id="doctor" required>
+                <option value="">Loading doctors...</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="date">Date</label>
+              <input type="date" id="date" required>
+            </div>
+            <div class="form-group">
+              <label for="time">Time</label>
+              <input type="time" id="time" required>
+            </div>
+            <div class="form-group">
+              <label for="reason">Reason for Visit</label>
+              <textarea id="reason" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Book Appointment</button>
+          </form>
+        </div>
+
+        <h2>Your Appointments</h2>
+        <div id="appointmentsList" class="appt-list">
+          <p>Loading appointments...</p>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/patient.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medical Records - QuadraCare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .dashboard-container {
+      display: flex;
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: var(--surface-dark);
+      border-right: 1px solid var(--glass-border);
+      padding: 2rem;
+      position: fixed;
+      height: 100%;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 1rem;
+      color: var(--text-dim);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--primary-color);
+    }
+
+    .main-content {
+      flex: 1;
+      margin-left: 250px;
+      padding: 2rem;
+    }
+
+    .record-card {
+      background: var(--surface-dark);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      margin-bottom: 1rem;
+    }
+
+    .record-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--glass-border);
+      padding-bottom: 0.5rem;
+    }
+
+    .record-date {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <header class="glass-header">
+      <div class="container">
+        <div class="logo">QuadraCare</div>
+        <div class="user-info" id="userInfo">Loading...</div>
+      </div>
+    </header>
+
+    <div class="dashboard-container">
+      <aside class="sidebar">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="appointments.html">Appointments</a>
+        <a href="records.html" class="active">Medical Records</a>
+        <a href="#" id="logoutBtn">Logout</a>
+      </aside>
+
+      <main class="main-content">
+        <h1>Medical Records</h1>
+        <div id="recordsList">
+          <p>Loading records...</p>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/patient.js"></script>
+</body>
+
+</html>
