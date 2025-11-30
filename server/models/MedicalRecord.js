@@ -27,6 +27,11 @@ const medicalRecordSchema = new mongoose.Schema({
     enum: ['pending', 'dispensed'],
     default: 'pending'
   },
+  labStatus: {
+    type: String,
+    enum: ['pending', 'completed'],
+    default: 'pending'
+  },
   date: {
     type: Date,
     default: Date.now
