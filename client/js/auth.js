@@ -59,6 +59,7 @@ if (registerForm) {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const role = document.getElementById('role').value;
 
     try {
       const res = await fetch(`${API_URL}/register`, {
@@ -66,7 +67,7 @@ if (registerForm) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, email, password })
+        body: JSON.stringify({ name, email, password, role })
       });
 
       const data = await res.json();
@@ -74,7 +75,25 @@ if (registerForm) {
       if (res.ok) {
         localStorage.setItem('user', JSON.stringify(data));
         alert('Registration Successful');
-        window.location.href = 'patient/dashboard.html';
+
+        switch (data.role) {
+          case 'admin':
+            window.location.href = 'admin/dashboard.html';
+            break;
+          case 'doctor':
+            window.location.href = 'doctor/dashboard.html';
+            break;
+          case 'pharmacist':
+            window.location.href = 'pharmacist/dashboard.html';
+            break;
+          case 'lab_tech':
+            window.location.href = 'labtech/dashboard.html';
+            break;
+          case 'patient':
+          default:
+            window.location.href = 'patient/dashboard.html';
+            break;
+        }
       } else {
         alert(data.message);
       }
