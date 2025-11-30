@@ -8,46 +8,64 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      padding: 2.5rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .auth-header h1 {
+      font-size: 1.75rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .auth-header p {
+      color: var(--text-secondary);
+    }
+  </style>
 </head>
 
 <body>
-  <div id="app">
-    <header class="glass-header">
-      <div class="container">
-        <div class="logo">QuadraCare</div>
-        <nav>
-          <a href="index.html">Home</a>
-        </nav>
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1><i class="fa-solid fa-heart-pulse"></i> QuadraCare</h1>
+      <p>Welcome back! Please login.</p>
+    </div>
+    <form id="loginForm">
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input type="email" id="email" class="form-input" placeholder="name@example.com" required>
       </div>
-    </header>
-
-    <main>
-      <section class="hero-section" style="min-height: 100vh; padding-top: 100px;">
-        <div class="container" style="display: flex; justify-content: center;">
-          <div class="card" style="width: 100%; max-width: 400px;">
-            <h2 style="text-align: center; margin-bottom: 2rem;">Login</h2>
-            <form id="loginForm">
-              <div style="margin-bottom: 1rem;">
-                <label for="email" style="display: block; margin-bottom: 0.5rem; color: var(--text-dim);">Email</label>
-                <input type="email" id="email" required
-                  style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white;">
-              </div>
-              <div style="margin-bottom: 2rem;">
-                <label for="password"
-                  style="display: block; margin-bottom: 0.5rem; color: var(--text-dim);">Password</label>
-                <input type="password" id="password" required
-                  style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white;">
-              </div>
-              <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
-            </form>
-            <p style="text-align: center; margin-top: 1rem; color: var(--text-dim);">
-              Don't have an account? <a href="register.html" style="color: var(--primary-color);">Register</a>
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">Login</button>
+      <p style="text-align: center; font-size: 0.9rem; color: var(--text-secondary);">
+        Don't have an account? <a href="register.html"
+          style="color: var(--primary-color); font-weight: 600;">Register</a>
+      </p>
+    </form>
   </div>
   <script src="js/auth.js"></script>
 </body>
