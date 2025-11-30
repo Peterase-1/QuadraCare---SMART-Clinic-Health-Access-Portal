@@ -22,7 +22,25 @@ if (loginForm) {
       if (res.ok) {
         localStorage.setItem('user', JSON.stringify(data));
         alert('Login Successful');
-        window.location.href = 'index.html';
+
+        switch (data.role) {
+          case 'admin':
+            window.location.href = 'admin/dashboard.html';
+            break;
+          case 'doctor':
+            window.location.href = 'doctor/dashboard.html';
+            break;
+          case 'pharmacist':
+            window.location.href = 'pharmacist/dashboard.html';
+            break;
+          case 'lab_tech':
+            window.location.href = 'labtech/dashboard.html';
+            break;
+          case 'patient':
+          default:
+            window.location.href = 'patient/dashboard.html';
+            break;
+        }
       } else {
         alert(data.message);
       }
@@ -56,7 +74,7 @@ if (registerForm) {
       if (res.ok) {
         localStorage.setItem('user', JSON.stringify(data));
         alert('Registration Successful');
-        window.location.href = 'index.html';
+        window.location.href = 'patient/dashboard.html';
       } else {
         alert(data.message);
       }
