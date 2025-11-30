@@ -22,6 +22,11 @@ const medicalRecordSchema = new mongoose.Schema({
   labResults: {
     type: String // URL or Path to file
   },
+  status: {
+    type: String,
+    enum: ['pending', 'dispensed'],
+    default: 'pending'
+  },
   date: {
     type: Date,
     default: Date.now
