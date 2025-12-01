@@ -80,12 +80,12 @@
           <h3 style="margin-bottom: 1.5rem;">Lab Requests Queue</h3>
           <div id="requestsList" style="display: grid; gap: 1rem;">
             <p>Loading requests...</p>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
-  <script src="../js/labtech.js"></script>
+            modal.classList.remove('show');
+            setTimeout(() => {
+            modal.style.display = 'none';
+            }, 300);
+            }
+            </script>
 </body>
 
 </html>
