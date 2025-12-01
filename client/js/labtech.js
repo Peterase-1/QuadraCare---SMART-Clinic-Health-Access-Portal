@@ -51,19 +51,18 @@ if (window.location.pathname.includes('dashboard.html')) {
                         <div style="flex: 1;">
                             <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
                                 <h4 style="margin: 0;">${r.patient ? r.patient.name : 'Unknown Patient'}</h4>
-                                <span class="badge badge-${r.labStatus === 'pending' ? 'warning' : 'success'}">${r.labStatus}</span>
+                                <span class="badge badge-${r.status === 'lab_test' ? 'warning' : 'success'}">${r.status === 'lab_test' ? 'Pending' : 'Completed'}</span>
                             </div>
                             <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">
-                                <strong>Diagnosis:</strong> ${r.diagnosis}
+                                <strong>Test:</strong> ${r.labRequest ? r.labRequest.testType : 'N/A'}
                             </p>
                             <p style="margin: 0; color: var(--text-secondary); font-size: 0.8rem;">
                                 Dr. ${r.doctor ? r.doctor.name : 'Unknown'} • ${new Date(r.date).toLocaleDateString()}
                             </p>
-                            ${r.labResults ? `<p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--primary-color);"><i class="fa-solid fa-link"></i> ${r.labResults}</p>` : ''}
                         </div>
-                        ${r.labStatus === 'pending' ? `
+                        ${r.status === 'lab_test' ? `
                             <button onclick="uploadResult('${r._id}')" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
-                                <i class="fa-solid fa-upload"></i> Upload Result
+                                <i class="fa-solid fa-upload"></i> Enter Results
                             </button>
                         ` : `
                             <button disabled class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem; opacity: 0.6; cursor: not-allowed;">
@@ -77,16 +76,46 @@ if (window.location.pathname.includes('dashboard.html')) {
   loadRequests();
 
   // Upload Result Handler
+  // Open Modal Handler
   window.uploadResult = (id) => {
-    const resultUrl = prompt('Enter Lab Result URL or Summary:');
-    if (resultUrl) {
+    document.getElementById('labRecordId').value = id;
+    const modal = document.getElementById('labResultModal');
+    modal.style.display = 'flex';
+    setTimeout(() => {
+      modal.classList.add('show');
+    }, 10);
+  };
+
+  // Form Submit Handler
+  const labForm = document.getElementById('labResultForm');
+  if (labForm) {
+    labForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('labRecordId').value;
+      const resultData = document.getElementById('labResultData').value;
+      const comments = document.getElementById('labComments').value;
+
+      const payload = {
+        resultData,
+        comments,
+        bloodPressure: document.getElementById('labBP').value,
+        temperature: document.getElementById('labTemp').value,
+        heartRate: document.getElementById('labHR').value,
+        bloodSugar: document.getElementById('labSugar').value,
+        cholesterol: document.getElementById('labCholesterol').value,
+        wbc: document.getElementById('labWBC').value,
+        hemoglobin: document.getElementById('labHemoglobin').value
+      };
+
       fetch(`${API_URL}/requests/${id}`, {
         method: 'PUT',
         headers,
-        body: JSON.stringify({ labResults: resultUrl })
+        body: JSON.stringify(payload)
       })
         .then(res => {
           if (res.ok) {
+            alert('Results Uploaded Successfully');
+            closeLabModal();
             loadRequests();
             // Refresh stats
             fetch(`${API_URL}/dashboard`, { headers })
@@ -95,10 +124,11 @@ if (window.location.pathname.includes('dashboard.html')) {
                 document.getElementById('pendingCount').textContent = data.pendingRequests;
                 document.getElementById('completedCount').textContent = data.completedRequests;
               });
+            e.target.reset();
           } else {
             alert('Error uploading result');
           }
         });
-    }
-  };
+    });
+  }
 }
