@@ -5,8 +5,8 @@ const MedicalRecord = require('../models/MedicalRecord');
 // @access  Private (Pharmacist)
 exports.getDashboardStats = async (req, res) => {
   try {
-    const pendingPrescriptions = await MedicalRecord.countDocuments({ status: 'pending', prescription: { $ne: '' } });
-    const dispensedPrescriptions = await MedicalRecord.countDocuments({ status: 'dispensed' });
+    const pendingPrescriptions = await MedicalRecord.countDocuments({ status: 'pharmacy' });
+    const dispensedPrescriptions = await MedicalRecord.countDocuments({ status: 'completed' });
 
     res.json({
       pendingPrescriptions,
@@ -22,11 +22,13 @@ exports.getDashboardStats = async (req, res) => {
 // @access  Private (Pharmacist)
 exports.getPrescriptions = async (req, res) => {
   try {
-    // Only fetch records that have a prescription
-    const prescriptions = await MedicalRecord.find({ prescription: { $ne: '' } })
+    // Only fetch records that are in 'pharmacy' or 'completed' status
+    const prescriptions = await MedicalRecord.find({
+      status: { $in: ['pharmacy', 'completed'] }
+    })
       .populate('patient', 'name email')
       .populate('doctor', 'name')
-      .sort({ status: -1, date: -1 }); // 'pending' > 'dispensed' if sorted alphabetically descending? No, p > d. So pending first.
+      .sort({ status: -1, date: -1 }); // 'pharmacy' > 'completed' (p > c)
 
     res.json(prescriptions);
   } catch (error) {
@@ -39,14 +41,13 @@ exports.getPrescriptions = async (req, res) => {
 // @access  Private (Pharmacist)
 exports.updatePrescriptionStatus = async (req, res) => {
   try {
-    const { status } = req.body;
     const record = await MedicalRecord.findById(req.params.id);
 
     if (!record) {
       return res.status(404).json({ message: 'Record not found' });
     }
 
-    record.status = status;
+    record.status = 'completed'; // Mark as completed/dispensed
     await record.save();
 
     res.json(record);
