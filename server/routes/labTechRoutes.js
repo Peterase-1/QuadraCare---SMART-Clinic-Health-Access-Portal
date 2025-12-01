@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   getDashboardStats,
   getLabRequests,
-  uploadLabResult
+  updateRequestStatus
 } = require('../controllers/labTechController');
 const { protect } = require('../middleware/authMiddleware');
 
@@ -18,6 +18,6 @@ const labTechOnly = (req, res, next) => {
 
 router.get('/dashboard', protect, labTechOnly, getDashboardStats);
 router.get('/requests', protect, labTechOnly, getLabRequests);
-router.put('/requests/:id', protect, labTechOnly, uploadLabResult);
+router.put('/requests/:id', protect, labTechOnly, updateRequestStatus);
 
 module.exports = router;
