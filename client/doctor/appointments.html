@@ -59,7 +59,84 @@
       </div>
     </main>
   </div>
+
+  <!-- Consultation Modal -->
+  <div id="consultationModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Start Consultation</h2>
+        <button type="button" class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+
+      <form id="consultationForm">
+        <input type="hidden" id="consultPatientId">
+
+        <div class="form-section-title">Patient Vitals</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+          <div class="form-group">
+            <label class="form-label">Age</label>
+            <input type="number" id="patientAge" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Weight (kg)</label>
+            <input type="text" id="patientWeight" class="form-input" required>
+          </div>
+          <div class="form-group" style="grid-column: span 2;">
+            <label class="form-label">Blood Pressure</label>
+            <input type="text" id="patientBP" class="form-input" placeholder="e.g. 120/80" required>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label class="form-label">Symptoms & Notes</label>
+          <textarea id="patientSymptoms" class="form-input" rows="3" required></textarea>
+        </div>
+
+        <div class="form-section-title">Action Plan</div>
+        <div class="form-group">
+          <label class="form-label">Next Step</label>
+          <select id="consultAction" class="form-input" onchange="toggleLabFields()">
+            <option value="lab">Assign to Lab</option>
+            <option value="prescription">Prescribe Medicine (Skip Lab)</option>
+          </select>
+        </div>
+
+        <div id="labFields">
+          <div class="form-group">
+            <label class="form-label">Lab Test Type</label>
+            <input type="text" id="labTestType" class="form-input" placeholder="e.g. Blood Test, X-Ray">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="../js/doctor.js"></script>
+  <script>
+    function closeModal() {
+      const modal = document.getElementById('consultationModal');
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 300);
+    }
+    function toggleLabFields() {
+      const action = document.getElementById('consultAction').value;
+      const labFields = document.getElementById('labFields');
+      if (action === 'lab') {
+        labFields.style.display = 'block';
+        document.getElementById('labTestType').required = true;
+      } else {
+        labFields.style.display = 'none';
+        document.getElementById('labTestType').required = false;
+      }
+    }
+  </script>
 </body>
 
 </html>
