@@ -1,0 +1,140 @@
+2025-11-30T21:22:56.127Z: --- createConsultation START ---
+2025-11-30T21:22:56.129Z: Request Body: {
+  "patientId": "692ca165ea9c9e8172f1ad35",
+  "patientDetails": {
+    "age": "25",
+    "weight": "70",
+    "bloodPressure": "120/60",
+    "symptoms": "flu"
+  },
+  "labRequest": {
+    "required": true,
+    "testType": "Blood test, Urine Test",
+    "assignedTo": null
+  }
+}
+2025-11-30T21:22:56.130Z: User ID: 692ca544ea9c9e8172f1ad84
+2025-11-30T21:22:56.131Z: Processing Lab Request...
+2025-11-30T21:22:56.132Z: No specific Lab Tech assigned (assignedTo is null/undefined)
+2025-11-30T21:22:56.134Z: Creating Medical Record with data: {
+  "doctor": "692ca544ea9c9e8172f1ad84",
+  "patient": "692ca165ea9c9e8172f1ad35",
+  "patientDetails": {
+    "age": "25",
+    "weight": "70",
+    "bloodPressure": "120/60",
+    "symptoms": "flu"
+  },
+  "status": "lab_test",
+  "labRequest": {
+    "required": true,
+    "testType": "Blood test, Urine Test",
+    "requestDate": 1764537776132
+  }
+}
+2025-11-30T21:22:56.177Z: Medical Record Created Successfully: 692cb5b05ffddaf66608d2c9
+2025-11-30T21:31:17.866Z: --- createConsultation START ---
+2025-11-30T21:31:17.867Z: Request Body: {
+  "patientId": "692ca165ea9c9e8172f1ad35",
+  "patientDetails": {
+    "age": "25",
+    "weight": "70",
+    "bloodPressure": "120/60",
+    "symptoms": "head"
+  },
+  "labRequest": {
+    "required": true,
+    "testType": "Blood test, Urine Test",
+    "assignedTo": null
+  }
+}
+2025-11-30T21:31:17.867Z: User ID: 692ca544ea9c9e8172f1ad84
+2025-11-30T21:31:17.868Z: Processing Lab Request...
+2025-11-30T21:31:17.868Z: No specific Lab Tech assigned (assignedTo is null/undefined)
+2025-11-30T21:31:17.868Z: Creating Medical Record with data: {
+  "doctor": "692ca544ea9c9e8172f1ad84",
+  "patient": "692ca165ea9c9e8172f1ad35",
+  "patientDetails": {
+    "age": "25",
+    "weight": "70",
+    "bloodPressure": "120/60",
+    "symptoms": "head"
+  },
+  "status": "lab_test",
+  "labRequest": {
+    "required": true,
+    "testType": "Blood test, Urine Test",
+    "requestDate": 1764538277868
+  }
+}
+2025-11-30T21:31:17.892Z: Medical Record Created Successfully: 692cb7a5af891c6efb6cf6ea
+2025-12-01T07:42:10.135Z: --- createConsultation START ---
+2025-12-01T07:42:10.162Z: Request Body: {
+  "patientId": "692d465b1dd816e673d52bcd",
+  "patientDetails": {
+    "age": "25",
+    "weight": "65",
+    "bloodPressure": "120/90",
+    "symptoms": "Flu, Head Ace"
+  },
+  "labRequest": {
+    "required": true,
+    "testType": "Blood test, Urine Test",
+    "assignedTo": null
+  }
+}
+2025-12-01T07:42:10.163Z: User ID: 692ca544ea9c9e8172f1ad84
+2025-12-01T07:42:10.165Z: Processing Lab Request...
+2025-12-01T07:42:10.166Z: No specific Lab Tech assigned (assignedTo is null/undefined)
+2025-12-01T07:42:10.166Z: Creating Medical Record with data: {
+  "doctor": "692ca544ea9c9e8172f1ad84",
+  "patient": "692d465b1dd816e673d52bcd",
+  "patientDetails": {
+    "age": "25",
+    "weight": "65",
+    "bloodPressure": "120/90",
+    "symptoms": "Flu, Head Ace"
+  },
+  "status": "lab_test",
+  "labRequest": {
+    "required": true,
+    "testType": "Blood test, Urine Test",
+    "requestDate": 1764574930165
+  }
+}
+2025-12-01T07:42:10.184Z: Medical Record Created Successfully: 692d46d21dd816e673d52bf0
+2025-12-01T08:27:08.637Z: --- createConsultation START ---
+2025-12-01T08:27:08.638Z: Request Body: {
+  "patientId": "692d515c1199a8244f18dd4d",
+  "patientDetails": {
+    "age": 30,
+    "weight": "70kg",
+    "bloodPressure": "120/80",
+    "symptoms": "Fever"
+  },
+  "labRequest": {
+    "required": true,
+    "testType": "Blood Test"
+  }
+}
+2025-12-01T08:27:08.639Z: User ID: 692d515c1199a8244f18dd4a
+2025-12-01T08:27:08.639Z: Processing Lab Request...
+2025-12-01T08:27:08.639Z: No specific Lab Tech assigned (assignedTo is null/undefined)
+2025-12-01T08:27:08.640Z: Creating Medical Record with data: {
+  "doctor": "692d515c1199a8244f18dd4a",
+  "patient": "692d515c1199a8244f18dd4d",
+  "patientDetails": {
+    "age": 30,
+    "weight": "70kg",
+    "bloodPressure": "120/80",
+    "symptoms": "Fever"
+  },
+  "status": "lab_test",
+  "labRequest": {
+    "required": true,
+    "testType": "Blood Test",
+    "requestDate": 1764577628639
+  }
+}
+2025-12-01T08:27:08.647Z: Medical Record Created Successfully: 692d515c1199a8244f18dd53
+2025-12-01T08:27:08.657Z: Appointment marked as completed: 692d515c1199a8244f18dd51
