@@ -5,12 +5,13 @@ const MedicalRecord = require('../models/MedicalRecord');
 // @access  Private (Lab Tech)
 exports.getDashboardStats = async (req, res) => {
   try {
-    // Count records where labResults is empty (meaning pending lab work) or explicitly use labStatus if we want to be stricter
-    // For now, let's assume any record can have lab work added, but we'll focus on those that might need it.
-    // Actually, usually a doctor orders a lab. Since we don't have a separate "Lab Order" model, 
-    // let's assume any record with 'pending' labStatus is a request.
-    const pendingRequests = await MedicalRecord.countDocuments({ labStatus: 'pending' });
-    const completedRequests = await MedicalRecord.countDocuments({ labStatus: 'completed' });
+    // Count records where status is 'lab_test'
+    const pendingRequests = await MedicalRecord.countDocuments({ status: 'lab_test' });
+    // Count records where labRequest exists and status is NOT 'lab_test' (meaning completed)
+    const completedRequests = await MedicalRecord.countDocuments({
+      'labRequest.required': true,
+      status: { $ne: 'lab_test' }
+    });
 
     res.json({
       pendingRequests,
@@ -26,12 +27,18 @@ exports.getDashboardStats = async (req, res) => {
 // @access  Private (Lab Tech)
 exports.getLabRequests = async (req, res) => {
   try {
-    const requests = await MedicalRecord.find()
+    // Find records where status is 'lab_test' or lab work was done
+    const requests = await MedicalRecord.find({ 'labRequest.required': true })
       .populate('patient', 'name email')
       .populate('doctor', 'name')
-      .sort({ labStatus: -1, date: -1 }); // pending > completed
+      .sort({ status: 1, date: -1 }); // 'lab_test' comes before others alphabetically? No, let's just fetch all and sort on frontend or refine query
 
-    res.json(requests);
+    // Better: Fetch pending requests
+    const pending = await MedicalRecord.find({ status: 'lab_test' })
+      .populate('patient', 'name')
+      .populate('doctor', 'name');
+
+    res.json(pending);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -40,19 +47,33 @@ exports.getLabRequests = async (req, res) => {
 // @desc    Upload lab result (Update record)
 // @route   PUT /api/labtech/requests/:id
 // @access  Private (Lab Tech)
-exports.uploadLabResult = async (req, res) => {
+exports.updateRequestStatus = async (req, res) => {
   try {
-    const { labResults } = req.body;
+    const { resultData, comments, bloodPressure, temperature, heartRate, bloodSugar, cholesterol, wbc, hemoglobin } = req.body;
     const record = await MedicalRecord.findById(req.params.id);
 
     if (!record) {
       return res.status(404).json({ message: 'Record not found' });
     }
 
-    record.labResults = labResults;
-    record.labStatus = 'completed';
-    await record.save();
+    // In a real app, check if assigned to this lab tech or if any lab tech can pick it up
+    // For now, just check role (middleware does this)
 
+    record.labResults = {
+      resultData, // Summary or raw text
+      bloodPressure,
+      temperature,
+      heartRate,
+      bloodSugar,
+      cholesterol,
+      wbc,
+      hemoglobin,
+      comments,
+      completionDate: Date.now()
+    };
+    record.status = 'review'; // Send back to doctor for review
+
+    await record.save();
     res.json(record);
   } catch (error) {
     res.status(500).json({ message: error.message });
