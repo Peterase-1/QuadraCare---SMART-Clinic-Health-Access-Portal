@@ -11,26 +11,57 @@ const medicalRecordSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  // Patient Vitals & Info (Entered by Doctor)
+  patientDetails: {
+    age: Number,
+    weight: String,
+    bloodPressure: String,
+    symptoms: String,
+    notes: String
+  },
+  // Lab Request (Optional)
+  labRequest: {
+    required: { type: Boolean, default: false },
+    testType: String,
+    assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    requestDate: Date
+  },
+  // Lab Results (Entered by Lab Tech)
+  labResults: {
+    resultData: String, // Keep for backward compatibility or summary
+    bloodPressure: String,
+    temperature: String,
+    heartRate: String,
+    bloodSugar: String,
+    cholesterol: String,
+    wbc: String,
+    hemoglobin: String,
+    comments: String,
+    completionDate: Date,
+    attachment: String // URL/Path if needed
+  },
+  // Final Diagnosis & Prescription (Entered by Doctor)
   diagnosis: {
     type: String,
-    required: true
+    required: false
   },
   prescription: {
-    type: String,
-    required: true
+    medicines: [{
+      name: String,
+      dosage: String,
+      frequency: String,
+      duration: String,
+      route: String, // e.g., Oral, IV
+      timing: String, // e.g., After Meal
+      notes: String
+    }],
+    instructions: String
   },
-  labResults: {
-    type: String // URL or Path to file
-  },
+  // Workflow Status
   status: {
     type: String,
-    enum: ['pending', 'dispensed'],
-    default: 'pending'
-  },
-  labStatus: {
-    type: String,
-    enum: ['pending', 'completed'],
-    default: 'pending'
+    enum: ['consultation', 'lab_test', 'review', 'pharmacy', 'closed', 'completed'],
+    default: 'consultation'
   },
   date: {
     type: Date,
