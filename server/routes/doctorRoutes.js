@@ -4,8 +4,11 @@ const {
   getDoctorDashboard,
   getDoctorAppointments,
   updateAppointmentStatus,
-  getPatients,
-  addMedicalRecord
+  getDoctorPatients,
+  createConsultation,
+  finalizeRecord,
+  getPatientRecords,
+  getActiveRecords
 } = require('../controllers/doctorController');
 const { protect } = require('../middleware/authMiddleware');
 
@@ -21,7 +24,11 @@ const doctorOnly = (req, res, next) => {
 router.get('/dashboard', protect, doctorOnly, getDoctorDashboard);
 router.get('/appointments', protect, doctorOnly, getDoctorAppointments);
 router.put('/appointments/:id', protect, doctorOnly, updateAppointmentStatus);
-router.get('/patients', protect, doctorOnly, getPatients);
-router.post('/records', protect, doctorOnly, addMedicalRecord);
+router.get('/patients', protect, doctorOnly, getDoctorPatients);
+router.post('/records', protect, doctorOnly, createConsultation);
+router.put('/records/:id/finalize', protect, doctorOnly, finalizeRecord);
+router.get('/patients/:id/records', protect, doctorOnly, getPatientRecords);
+
+router.get('/records/active', protect, doctorOnly, getActiveRecords);
 
 module.exports = router;
