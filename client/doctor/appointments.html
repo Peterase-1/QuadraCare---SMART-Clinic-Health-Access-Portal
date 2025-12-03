@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../css/style.css">
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 </head>
 
 <body>
@@ -42,6 +43,7 @@
         <div class="user-profile">
           <div class="text-right">
             <h4 id="userName" style="font-size: 1rem; margin:0;">Dr. Name</h4>
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">General Physician</span>
           </div>
           <div class="avatar"><i class="fa-solid fa-user-doctor"></i></div>
         </div>
@@ -53,8 +55,17 @@
           <p style="color: var(--text-secondary);">Manage your schedule.</p>
         </div>
 
-        <div id="appointmentsList" style="display: grid; gap: 1rem;">
-          <p>Loading appointments...</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <!-- Appointments List -->
+          <div id="appointmentsList" style="display: grid; gap: 1rem;">
+            <p>Loading appointments...</p>
+          </div>
+
+          <!-- Calendar -->
+          <div class="card">
+            <h3 style="margin-bottom: 1rem;">Schedule</h3>
+            <div id="calendar"></div>
+          </div>
         </div>
       </div>
     </main>
@@ -96,26 +107,220 @@
         <div class="form-group">
           <label class="form-label">Next Step</label>
           <select id="consultAction" class="form-input" onchange="toggleLabFields()">
+            <option value="prescription" selected>Prescribe Medicine (Skip Lab)</option>
             <option value="lab">Assign to Lab</option>
-            <option value="prescription">Prescribe Medicine (Skip Lab)</option>
           </select>
         </div>
 
-        <div id="labFields">
-          <div class="form-group">
-            <label class="form-label">Lab Test Type</label>
-            <input type="text" id="labTestType" class="form-input" placeholder="e.g. Blood Test, X-Ray">
+        <div id="labFields"
+          style="display: none; background: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h4 style="margin: 0; color: var(--primary-color);">Lab Request Required</h4>
+            <button type="button" class="btn btn-primary" onclick="openLabRequestModal()" style="font-size: 0.85rem;">
+              <i class="fa-solid fa-list-check"></i> Open Lab Request Form
+            </button>
           </div>
+          <p id="labSelectionSummary" style="font-size: 0.9rem; color: var(--text-secondary); margin: 0;">
+            No tests selected yet. Please open the form to select tests.
+          </p>
+          <input type="hidden" id="labTestType" required> <!-- Hidden input to validate selection -->
+          <input type="hidden" id="labRequestDescription">
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Submit Consultation</button>
         </div>
       </form>
     </div>
   </div>
 
+  <!-- Giant Lab Request Modal -->
+  <div id="labRequestModal" class="modal" style="display: none; z-index: 1001;">
+    <div class="modal-content" style="max-width: 900px; max-height: 90vh; overflow-y: auto;">
+      <div class="modal-header">
+        <h2 class="modal-title">Lab Request Form</h2>
+        <button type="button" class="modal-close" onclick="closeLabRequestModal()">&times;</button>
+      </div>
+
+      <div style="margin-bottom: 1.5rem;">
+        <p style="color: var(--text-secondary);">Select the tests required for the patient.</p>
+      </div>
+
+      <div class="lab-checklist-grid"
+        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem;">
+
+        <!-- Hematology -->
+        <div class="checklist-section">
+          <h4
+            style="border-bottom: 1px solid #eee; padding-bottom: 0.5rem; margin-bottom: 0.5rem; color: var(--primary-color);">
+            Hematology</h4>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="CBC (Complete Blood Count)"> CBC
+            (Complete Blood Count)</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="ESR"> ESR</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="Blood Grouping"> Blood
+            Grouping</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="Hemoglobin"> Hemoglobin</label>
+        </div>
+
+        <!-- Biochemistry -->
+        <div class="checklist-section">
+          <h4
+            style="border-bottom: 1px solid #eee; padding-bottom: 0.5rem; margin-bottom: 0.5rem; color: var(--primary-color);">
+            Biochemistry</h4>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="Fasting Blood Sugar"> Fasting
+            Blood Sugar</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="Random Blood Sugar"> Random
+            Blood Sugar</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="HbA1c"> HbA1c</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="Lipid Profile"> Lipid
+            Profile</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="Liver Function Test"> Liver
+            Function Test</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="Kidney Function Test"> Kidney
+            Function Test</label>
+        </div>
+
+        <!-- Serology & Immunology -->
+        <div class="checklist-section">
+          <h4
+            style="border-bottom: 1px solid #eee; padding-bottom: 0.5rem; margin-bottom: 0.5rem; color: var(--primary-color);">
+            Serology & Immunology</h4>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="HBsAg"> HBsAg</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="HCV"> HCV</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="HIV 1 & 2"> HIV 1 & 2</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="VDRL"> VDRL</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="Widal Test"> Widal Test</label>
+        </div>
+
+        <!-- Clinical Pathology -->
+        <div class="checklist-section">
+          <h4
+            style="border-bottom: 1px solid #eee; padding-bottom: 0.5rem; margin-bottom: 0.5rem; color: var(--primary-color);">
+            Clinical Pathology</h4>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="Urine Routine"> Urine
+            Routine</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="Stool Routine"> Stool
+            Routine</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="Sputum AFB"> Sputum AFB</label>
+        </div>
+
+        <!-- Imaging -->
+        <div class="checklist-section">
+          <h4
+            style="border-bottom: 1px solid #eee; padding-bottom: 0.5rem; margin-bottom: 0.5rem; color: var(--primary-color);">
+            Imaging</h4>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="X-Ray Chest"> X-Ray
+            Chest</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="Ultrasound Abdomen"> Ultrasound
+            Abdomen</label>
+          <label class="checkbox-label"><input type="checkbox" class="lab-check" value="ECG"> ECG</label>
+        </div>
+
+      </div>
+
+      <div style="margin-top: 1.5rem;">
+        <h4 style="margin-bottom: 0.5rem;">Other Instructions / Specifics</h4>
+        <textarea id="labModalDescription" class="form-input" rows="3"
+          placeholder="Enter any specific instructions or other tests not listed above..."></textarea>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeLabRequestModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="confirmLabRequest()">OK (Confirm Selection)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Finalize Consultation Modal (Prescription) -->
+  <div id="finalizeModal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-width: 800px;">
+      <div class="modal-header">
+        <h2 class="modal-title">Prescription & Diagnosis</h2>
+        <button type="button" class="modal-close" onclick="closeFinalizeModal()">&times;</button>
+      </div>
+      <form id="finalizeForm">
+        <input type="hidden" id="finalizeRecordId">
+
+        <!-- Lab Results Display (Hidden for Direct Prescription) -->
+        <div id="labResultsSection" class="form-group"
+          style="margin-bottom: 1.5rem; background: #f8fafc; padding: 1rem; border-radius: 12px; display: none;">
+          <label class="form-label" style="color: var(--primary-color);">Lab Results</label>
+          <p id="displayLabResults" style="white-space: pre-wrap; margin-bottom: 0.5rem; font-weight: 500;"></p>
+          <p id="displayLabComments" style="font-size: 0.9rem; color: var(--text-secondary); font-style: italic;"></p>
+        </div>
+
+        <div class="form-section-title">Diagnosis & Treatment</div>
+        <div class="form-group">
+          <label class="form-label">Final Diagnosis</label>
+          <input type="text" id="finalDiagnosis" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Prescription</label>
+          <div id="medicineList">
+            <!-- Medicine items will be added here -->
+            <div class="medicine-row" style="margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 1rem;">
+              <div
+                style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem; align-items: start;">
+                <input type="text" class="form-input med-name" placeholder="Medicine Name" required>
+                <input type="text" class="form-input med-dosage" placeholder="Dosage" required>
+                <input type="text" class="form-input med-freq" placeholder="Freq" required>
+                <input type="text" class="form-input med-dur" placeholder="Duration" required>
+                <input type="text" class="form-input med-route" placeholder="Route (Oral)" required>
+                <input type="text" class="form-input med-timing" placeholder="Timing (After Meal)" required>
+              </div>
+              <div class="medicine-notes">
+                <input type="text" class="form-input med-notes" placeholder="Notes (Optional)"
+                  style="font-size: 0.9rem;">
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline" onclick="addMedicineRow()"
+            style="width: 100%; margin-top: 0.5rem; font-size: 0.85rem;">
+            <i class="fa-solid fa-plus"></i> Add Another Medicine
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Instructions</label>
+          <textarea id="finalInstructions" class="form-input" rows="2"></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeFinalizeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Finalize & Print</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Print Preview Modal -->
+  <div id="printModal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-width: 800px;">
+      <div class="modal-header">
+        <h2 class="modal-title">Prescription Preview</h2>
+        <button type="button" class="modal-close" onclick="closePrintModal()">&times;</button>
+      </div>
+      <div id="printArea" style="padding: 2rem; border: 1px solid #ddd; margin-bottom: 1.5rem;">
+        <!-- Prescription Content -->
+      </div>
+      <div class="modal-footer" style="justify-content: space-between;">
+        <button type="button" class="btn btn-outline" onclick="closePrintModal()">Close Preview</button>
+        <div style="display: flex; gap: 1rem;">
+          <button type="button" class="btn btn-primary" onclick="printPrescription()">
+            <i class="fa-solid fa-print"></i> Print PDF
+          </button>
+          <button type="button" class="btn btn-success" onclick="closeCase()"
+            style="background-color: #10b981; border-color: #10b981; color: white;">
+            <i class="fa-solid fa-check"></i> Close Case
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/utils.js"></script>
   <script src="../js/doctor.js"></script>
   <script>
     function closeModal() {
@@ -125,18 +330,188 @@
         modal.style.display = 'none';
       }, 300);
     }
+
     function toggleLabFields() {
       const action = document.getElementById('consultAction').value;
       const labFields = document.getElementById('labFields');
       if (action === 'lab') {
         labFields.style.display = 'block';
-        document.getElementById('labTestType').required = true;
+        openLabRequestModal();
       } else {
         labFields.style.display = 'none';
-        document.getElementById('labTestType').required = false;
+        document.getElementById('labTestType').value = ''; // Clear
+        document.getElementById('labRequestDescription').value = '';
       }
     }
+
+    function openLabRequestModal() {
+      const modal = document.getElementById('labRequestModal');
+      modal.style.display = 'flex';
+      setTimeout(() => {
+        modal.classList.add('show');
+      }, 10);
+    }
+
+    function closeLabRequestModal() {
+      const modal = document.getElementById('labRequestModal');
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 300);
+    }
+
+    function confirmLabRequest() {
+      // Gather checked items
+      const checked = Array.from(document.querySelectorAll('.lab-check:checked')).map(cb => cb.value);
+      const description = document.getElementById('labModalDescription').value;
+
+      if (checked.length === 0 && !description.trim()) {
+        alert('Please select at least one test or provide instructions.');
+        return;
+      }
+
+      // Update hidden fields in main form
+      const summary = checked.join(', ');
+      document.getElementById('labTestType').value = summary || 'Custom Request';
+      document.getElementById('labRequestDescription').value = description;
+
+      // Update UI summary
+      const summaryText = checked.length > 0 ?
+        `<strong>Selected Tests:</strong> ${checked.length} tests selected (${checked.slice(0, 3).join(', ')}${checked.length > 3 ? '...' : ''})` :
+        '<strong>Custom Request Only</strong>';
+
+      document.getElementById('labSelectionSummary').innerHTML = summaryText + '<br><span style="font-size: 0.8rem; color: #16a34a;"><i class="fa-solid fa-check"></i> Selection Confirmed</span>';
+
+      closeLabRequestModal();
+    }
+
+    // Modal functions for Prescription
+    function closeFinalizeModal() {
+      const modal = document.getElementById('finalizeModal');
+      modal.classList.remove('show');
+      setTimeout(() => { modal.style.display = 'none'; }, 300);
+    }
+    function closePrintModal() {
+      const modal = document.getElementById('printModal');
+      modal.classList.remove('show');
+      setTimeout(() => { modal.style.display = 'none'; }, 300);
+    }
+    function addMedicineRow() {
+      const container = document.createElement('div');
+      container.innerHTML = `
+        <div class="medicine-row" style="margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 1rem;">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem; align-items: start;">
+                <input type="text" class="form-input med-name" placeholder="Medicine Name" required>
+                <input type="text" class="form-input med-dosage" placeholder="Dosage" required>
+                <input type="text" class="form-input med-freq" placeholder="Freq" required>
+                <input type="text" class="form-input med-dur" placeholder="Duration" required>
+                <input type="text" class="form-input med-route" placeholder="Route (Oral)" required>
+                <input type="text" class="form-input med-timing" placeholder="Timing (After Meal)" required>
+            </div>
+            <div class="medicine-notes">
+                <input type="text" class="form-input med-notes" placeholder="Notes (Optional)" style="font-size: 0.9rem;">
+            </div>
+        </div>
+      `;
+      document.getElementById('medicineList').appendChild(container);
+    }
+    function printPrescription() {
+      const printContent = document.getElementById('printArea').innerHTML;
+      const originalContent = document.body.innerHTML;
+
+      document.body.innerHTML = printContent;
+      window.print();
+      document.body.innerHTML = originalContent;
+      window.location.reload();
+    }
   </script>
+  <style>
+    .checkbox-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .checkbox-label input {
+      margin-right: 0.5rem;
+    }
+
+    /* Calendar Styling */
+    #calendar {
+      max-height: 650px;
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .fc {
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .fc-toolbar-title {
+      font-size: 1.25rem !important;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .fc-button-primary {
+      background-color: white !important;
+      border-color: var(--border-color) !important;
+      color: var(--text-secondary) !important;
+      font-weight: 500;
+      text-transform: capitalize;
+      box-shadow: none !important;
+      transition: all 0.2s;
+    }
+
+    .fc-button-primary:hover {
+      background-color: #f8fafc !important;
+      color: var(--primary-color) !important;
+    }
+
+    .fc-button-active {
+      background-color: var(--primary-color) !important;
+      border-color: var(--primary-color) !important;
+      color: white !important;
+    }
+
+    .fc-daygrid-day-number {
+      color: var(--text-secondary);
+      font-weight: 500;
+      text-decoration: none !important;
+    }
+
+    .fc-col-header-cell-cushion {
+      color: var(--text-secondary);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-decoration: none !important;
+      padding-bottom: 10px !important;
+    }
+
+    .fc-event {
+      border: none;
+      border-radius: 6px;
+      padding: 2px 4px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    .fc-event:hover {
+      transform: scale(1.02);
+    }
+
+    .fc-day-today {
+      background-color: #eff6ff !important;
+    }
+  </style>
 </body>
 
 </html>
