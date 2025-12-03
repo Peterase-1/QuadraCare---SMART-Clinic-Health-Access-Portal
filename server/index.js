@@ -21,13 +21,14 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.error('MongoDB Connection Error:', err));
 
 // Routes
-console.log('Loading Auth Routes...');
+console.log('Loading Routes...');
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/patient', require('./routes/patientRoutes'));
 app.use('/api/doctor', require('./routes/doctorRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
-app.use('/api/pharmacist', require('./routes/pharmacistRoutes'));
 app.use('/api/labtech', require('./routes/labTechRoutes'));
+app.use('/api/payment', require('./routes/paymentRoutes'));
+app.use('/api/ai', require('./routes/aiRoutes'));
 
 app.get('/', (req, res) => {
   res.send('QuadraCare API is running');
