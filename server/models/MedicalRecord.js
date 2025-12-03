@@ -23,8 +23,10 @@ const medicalRecordSchema = new mongoose.Schema({
   labRequest: {
     required: { type: Boolean, default: false },
     testType: String,
+    requestDescription: String,
     assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    requestDate: Date
+    requestDate: Date,
+    paymentStatus: { type: String, enum: ['pending', 'paid'], default: 'pending' }
   },
   // Lab Results (Entered by Lab Tech)
   labResults: {
