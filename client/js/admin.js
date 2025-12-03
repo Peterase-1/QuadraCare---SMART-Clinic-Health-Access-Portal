@@ -88,11 +88,11 @@ if (window.location.pathname.includes('users.html')) {
     })
       .then(res => {
         if (res.ok) {
-          alert('User Created Successfully');
+          showToast('User Created Successfully');
           loadUsers();
           e.target.reset();
         } else {
-          res.json().then(data => alert(data.message || 'Error creating user'));
+          res.json().then(data => showToast(data.message || 'Error creating user'));
         }
       });
   });
@@ -108,7 +108,7 @@ if (window.location.pathname.includes('users.html')) {
           if (res.ok) {
             loadUsers();
           } else {
-            alert('Error deleting user');
+            showToast('Error deleting user');
           }
         });
     }
