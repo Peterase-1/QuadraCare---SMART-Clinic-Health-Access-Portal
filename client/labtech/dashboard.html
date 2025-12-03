@@ -80,12 +80,113 @@
           <h3 style="margin-bottom: 1.5rem;">Lab Requests Queue</h3>
           <div id="requestsList" style="display: grid; gap: 1rem;">
             <p>Loading requests...</p>
-            modal.classList.remove('show');
-            setTimeout(() => {
-            modal.style.display = 'none';
-            }, 300);
-            }
-            </script>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Lab Result Modal -->
+  <div id="labResultModal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-width: 800px;">
+      <div class="modal-header">
+        <h2 class="modal-title">Enter Lab Results</h2>
+        <button type="button" class="modal-close" onclick="closeLabModal()">&times;</button>
+      </div>
+      <form id="labResultForm">
+        <input type="hidden" id="labRecordId">
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label class="form-label">Detailed Result Report (Giant Form)</label>
+          <textarea id="labResultData" class="form-input" rows="10"
+            placeholder="Enter full experiment details, observations, and results here..." required></textarea>
+        </div>
+
+        <div class="form-section-title">Vitals (If Applicable)</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+          <div class="form-group">
+            <label class="form-label">Blood Pressure</label>
+            <input type="text" id="labBP" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Temperature</label>
+            <input type="text" id="labTemp" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Heart Rate</label>
+            <input type="text" id="labHR" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Blood Sugar</label>
+            <input type="text" id="labSugar" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cholesterol</label>
+            <input type="text" id="labCholesterol" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">WBC Count</label>
+            <input type="text" id="labWBC" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Hemoglobin</label>
+            <input type="text" id="labHemoglobin" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tech Comments</label>
+          <textarea id="labComments" class="form-input" rows="2"></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeLabModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Results</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lab Request Details Modal -->
+  <div id="labRequestDetailsModal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <h2 class="modal-title">Lab Request Details</h2>
+        <button type="button" class="modal-close" onclick="closeLabDetailsModal()">&times;</button>
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+        <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">Requested Tests</h4>
+        <p id="detailsTestType" style="background: #f1f5f9; padding: 1rem; border-radius: 8px; font-weight: 500;"></p>
+      </div>
+      <div>
+        <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">Instructions / Notes</h4>
+        <p id="detailsDescription"
+          style="background: #fffbeb; padding: 1rem; border-radius: 8px; color: #b45309; white-space: pre-wrap;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="closeLabDetailsModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/labtech.js"></script>
+  <script>
+    function closeLabModal() {
+      const modal = document.getElementById('labResultModal');
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 300);
+    }
+    function closeLabDetailsModal() {
+      const modal = document.getElementById('labRequestDetailsModal');
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 300);
+    }
+  </script>
 </body>
 
 </html>
