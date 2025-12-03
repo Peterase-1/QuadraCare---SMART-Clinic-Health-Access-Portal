@@ -138,3 +138,129 @@
 }
 2025-12-01T08:27:08.647Z: Medical Record Created Successfully: 692d515c1199a8244f18dd53
 2025-12-01T08:27:08.657Z: Appointment marked as completed: 692d515c1199a8244f18dd51
+2025-12-02T08:18:54.169Z: --- createConsultation START ---
+2025-12-02T08:18:54.172Z: Request Body: {
+  "patientId": "692ea0646ea26712337fe77d",
+  "patientDetails": {
+    "age": "25",
+    "weight": "68",
+    "bloodPressure": "120/80",
+    "symptoms": "Flu, Head Ace"
+  },
+  "labRequest": {
+    "required": true,
+    "testType": "CBC (Complete Blood Count), Fasting Blood Sugar, Lipid Profile, HBsAg, Urine Routine, Stool Routine, X-Ray Chest",
+    "requestDescription": "Be fast",
+    "assignedTo": null
+  }
+}
+2025-12-02T08:18:54.173Z: User ID: 692ca544ea9c9e8172f1ad84
+2025-12-02T08:18:54.175Z: Processing Lab Request...
+2025-12-02T08:18:54.176Z: No specific Lab Tech assigned (assignedTo is null/undefined)
+2025-12-02T08:18:54.178Z: Creating Medical Record with data: {
+  "doctor": "692ca544ea9c9e8172f1ad84",
+  "patient": "692ea0646ea26712337fe77d",
+  "patientDetails": {
+    "age": "25",
+    "weight": "68",
+    "bloodPressure": "120/80",
+    "symptoms": "Flu, Head Ace"
+  },
+  "status": "lab_test",
+  "labRequest": {
+    "required": true,
+    "testType": "CBC (Complete Blood Count), Fasting Blood Sugar, Lipid Profile, HBsAg, Urine Routine, Stool Routine, X-Ray Chest",
+    "requestDescription": "Be fast",
+    "requestDate": 1764663534176
+  }
+}
+2025-12-02T08:18:54.219Z: Medical Record Created Successfully: 692ea0ee6ea26712337fe79a
+2025-12-02T08:18:54.231Z: Appointment marked as completed: 692ea0816ea26712337fe787
+2025-12-02T08:42:04.753Z: --- createConsultation START ---
+2025-12-02T08:42:04.755Z: Request Body: {
+  "patientId": "692ea5cb8219ba6ec82668bd",
+  "patientDetails": {
+    "age": "50",
+    "weight": "90",
+    "bloodPressure": "125/56",
+    "symptoms": "Note"
+  },
+  "labRequest": {
+    "required": true,
+    "testType": "CBC (Complete Blood Count), Blood Grouping, Hemoglobin, Liver Function Test, HCV, Urine Routine, X-Ray Chest, Ultrasound Abdomen",
+    "requestDescription": "Apply Hemoglobin Iodin Test",
+    "assignedTo": null
+  }
+}
+2025-12-02T08:42:04.759Z: User ID: 692ca544ea9c9e8172f1ad84
+2025-12-02T08:42:04.760Z: Processing Lab Request...
+2025-12-02T08:42:04.762Z: No specific Lab Tech assigned (assignedTo is null/undefined)
+2025-12-02T08:42:04.763Z: Creating Medical Record with data: {
+  "doctor": "692ca544ea9c9e8172f1ad84",
+  "patient": "692ea5cb8219ba6ec82668bd",
+  "patientDetails": {
+    "age": "50",
+    "weight": "90",
+    "bloodPressure": "125/56",
+    "symptoms": "Note"
+  },
+  "status": "lab_test",
+  "labRequest": {
+    "required": true,
+    "testType": "CBC (Complete Blood Count), Blood Grouping, Hemoglobin, Liver Function Test, HCV, Urine Routine, X-Ray Chest, Ultrasound Abdomen",
+    "requestDescription": "Apply Hemoglobin Iodin Test",
+    "requestDate": 1764664924762
+  }
+}
+2025-12-02T08:42:04.785Z: Medical Record Created Successfully: 692ea65c8219ba6ec82668da
+2025-12-02T08:42:04.797Z: Appointment marked as completed: 692ea5e28219ba6ec82668c7
+2025-12-02T08:48:32.341Z: --- createConsultation START ---
+2025-12-02T08:48:32.343Z: Request Body: {
+  "patientId": "692ca165ea9c9e8172f1ad35",
+  "patientDetails": {
+    "age": "25",
+    "weight": "85",
+    "bloodPressure": "125/56",
+    "symptoms": "none"
+  },
+  "labRequest": null
+}
+2025-12-02T08:48:32.345Z: User ID: 692ca544ea9c9e8172f1ad84
+2025-12-02T08:48:32.346Z: Creating Medical Record with data: {
+  "doctor": "692ca544ea9c9e8172f1ad84",
+  "patient": "692ca165ea9c9e8172f1ad35",
+  "patientDetails": {
+    "age": "25",
+    "weight": "85",
+    "bloodPressure": "125/56",
+    "symptoms": "none"
+  },
+  "status": "consultation"
+}
+2025-12-02T08:48:32.368Z: Medical Record Created Successfully: 692ea7e064a657e0055bd0f0
+2025-12-02T08:48:32.384Z: Appointment marked as completed: 692ca58eea9c9e8172f1ad9a
+2025-12-02T08:50:19.916Z: --- createConsultation START ---
+2025-12-02T08:50:19.918Z: Request Body: {
+  "patientId": "692e9dbcf2bfa8b8ef81f4b2",
+  "patientDetails": {
+    "age": "25",
+    "weight": "68",
+    "bloodPressure": "120/80",
+    "symptoms": "none"
+  },
+  "labRequest": null
+}
+2025-12-02T08:50:19.920Z: User ID: 692ca544ea9c9e8172f1ad84
+2025-12-02T08:50:19.922Z: Creating Medical Record with data: {
+  "doctor": "692ca544ea9c9e8172f1ad84",
+  "patient": "692e9dbcf2bfa8b8ef81f4b2",
+  "patientDetails": {
+    "age": "25",
+    "weight": "68",
+    "bloodPressure": "120/80",
+    "symptoms": "none"
+  },
+  "status": "consultation"
+}
+2025-12-02T08:50:19.936Z: Medical Record Created Successfully: 692ea84b64a657e0055bd0f8
+2025-12-02T08:50:19.948Z: Appointment marked as completed: 692e9de4f2bfa8b8ef81f4bc
