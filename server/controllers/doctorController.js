@@ -1,6 +1,11 @@
+const mongoose = require('mongoose');
 const Appointment = require('../models/Appointment');
 const MedicalRecord = require('../models/MedicalRecord');
 const User = require('../models/User');
+
+// ... (existing code)
+
+
 
 // @desc    Get doctor dashboard stats
 // @route   GET /api/doctor/dashboard
@@ -54,6 +59,21 @@ exports.updateAppointmentStatus = async (req, res) => {
       return res.status(401).json({ message: 'Not authorized' });
     }
 
+    // Conflict Detection
+    if (status === 'approved') {
+      const conflict = await Appointment.findOne({
+        doctor: req.user.id,
+        date: appointment.date,
+        time: appointment.time,
+        status: 'approved',
+        _id: { $ne: appointment._id } // Exclude self
+      });
+
+      if (conflict) {
+        return res.status(400).json({ message: 'Time slot occupied. Please reject or reschedule.' });
+      }
+    }
+
     appointment.status = status;
     await appointment.save();
 
@@ -101,6 +121,7 @@ exports.createConsultation = async (req, res) => {
       recordData.labRequest = {
         required: true,
         testType: labRequest.testType,
+        requestDescription: labRequest.requestDescription,
         requestDate: Date.now()
       };
       // Only add assignedTo if it's a valid ID (not null/undefined)
@@ -212,12 +233,21 @@ exports.getDoctorPatients = async (req, res) => {
 // @access  Private (Doctor)
 exports.getPatientRecords = async (req, res) => {
   try {
+    console.log('Fetching records for patient:', req.params.id);
+
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      console.log('Invalid Patient ID format');
+      return res.status(400).json({ message: 'Invalid Patient ID' });
+    }
+
     const records = await MedicalRecord.find({ patient: req.params.id })
       .populate('doctor', 'name')
       .populate('labRequest.assignedTo', 'name')
       .sort({ date: -1 });
+    console.log(`Found ${records.length} records`);
     res.json(records);
   } catch (error) {
+    console.error('Error in getPatientRecords:', error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -233,6 +263,24 @@ exports.getActiveRecords = async (req, res) => {
       .populate('patient', 'name email')
       .sort({ date: -1 });
     res.json(records);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Get Single Record by ID
+// @route   GET /api/doctor/records/:id
+// @access  Private (Doctor)
+exports.getRecordById = async (req, res) => {
+  try {
+    const record = await MedicalRecord.findById(req.params.id)
+      .populate('patient', 'name age weight bloodPressure symptoms')
+      .populate('doctor', 'name');
+
+    if (!record) {
+      return res.status(404).json({ message: 'Record not found' });
+    }
+    res.json(record);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
