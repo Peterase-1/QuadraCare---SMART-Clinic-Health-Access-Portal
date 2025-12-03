@@ -3,338 +3,315 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QuadraCare - Next Gen Healthcare</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <!-- Three.js CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --secondary: #1e40af;
+      --accent: #3b82f6;
+      --dark: #0f172a;
+      --light: #f8fafc;
+      --glass: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    body {
+      background-color: var(--dark);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      position: absolute;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo i {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .btn-login {
+      padding: 0.8rem 2rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 5%;
+      position: relative;
+    }
+
+    /* Background Elements */
+    .bg-blob {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, rgba(15, 23, 42, 0) 70%);
+      border-radius: 50%;
+      top: -100px;
+      left: -100px;
+      z-index: -1;
+      animation: float 10s infinite ease-in-out;
+    }
+
+    .bg-blob-2 {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+      border-radius: 50%;
+      bottom: 0;
+      right: 0;
+      z-index: -1;
+      animation: float 12s infinite ease-in-out reverse;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(30px, 50px);
+      }
+    }
+
+    .hero-content {
+      flex: 1;
+      padding-right: 2rem;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-size: 4.5rem;
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 20px;
+      /* box-shadow: 0 20px 50px rgba(0,0,0,0.5); */
+      /* mix-blend-mode: lighten; */
+      /* Optional blending */
+    }
+
+    /* Glass Cards */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 4rem 5%;
+      margin-top: -5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 20px;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .feature-desc {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 8rem;
+      }
+
+      .hero-content {
+        padding-right: 0;
+        margin-bottom: 3rem;
+      }
+
+      .hero-title {
+        font-size: 3rem;
+      }
+
+      .hero-subtitle {
+        margin: 0 auto 2.5rem;
+      }
+
+      .features {
+        margin-top: 2rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <!-- 3D Background Canvas -->
-  <canvas id="bg-canvas"></canvas>
 
-  <div id="app" class="relative-content">
-    <header class="modern-header">
-      <div class="container header-container">
-        <div class="logo">
-          <i class="fa-solid fa-heart-pulse"></i> QuadraCare
-        </div>
+  <div class="bg-blob"></div>
+  <div class="bg-blob-2"></div>
 
-        <nav class="nav-pills">
-          <a href="#home" class="active">Home</a>
-          <a href="#services">Services</a>
-          <a href="#doctors">Doctors</a>
-          <a href="#blog">News</a>
-          <a href="#contact">Contact</a>
-        </nav>
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+    </div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Services</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+    <a href="login.html" class="btn-login">Login / Portal</a>
+  </nav>
 
-        <div class="header-actions">
-          <button class="btn-icon-circle"><i class="fa-solid fa-magnifying-glass"></i></button>
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Future of <br>Healthcare is Here.</h1>
+      <p class="hero-subtitle">
+        Experience the next generation of medical care. AI-powered diagnostics, seamless appointments, and instant lab
+        results—all in one secure platform.
+      </p>
+      <a href="login.html" class="btn-login" style="padding: 1rem 2.5rem; font-size: 1.1rem;">Get Started <i
+          class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i></a>
+    </div>
+    <div class="hero-image">
+      <!-- 3D Vector Illustration -->
+      <img src="https://github.com/7oSkaaa/7oSkaaa/blob/main/Images/Right_Side.gif?raw=true"
+        alt="Healthcare 3D Illustration">
+    </div>
+  </section>
 
-          <div class="header-contact">
-            <i class="fa-solid fa-phone"></i>
-            <span>+1 (555) 123-4567</span>
-          </div>
+  <section class="features">
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fa-solid fa-robot"></i></div>
+      <h3 class="feature-title">AI Diagnostics</h3>
+      <p class="feature-desc">Advanced AI algorithms analyze your symptoms and lab results to provide accurate
+        preliminary diagnoses.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fa-solid fa-calendar-check"></i></div>
+      <h3 class="feature-title">Smart Booking</h3>
+      <p class="feature-desc">Book appointments instantly with real-time doctor availability and automated reminders.
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fa-solid fa-flask"></i></div>
+      <h3 class="feature-title">Digital Lab</h3>
+      <p class="feature-desc">Track your lab tests and receive results directly on your dashboard as soon as they are
+        ready.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+      <h3 class="feature-title">Secure & Private</h3>
+      <p class="feature-desc">Your medical data is encrypted and protected with enterprise-grade security protocols.</p>
+    </div>
+  </section>
 
-          <a href="login.html" class="btn btn-primary-pill">Book Appointment</a>
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <section id="home" class="hero-section-split">
-        <div class="container">
-          <div class="hero-split-wrapper">
-            <!-- Left Card: Content -->
-            <div class="hero-card-left glass-card animate-slide-up">
-              <div class="badge-pill">Medicine for all</div>
-              <h1 class="hero-title">Personalized Health <br> Programs For <br> <span class="text-highlight">Your
-                  Family</span></h1>
-              <p class="hero-subtitle">Professional assistance, modern methods, and individual programs for the whole
-                family.</p>
-
-              <div class="hero-actions">
-                <a href="register.html" class="btn btn-primary-dark btn-lg">Get Started</a>
-                <a href="#services" class="btn btn-outline-dark btn-lg">Catalog <i
-                    class="fa-solid fa-arrow-right"></i></a>
-              </div>
-
-              <div class="hero-footer">
-                <div class="avatar-group">
-                  <img src="assets/images/doctor1.png" alt="Doc">
-                  <img src="assets/images/doctor2.png" alt="Doc">
-                  <img src="assets/images/doctor3.png" alt="Doc">
-                  <span class="avatar-count">+68</span>
-                </div>
-                <p class="avatar-text">Professional doctors in 20+ medical fields</p>
-              </div>
-            </div>
-
-            <!-- Right Card: Image -->
-            <div class="hero-card-right animate-slide-up delay-100">
-              <div class="hero-image-placeholder">
-                <!-- Placeholder for Medical Team Image -->
-                <div class="placeholder-content">
-                  <i class="fa-solid fa-user-doctor"></i>
-                  <span>Medical Team Image</span>
-                </div>
-              </div>
-              <!-- Rating Badge -->
-              <div class="rating-badge glass-card">
-                <i class="fa-solid fa-location-dot"></i>
-                <div>
-                  <strong>4.5</strong>
-                  <div class="stars">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star-half-stroke"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Stats Section -->
-      <section class="stats-section animate-slide-up delay-100">
-        <div class="container">
-          <div class="stats-grid">
-            <div class="stat-item">
-              <h3>$250M</h3>
-              <p>In Healthcare Funding</p>
-            </div>
-            <div class="stat-item">
-              <h3>20M+</h3>
-              <p>Patients Served Globally</p>
-            </div>
-            <div class="stat-item">
-              <h3>95%</h3>
-              <p>Patient Satisfaction Rate</p>
-            </div>
-            <div class="stat-item">
-              <h3>200+</h3>
-              <p>Medical Professionals</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Team Section -->
-      <section id="doctors" class="team-section reveal">
-        <div class="container">
-          <div class="section-header">
-            <span class="badge badge-primary">Doctors</span>
-            <h2 class="section-title">Meet Our Specialized <br> Medical Team</h2>
-            <p>From General Practitioners to Top Specialists, Our Doctors Are Dedicated To Your Health.</p>
-          </div>
-          <div class="grid-4">
-            <div class="doctor-card glass-card animate-hover">
-              <div class="doctor-img">
-                <img src="assets/images/doctor1.png" alt="Dr. Mehidi Hasan">
-              </div>
-              <div class="doctor-info">
-                <h3>Dr. Mehidi Hasan</h3>
-                <p>Heart Surgeon</p>
-                <div class="social-icons">
-                  <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                  <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                  <a href="#"><i class="fa-solid fa-phone"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="doctor-card glass-card animate-hover">
-              <div class="doctor-img">
-                <img src="assets/images/doctor2.png" alt="Dr. Hamida Jannat">
-              </div>
-              <div class="doctor-info">
-                <h3>Dr. Hamida Jannat</h3>
-                <p>Cardiologist & Medicine</p>
-                <div class="social-icons">
-                  <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                  <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                  <a href="#"><i class="fa-solid fa-phone"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="doctor-card glass-card animate-hover">
-              <div class="doctor-img">
-                <img src="assets/images/doctor3.png" alt="Dr. Haseeb Hossain">
-              </div>
-              <div class="doctor-info">
-                <h3>Dr. Haseeb Hossain</h3>
-                <p>Neurologist</p>
-                <div class="social-icons">
-                  <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                  <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                  <a href="#"><i class="fa-solid fa-phone"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="doctor-card glass-card animate-hover">
-              <div class="doctor-img">
-                <img src="assets/images/doctor4.png" alt="Dr. Sarah Jenkins">
-              </div>
-              <div class="doctor-info">
-                <h3>Dr. Sarah Jenkins</h3>
-                <p>Pediatrician</p>
-                <div class="social-icons">
-                  <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                  <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                  <a href="#"><i class="fa-solid fa-phone"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Departments Section -->
-      <section id="services" class="departments-section reveal">
-        <div class="container">
-          <div class="section-header">
-            <span class="badge badge-success">Departments</span>
-            <h2 class="section-title">Explore Our Medical <br> Departments</h2>
-            <p>Nuvica Offers A Full Range Of Specialized Medical Services And Departments.</p>
-          </div>
-          <div class="grid-4">
-            <div class="dept-card glass-card animate-hover">
-              <div class="dept-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-              <h3>Cardiology</h3>
-              <p>Comprehensive heart care including angioplasty.</p>
-            </div>
-            <div class="dept-card glass-card animate-hover">
-              <div class="dept-icon"><i class="fa-solid fa-brain"></i></div>
-              <h3>Neurology</h3>
-              <p>Diagnosis and treatment of brain, nerve, and spinal conditions.</p>
-            </div>
-            <div class="dept-card glass-card animate-hover">
-              <div class="dept-icon"><i class="fa-solid fa-bone"></i></div>
-              <h3>Orthopedics</h3>
-              <p>Bone and joint care: fractures, arthritis, joint replacement.</p>
-            </div>
-            <div class="dept-card glass-card animate-hover">
-              <div class="dept-icon"><i class="fa-solid fa-stethoscope"></i></div>
-              <h3>Gastroenterology</h3>
-              <p>Expert care for digestive system, liver, and pancreas.</p>
-            </div>
-            <div class="dept-card glass-card animate-hover">
-              <div class="dept-icon"><i class="fa-solid fa-baby"></i></div>
-              <h3>Pediatrics</h3>
-              <p>Medical services for infants, children, and adolescents.</p>
-            </div>
-            <div class="dept-card glass-card animate-hover">
-              <div class="dept-icon"><i class="fa-solid fa-person-pregnant"></i></div>
-              <h3>Gynecology</h3>
-              <p>Women's health, pregnancy care, and childbirth services.</p>
-            </div>
-            <div class="dept-card glass-card animate-hover">
-              <div class="dept-icon"><i class="fa-solid fa-droplet"></i></div>
-              <h3>Urology</h3>
-              <p>Advanced kidney, bladder, and male reproductive treatments.</p>
-            </div>
-            <div class="dept-card glass-card animate-hover">
-              <div class="dept-icon"><i class="fa-solid fa-x-ray"></i></div>
-              <h3>Radiology</h3>
-              <p>High-tech imaging services including MRI, CT scan, and X-ray.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Blog Section -->
-      <section id="blog" class="blog-section reveal">
-        <div class="container">
-          <div class="section-header">
-            <span class="badge badge-warning">Blog</span>
-            <h2 class="section-title">Latest From Medical <br> Frontlines</h2>
-            <p>Explore Our Latest Articles On Medical Breakthroughs.</p>
-          </div>
-          <div class="grid-3">
-            <div class="blog-card glass-card animate-hover">
-              <div class="blog-img">
-                <img src="assets/images/blog1.png" alt="Stethoscope">
-              </div>
-              <div class="blog-content">
-                <span class="date">10 Feb 2025</span>
-                <h3>Discover How AI-Powered Stethoscopes Are Transforming.</h3>
-                <a href="#" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
-              </div>
-            </div>
-            <div class="blog-card glass-card animate-hover">
-              <div class="blog-img">
-                <img src="assets/images/blog2.png" alt="DNA">
-              </div>
-              <div class="blog-content">
-                <span class="date">12 Feb 2025</span>
-                <h3>Explore The Role Of Precision Medicine And Genomics.</h3>
-                <a href="#" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
-              </div>
-            </div>
-            <div class="blog-card glass-card animate-hover">
-              <div class="blog-img">
-                <img src="assets/images/blog3.png" alt="Patient Care">
-              </div>
-              <div class="blog-content">
-                <span class="date">14 Feb 2025</span>
-                <h3>See How Technology-Enabled Support Is Improving Life.</h3>
-                <a href="#" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Contact Section -->
-      <section id="contact" class="contact-section reveal">
-        <div class="container">
-          <div class="glass-card contact-wrapper">
-            <div class="contact-content">
-              <h2>Stay Updated With <br> QuadraCare</h2>
-              <p>Subscribe to our newsletter for the latest medical updates and clinic news.</p>
-              <form class="newsletter-form">
-                <input type="email" placeholder="Enter your email address" required>
-                <button type="submit" class="btn btn-primary">Subscribe</button>
-              </form>
-            </div>
-            <div class="contact-info">
-              <div class="info-item">
-                <i class="fa-solid fa-phone"></i>
-                <span>+1 (555) 123-4567</span>
-              </div>
-              <div class="info-item">
-                <i class="fa-solid fa-envelope"></i>
-                <span>contact@quadracare.com</span>
-              </div>
-              <div class="info-item">
-                <i class="fa-solid fa-location-dot"></i>
-                <span>123 Medical Center Dr, Health City</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="glass-footer">
-      <div class="container">
-        <p>&copy; 2025 QuadraCare. All rights reserved.</p>
-        <div class="social-links">
-          <a href="#"><i class="fa-brands fa-twitter"></i></a>
-          <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-          <a href="#"><i class="fa-brands fa-github"></i></a>
-        </div>
-      </div>
-    </footer>
-  </div>
-  <script src="js/landing-3d.js"></script>
 </body>
 
 </html>
