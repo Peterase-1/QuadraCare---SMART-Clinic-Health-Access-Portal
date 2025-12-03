@@ -50,16 +50,101 @@
       <div class="container-fluid">
         <div style="margin-bottom: 2rem;">
           <h1>Medical Records</h1>
-          <p style="color: var(--text-secondary);">Access your history and prescriptions.</p>
-        </div>
+          <!doctype html>
+          <html lang="en">
 
-        <div id="recordsList" style="display: grid; gap: 1.5rem;">
-          <p>Loading records...</p>
-        </div>
-      </div>
-    </main>
-  </div>
-  <script src="../js/patient.js"></script>
-</body>
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Medical Records - QuadraCare</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+              rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+            <link rel="stylesheet" href="../css/style.css">
+          </head>
 
-</html>
+          <body>
+            <div class="dashboard-layout">
+              <!-- Sidebar -->
+              <aside class="sidebar">
+                <div class="sidebar-header">
+                  <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+                </div>
+                <nav class="sidebar-nav">
+                  <a href="dashboard.html" class="nav-link">
+                    <i class="fa-solid fa-house"></i> Dashboard
+                  </a>
+                  <a href="appointments.html" class="nav-link">
+                    <i class="fa-solid fa-calendar-check"></i> Appointments
+                  </a>
+                  <a href="records.html" class="nav-link active">
+                    <i class="fa-solid fa-file-medical"></i> Medical Records
+                  </a>
+                  <a href="#" id="logoutBtn" class="nav-link" style="margin-top: auto;">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                  </a>
+                </nav>
+              </aside>
+
+              <!-- Main Content -->
+              <main class="main-content">
+                <header class="top-bar">
+                  <div></div>
+                  <div class="user-profile">
+                    <div class="text-right">
+                      <h4 id="userName" style="font-size: 1rem; margin:0;">Patient</h4>
+                    </div>
+                    <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                  </div>
+                </header>
+
+                <div class="container-fluid">
+                  <div style="margin-bottom: 2rem;">
+                    <h1>Medical Records</h1>
+                    <p style="color: var(--text-secondary);">Access your history and prescriptions.</p>
+                  </div>
+
+                  <div id="recordsList" style="display: grid; gap: 1.5rem;">
+                    <p>Loading records...</p>
+                  </div>
+                </div>
+              </main>
+            </div>
+            <!-- Payment Modal -->
+            <div id="paymentModal" class="modal" style="display: none;">
+              <div class="modal-content" style="max-width: 500px;">
+                <div class="modal-header">
+                  <h2 class="modal-title">Secure Payment</h2>
+                  <button type="button" class="modal-close" onclick="closePaymentModal()">&times;</button>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                  <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                    Lab Test Fee: <strong style="color: var(--primary-color); font-size: 1.2rem;">200 ETB</strong>
+                  </p>
+                  <!-- Stripe Element -->
+                  <div id="payment-element"></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline" onclick="closePaymentModal()">Cancel</button>
+                  <button type="button" class="btn btn-primary" id="submitPaymentBtn" onclick="processLabPayment()">
+                    Pay & Proceed <i class="fa-solid fa-lock" style="font-size: 0.8rem; margin-left: 0.5rem;"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <script src="https://js.stripe.com/v3/"></script>
+            <script src="../js/utils.js"></script>
+            <script src="../js/patient.js"></script>
+            <script>
+              function closePaymentModal() {
+                const modal = document.getElementById('paymentModal');
+                modal.classList.remove('show');
+                setTimeout(() => { modal.style.display = 'none'; }, 300);
+              }
+            </script>
+          </body>
+
+          </html>
