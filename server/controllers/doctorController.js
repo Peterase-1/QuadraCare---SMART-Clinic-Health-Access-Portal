@@ -220,9 +220,22 @@ exports.closeRecord = async (req, res) => {
 // @access  Private (Doctor)
 exports.getDoctorPatients = async (req, res) => {
   try {
-    // For now, return all patients. In real app, filter by doctor's appointments
-    const patients = await User.find({ role: 'patient' }).select('-password');
-    res.json(patients);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const total = await User.countDocuments({ role: 'patient' });
+    const patients = await User.find({ role: 'patient' })
+      .select('-password')
+      .skip(skip)
+      .limit(limit);
+
+    res.json({
+      patients,
+      total,
+      page,
+      pages: Math.ceil(total / limit)
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
