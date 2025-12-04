@@ -10,308 +10,220 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --primary: #2563eb;
-      --secondary: #1e40af;
-      --accent: #3b82f6;
-      --dark: #0f172a;
-      --light: #f8fafc;
-      --glass: rgba(255, 255, 255, 0.1);
-      --glass-border: rgba(255, 255, 255, 0.2);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Outfit', sans-serif;
-    }
-
-    body {
-      background-color: var(--dark);
-      color: white;
-      overflow-x: hidden;
-    }
-
-    /* Navbar */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 5%;
-      position: absolute;
-      width: 100%;
-      top: 0;
-      z-index: 100;
-    }
-
-    .logo {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: white;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .logo i {
-      color: var(--accent);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .nav-links a {
-      color: rgba(255, 255, 255, 0.8);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent);
-    }
-
-    .btn-login {
-      padding: 0.8rem 2rem;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: white;
-      border: none;
-      border-radius: 50px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .btn-login:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
-    }
-
-    /* Hero Section */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 0 5%;
-      position: relative;
-    }
-
-    /* Background Elements */
-    .bg-blob {
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, rgba(15, 23, 42, 0) 70%);
-      border-radius: 50%;
-      top: -100px;
-      left: -100px;
-      z-index: -1;
-      animation: float 10s infinite ease-in-out;
-    }
-
-    .bg-blob-2 {
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
-      border-radius: 50%;
-      bottom: 0;
-      right: 0;
-      z-index: -1;
-      animation: float 12s infinite ease-in-out reverse;
-    }
-
-    @keyframes float {
-
-      0%,
-      100% {
-        transform: translate(0, 0);
-      }
-
-      50% {
-        transform: translate(30px, 50px);
-      }
-    }
-
-    .hero-content {
-      flex: 1;
-      padding-right: 2rem;
-      z-index: 1;
-    }
-
-    .hero-title {
-      font-size: 4.5rem;
-      line-height: 1.1;
-      font-weight: 800;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(to right, #fff, #94a3b8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-subtitle {
-      font-size: 1.2rem;
-      color: #94a3b8;
-      margin-bottom: 2.5rem;
-      max-width: 600px;
-      line-height: 1.6;
-    }
-
-    .hero-image {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    .hero-image img {
-      width: 100%;
-      max-width: 600px;
-      border-radius: 20px;
-      /* box-shadow: 0 20px 50px rgba(0,0,0,0.5); */
-      /* mix-blend-mode: lighten; */
-      /* Optional blending */
-    }
-
-    /* Glass Cards */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      padding: 4rem 5%;
-      margin-top: -5rem;
-      position: relative;
-      z-index: 2;
-    }
-
-    .feature-card {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 2rem;
-      border-radius: 20px;
-      transition: transform 0.3s, background 0.3s;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-10px);
-      background: rgba(255, 255, 255, 0.05);
-      border-color: var(--accent);
-    }
-
-    .feature-icon {
-      font-size: 2rem;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-
-    .feature-title {
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-
-    .feature-desc {
-      color: #94a3b8;
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
-
-    /* Responsive */
-    @media (max-width: 968px) {
-      .hero {
-        flex-direction: column;
-        text-align: center;
-        padding-top: 8rem;
-      }
-
-      .hero-content {
-        padding-right: 0;
-        margin-bottom: 3rem;
-      }
-
-      .hero-title {
-        font-size: 3rem;
-      }
-
-      .hero-subtitle {
-        margin: 0 auto 2.5rem;
-      }
-
-      .features {
-        margin-top: 2rem;
-      }
-    }
-  </style>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
 </head>
 
 <body>
 
-  <div class="bg-blob"></div>
-  <div class="bg-blob-2"></div>
-
+  <!-- Navbar -->
   <nav class="navbar">
     <div class="logo">
       <i class="fa-solid fa-heart-pulse"></i> QuadraCare
     </div>
     <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Services</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
+      <a href="index.html">Home</a>
+      <a href="services.html">Service</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fa-solid fa-moon"></i>
+      </button>
     </div>
-    <a href="login.html" class="btn-login">Login / Portal</a>
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <button class="theme-toggle mobile-toggle" onclick="toggleTheme()" style="display: none;">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <a href="login.html" class="btn-primary">Book Appointment</a>
+    </div>
   </nav>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1 class="hero-title">Future of <br>Healthcare is Here.</h1>
-      <p class="hero-subtitle">
-        Experience the next generation of medical care. AI-powered diagnostics, seamless appointments, and instant lab
-        results—all in one secure platform.
-      </p>
-      <a href="login.html" class="btn-login" style="padding: 1rem 2.5rem; font-size: 1.1rem;">Get Started <i
-          class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i></a>
+  <!-- Hero Section -->
+  <div class="hero-container">
+    <div class="hero-wrapper">
+      <div class="hero-text" data-aos="fade-right">
+        <h1 class="hero-title">QuadraCare: Your Partner in Smart Health</h1>
+        <p class="hero-subtitle">Experience the future of healthcare with our AI-powered clinic management system.
+          Seamless appointments, instant lab results, and personalized care—all in one secure platform.</p>
+        <a href="login.html" class="hero-btn">
+          View Our Hospital <i class="fa-solid fa-play-circle"></i>
+        </a>
+      </div>
+      <div class="hero-image-container" data-aos="fade-left">
+        <div class="hero-image-bg"></div>
+        <img src="assets/hero_hospital.png" alt="Hospital Vector" class="hero-img">
+        <!-- Floating Badge Placeholder -->
+        <div
+          style="position: absolute; top: 20px; right: 20px; background: white; color: black; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+          <i class="fa-solid fa-circle" style="color: #22c55e; font-size: 0.6rem; margin-right: 5px;"></i> 2500+ Doctors
+          Online
+        </div>
+      </div>
     </div>
-    <div class="hero-image">
-      <!-- 3D Vector Illustration -->
-      <img src="https://github.com/7oSkaaa/7oSkaaa/blob/main/Images/Right_Side.gif?raw=true"
-        alt="Healthcare 3D Illustration">
+
+    <!-- Stats Row -->
+    <div class="stats-row" data-aos="fade-up">
+      <div class="stat-box">
+        <div class="stat-number">4500+</div>
+        <div class="stat-label">Happy Patients</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">200</div>
+        <div class="stat-label">Hospital Room</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Award Win</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">20+</div>
+        <div class="stat-label">Ambulance</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Bar Section -->
+  <div class="search-bar-section" data-aos="fade-up">
+    <div class="search-bar-container">
+      <div class="search-input-group">
+        <select class="search-select">
+          <option>Select Department</option>
+        </select>
+      </div>
+      <div class="search-input-group">
+        <select class="search-select">
+          <option>Select Doctor</option>
+        </select>
+      </div>
+      <div class="search-input-group">
+        <select class="search-select">
+          <option>Select Date</option>
+        </select>
+      </div>
+      <div class="search-input-group">
+        <select class="search-select">
+          <option>Select Location</option>
+        </select>
+      </div>
+      <button class="search-btn">
+        <i class="fa-solid fa-magnifying-glass"></i> Search
+      </button>
+    </div>
+  </div>
+
+  <!-- Department Category -->
+  <section class="departments-section">
+    <h2 class="dept-title">Department Category</h2>
+    <p class="dept-subtitle">Browse by department for tailored services and expert solutions</p>
+
+    <div class="dept-grid" data-aos="fade-up">
+      <div class="dept-card"><i class="fa-solid fa-kidneys"></i></div> <!-- Kidney -->
+      <div class="dept-card"><i class="fa-solid fa-heart-pulse"></i></div> <!-- Heart -->
+      <div class="dept-card"><i class="fa-solid fa-lungs"></i></div> <!-- Lungs -->
+      <div class="dept-card"><i class="fa-solid fa-tooth"></i></div> <!-- Tooth -->
+      <div class="dept-card"><i class="fa-solid fa-brain"></i></div> <!-- Brain -->
+      <div class="dept-card"><i class="fa-solid fa-bone"></i></div> <!-- Bone -->
     </div>
   </section>
 
-  <section class="features">
-    <div class="feature-card">
-      <div class="feature-icon"><i class="fa-solid fa-robot"></i></div>
-      <h3 class="feature-title">AI Diagnostics</h3>
-      <p class="feature-desc">Advanced AI algorithms analyze your symptoms and lab results to provide accurate
-        preliminary diagnoses.</p>
+  <!-- Services Split Section -->
+  <section class="services-split">
+    <div class="services-text" data-aos="fade-right">
+      <h2>World-Class Healthcare Services for you and your loved ones</h2>
+      <p>Advanced diagnostic imaging services including X-ray, CT scan, MRI, and ultrasound to assist in accurate and
+        efficient diagnosis of medical conditions.</p>
+      <a href="#" class="hero-btn" style="background: transparent; border: 1px solid white; color: white;">More Service
+        <i class="fa-solid fa-arrow-right"></i></a>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon"><i class="fa-solid fa-calendar-check"></i></div>
-      <h3 class="feature-title">Smart Booking</h3>
-      <p class="feature-desc">Book appointments instantly with real-time doctor availability and automated reminders.
-      </p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon"><i class="fa-solid fa-flask"></i></div>
-      <h3 class="feature-title">Digital Lab</h3>
-      <p class="feature-desc">Track your lab tests and receive results directly on your dashboard as soon as they are
-        ready.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
-      <h3 class="feature-title">Secure & Private</h3>
-      <p class="feature-desc">Your medical data is encrypted and protected with enterprise-grade security protocols.</p>
+
+    <div class="services-grid-right" data-aos="fade-left">
+      <div class="service-box">
+        <div class="service-box-icon"><i class="fa-solid fa-x-ray"></i></div>
+        <h4>Radiology & Imaging</h4>
+        <p>Advanced diagnostic imaging services including X-ray, CT scan, MRI.</p>
+      </div>
+      <div class="service-box">
+        <div class="service-box-icon"><i class="fa-solid fa-truck-medical"></i></div>
+        <h4>Emergency Services</h4>
+        <p>24/7 immediate medical care for critical conditions, accidents, and life-threatening situations.</p>
+      </div>
+      <div class="service-box">
+        <div class="service-box-icon"><i class="fa-solid fa-flask"></i></div>
+        <h4>Laboratory Services</h4>
+        <p>Comprehensive lab testing for blood, urine, and other samples supporting fast diagnosis.</p>
+      </div>
+      <div class="service-box">
+        <div class="service-box-icon"><i class="fa-solid fa-pills"></i></div>
+        <h4>Pharmacy</h4>
+        <p>In-house medical store providing prescribed medications and health essentials.</p>
+      </div>
     </div>
   </section>
 
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <div class="logo" style="margin-bottom: 1rem;">
+          <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          Empowering healthcare with technology. We are dedicated to providing the best medical experience.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Radiology</a></li>
+          <li><a href="#">Emergency</a></li>
+          <li><a href="#">Laboratory</a></li>
+          <li><a href="#">Pharmacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">support@quadracare.com</a></li>
+          <li><a href="#">+1 234 567 890</a></li>
+        </ul>
+      </div>
+    </div>
+    <div
+      style="text-align: center; color: var(--text-muted); font-size: 0.8rem; padding-top: 2rem; border-top: 1px solid #e2e8f0;">
+      &copy; 2024 QuadraCare. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100
+    });
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      const icon = document.querySelector('.theme-toggle i');
+      if (document.body.classList.contains('dark-mode')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
+    }
+  </script>
 </body>
 
 </html>
