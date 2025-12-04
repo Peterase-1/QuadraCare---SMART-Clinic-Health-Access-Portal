@@ -102,7 +102,7 @@
       </div>
       <div style="margin-bottom: 1.5rem;">
         <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-          Total Amount: <strong style="color: var(--primary-color); font-size: 1.2rem;">50 ETB</strong>
+          Total Amount: <strong style="color: var(--primary-color); font-size: 1.2rem;">150 ETB</strong>
         </p>
         <!-- Stripe Element -->
         <div id="payment-element"></div>
@@ -122,8 +122,10 @@
   <script>
     function closePaymentModal() {
       const modal = document.getElementById('paymentModal');
-      modal.classList.remove('show');
-      setTimeout(() => { modal.style.display = 'none'; }, 300);
+      if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => { modal.style.display = 'none'; }, 300);
+      }
     }
   </script>
 </body>
