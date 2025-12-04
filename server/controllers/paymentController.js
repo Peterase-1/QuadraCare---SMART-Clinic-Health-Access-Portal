@@ -11,7 +11,7 @@ exports.createPaymentIntent = async (req, res) => {
 
   // Determine amount based on type
   if (type === 'appointment') {
-    amount = 50 * 100; // 50 ETB in cents
+    amount = 150 * 100; // 150 ETB in cents (Stripe requires > $0.50)
   } else if (type === 'lab_test') {
     amount = 200 * 100; // 200 ETB in cents
   } else {

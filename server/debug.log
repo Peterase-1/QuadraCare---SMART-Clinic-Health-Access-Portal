@@ -264,3 +264,41 @@
 }
 2025-12-02T08:50:19.936Z: Medical Record Created Successfully: 692ea84b64a657e0055bd0f8
 2025-12-02T08:50:19.948Z: Appointment marked as completed: 692e9de4f2bfa8b8ef81f4bc
+2025-12-03T20:35:20.334Z: --- createConsultation START ---
+2025-12-03T20:35:20.336Z: Request Body: {
+  "patientId": "69309adbd8e27a75b83fd50f",
+  "patientDetails": {
+    "age": "36",
+    "weight": "82",
+    "bloodPressure": "123/56",
+    "symptoms": "Head Ace"
+  },
+  "labRequest": {
+    "required": true,
+    "testType": "Blood Grouping, Kidney Function Test, Ultrasound Abdomen",
+    "requestDescription": "Specify The Group of Bacteria",
+    "assignedTo": null
+  }
+}
+2025-12-03T20:35:20.336Z: User ID: 692ca544ea9c9e8172f1ad84
+2025-12-03T20:35:20.338Z: Processing Lab Request...
+2025-12-03T20:35:20.339Z: No specific Lab Tech assigned (assignedTo is null/undefined)
+2025-12-03T20:35:20.339Z: Creating Medical Record with data: {
+  "doctor": "692ca544ea9c9e8172f1ad84",
+  "patient": "69309adbd8e27a75b83fd50f",
+  "patientDetails": {
+    "age": "36",
+    "weight": "82",
+    "bloodPressure": "123/56",
+    "symptoms": "Head Ace"
+  },
+  "status": "lab_test",
+  "labRequest": {
+    "required": true,
+    "testType": "Blood Grouping, Kidney Function Test, Ultrasound Abdomen",
+    "requestDescription": "Specify The Group of Bacteria",
+    "requestDate": 1764794120339
+  }
+}
+2025-12-03T20:35:20.355Z: Medical Record Created Successfully: 69309f08cbd2876398048804
+2025-12-03T20:35:20.363Z: Appointment marked as completed: 69309e96cbd28763980487e6
