@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services - QuadraCare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="services.html" style="color: var(--primary);">Service</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <button class="theme-toggle mobile-toggle" onclick="toggleTheme()" style="display: none;">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <a href="login.html" class="btn-primary">Book Appointment</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header" data-aos="fade-down">
+    <h1>Our Services</h1>
+    <p>Comprehensive healthcare solutions designed for your well-being.</p>
+  </header>
+
+  <!-- Department Category -->
+  <section class="departments-section">
+    <h2 class="dept-title">Department Category</h2>
+    <p class="dept-subtitle">Browse by department for tailored services and expert solutions</p>
+
+    <div class="dept-grid" data-aos="fade-up">
+      <div class="dept-card"><i class="fa-solid fa-kidneys"></i></div> <!-- Kidney -->
+      <div class="dept-card"><i class="fa-solid fa-heart-pulse"></i></div> <!-- Heart -->
+      <div class="dept-card"><i class="fa-solid fa-lungs"></i></div> <!-- Lungs -->
+      <div class="dept-card"><i class="fa-solid fa-tooth"></i></div> <!-- Tooth -->
+      <div class="dept-card"><i class="fa-solid fa-brain"></i></div> <!-- Brain -->
+      <div class="dept-card"><i class="fa-solid fa-bone"></i></div> <!-- Bone -->
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="content-section">
+    <div class="services-grid-right" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+      <div class="service-box" data-aos="fade-up" data-aos-delay="0">
+        <div class="service-box-icon"><i class="fa-solid fa-x-ray"></i></div>
+        <h4>Radiology & Imaging</h4>
+        <p>Advanced diagnostic imaging services including X-ray, CT scan, MRI, and ultrasound to assist in accurate and
+          efficient diagnosis of medical conditions.</p>
+      </div>
+      <div class="service-box" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-box-icon"><i class="fa-solid fa-truck-medical"></i></div>
+        <h4>Emergency Services</h4>
+        <p>24/7 immediate medical care for critical conditions, accidents, and life-threatening situations. Our team is
+          always ready to respond.</p>
+      </div>
+      <div class="service-box" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-box-icon"><i class="fa-solid fa-flask"></i></div>
+        <h4>Laboratory Services</h4>
+        <p>Comprehensive lab testing for blood, urine, and other samples supporting fast diagnosis. We use
+          state-of-the-art equipment for precise results.</p>
+      </div>
+      <div class="service-box" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-box-icon"><i class="fa-solid fa-pills"></i></div>
+        <h4>Pharmacy</h4>
+        <p>In-house medical store providing prescribed medications and health essentials. Convenient and fully stocked
+          for your needs.</p>
+      </div>
+      <div class="service-box" data-aos="fade-up" data-aos-delay="400">
+        <div class="service-box-icon"><i class="fa-solid fa-user-doctor"></i></div>
+        <h4>General Consultation</h4>
+        <p>Expert medical advice from our experienced doctors for all your health concerns. Book an appointment today.
+        </p>
+      </div>
+      <div class="service-box" data-aos="fade-up" data-aos-delay="500">
+        <div class="service-box-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+        <h4>Cardiology</h4>
+        <p>Specialized care for heart health, including checkups, diagnostics, and treatment plans for cardiovascular
+          conditions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <div class="logo" style="margin-bottom: 1rem;">
+          <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          Empowering healthcare with technology. We are dedicated to providing the best medical experience.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Radiology</a></li>
+          <li><a href="#">Emergency</a></li>
+          <li><a href="#">Laboratory</a></li>
+          <li><a href="#">Pharmacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">support@quadracare.com</a></li>
+          <li><a href="#">+1 234 567 890</a></li>
+        </ul>
+      </div>
+    </div>
+    <div
+      style="text-align: center; color: var(--text-muted); font-size: 0.8rem; padding-top: 2rem; border-top: 1px solid #e2e8f0;">
+      &copy; 2024 QuadraCare. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100
+    });
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      const icon = document.querySelector('.theme-toggle i');
+      if (document.body.classList.contains('dark-mode')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
+    }
+  </script>
+</body>
+
+</html>
