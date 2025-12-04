@@ -114,7 +114,7 @@ if (window.location.pathname.includes('appointments.html')) {
 
       // 2. Create Payment Intent
       try {
-        const res = await fetch(`${API_URL}/payment/create-intent`, {
+        const res = await fetch('http://localhost:5000/api/payment/create-intent', {
           method: 'POST',
           headers: { ...headers, 'Content-Type': 'application/json' },
           body: JSON.stringify({ type: 'appointment' })
@@ -239,7 +239,7 @@ if (window.location.pathname.includes('records.html')) {
     setTimeout(() => modal.classList.add('show'), 10);
 
     try {
-      const res = await fetch(`${API_URL}/payment/create-intent`, {
+      const res = await fetch('http://localhost:5000/api/payment/create-intent', {
         method: 'POST',
         headers: { ...headers, 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: 'lab_test' })
@@ -273,7 +273,7 @@ if (window.location.pathname.includes('records.html')) {
       btn.textContent = 'Pay & Proceed';
     } else {
       // Confirm with Backend
-      await fetch(`${API_URL}/payment/confirm`, {
+      await fetch('http://localhost:5000/api/payment/confirm', {
         method: 'POST',
         headers: { ...headers, 'Content-Type': 'application/json' },
         body: JSON.stringify({
