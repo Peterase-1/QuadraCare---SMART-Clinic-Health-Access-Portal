@@ -265,14 +265,36 @@ if (window.location.pathname.includes('patients.html')) {
   loadActiveCases();
 
   // 2. Load Patients Directory
-  const loadPatients = () => {
-    fetch(`${API_URL}/patients`, { headers })
+  let currentPage = 1;
+  const limit = 6; // Adjust limit as needed
+
+  const loadPatients = (page = 1) => {
+    fetch(`${API_URL}/patients?page=${page}&limit=${limit}`, { headers })
       .then(res => res.json())
-      .then(patients => {
+      .then(data => {
+        const { patients, total, pages } = data;
+        currentPage = data.page;
+
         const list = document.getElementById('patientsList');
         const searchInput = document.getElementById('patientSearch');
+        const prevBtn = document.getElementById('prevPageBtn');
+        const nextBtn = document.getElementById('nextPageBtn');
+        const pageInfo = document.getElementById('pageInfo');
+
+        // Update Pagination Controls
+        if (pageInfo) pageInfo.textContent = `Page ${currentPage} of ${pages || 1}`;
+        if (prevBtn) {
+          prevBtn.disabled = currentPage <= 1;
+          prevBtn.onclick = () => loadPatients(currentPage - 1);
+        }
+        if (nextBtn) {
+          nextBtn.disabled = currentPage >= pages;
+          nextBtn.onclick = () => loadPatients(currentPage + 1);
+        }
 
         const render = (filter = '') => {
+          // Note: Client-side filtering only works on the current page of data with this implementation.
+          // For full search, backend search is better. For now, we filter the fetched page.
           const filtered = patients.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()) || p.email.toLowerCase().includes(filter.toLowerCase()));
 
           if (filtered.length === 0) {
@@ -302,7 +324,9 @@ if (window.location.pathname.includes('patients.html')) {
         render();
 
         if (searchInput) {
-          searchInput.addEventListener('input', (e) => render(e.target.value));
+          // Re-attach listener to filter current page results
+          // Ideally, search should trigger a backend call with ?search=...
+          searchInput.oninput = (e) => render(e.target.value);
         }
       });
   };
