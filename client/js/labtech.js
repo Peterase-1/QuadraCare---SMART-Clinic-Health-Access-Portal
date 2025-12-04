@@ -134,18 +134,19 @@ if (window.location.pathname.includes('dashboard.html')) {
           } else {
             showToast('Error uploading result');
           }
-          // View Details Handler
-          window.viewRequestDetails = (labRequest) => {
-            document.getElementById('detailsTestType').textContent = labRequest.testType || 'N/A';
-            document.getElementById('detailsDescription').textContent = labRequest.requestDescription || 'No additional instructions provided.';
-
-            const modal = document.getElementById('labRequestDetailsModal');
-            modal.style.display = 'flex';
-            setTimeout(() => {
-              modal.classList.add('show');
-            }, 10);
-          };
         });
     });
   }
 }
+
+// View Details Handler
+window.viewRequestDetails = (labRequest) => {
+  document.getElementById('detailsTestType').textContent = labRequest.testType || 'N/A';
+  document.getElementById('detailsDescription').textContent = labRequest.requestDescription || 'No additional instructions provided.';
+
+  const modal = document.getElementById('labRequestDetailsModal');
+  modal.style.display = 'flex';
+  setTimeout(() => {
+    modal.classList.add('show');
+  }, 10);
+};
