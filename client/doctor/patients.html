@@ -100,44 +100,65 @@
       </div>
       <form id="finalizeForm">
         <input type="hidden" id="finalizeRecordId">
-    </div>
 
-    <div class="form-group">
-      <label class="form-label">Prescription</label>
-      <div id="medicineList">
-        <!-- Medicine items will be added here -->
-        <div class="medicine-row" style="margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 1rem;">
-          <div
-            style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem; align-items: start;">
-            <input type="text" class="form-input med-name" placeholder="Medicine Name" required>
-            <input type="text" class="form-input med-dosage" placeholder="Dosage" required>
-            <input type="text" class="form-input med-freq" placeholder="Freq" required>
-            <input type="text" class="form-input med-dur" placeholder="Duration" required>
-            <input type="text" class="form-input med-route" placeholder="Route (Oral)" required>
-            <input type="text" class="form-input med-timing" placeholder="Timing (After Meal)" required>
-          </div>
-          <div class="medicine-notes">
-            <input type="text" class="form-input med-notes" placeholder="Notes (Optional)" style="font-size: 0.9rem;">
-          </div>
+        <!-- Lab Results Section -->
+        <div id="labResultsSection"
+          style="margin-bottom: 1.5rem; padding: 1rem; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; display: none;">
+          <h4 style="margin-top: 0; color: var(--primary-color);">Lab Results</h4>
+          <p id="displayLabResults"
+            style="white-space: pre-wrap; font-family: monospace; background: #fff; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+          </p>
+          <p id="displayLabComments" style="color: var(--text-secondary); font-style: italic; margin-top: 0.5rem;"></p>
         </div>
-      </div>
-      <button type="button" class="btn btn-outline" onclick="addMedicineRow()"
-        style="width: 100%; margin-top: 0.5rem; font-size: 0.85rem;">
-        <i class="fa-solid fa-plus"></i> Add Another Medicine
-      </button>
-    </div>
 
-    <div class="form-group">
-      <label class="form-label">Instructions</label>
-      <textarea id="finalInstructions" class="form-input" rows="2"></textarea>
-    </div>
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <label class="form-label" style="margin-bottom: 0;">Final Diagnosis</label>
+            <button type="button" class="btn btn-sm btn-outline" onclick="askAI()"
+              style="color: #7c3aed; border-color: #7c3aed;">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Ask AI Suggestion
+            </button>
+          </div>
+          <input type="text" id="finalDiagnosis" class="form-input" required>
+        </div>
 
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline" onclick="closeFinalizeModal()">Cancel</button>
-      <button type="submit" class="btn btn-primary">Finalize & Print</button>
+        <div class="form-group">
+          <label class="form-label">Prescription</label>
+          <div id="medicineList">
+            <!-- Medicine items will be added here -->
+            <div class="medicine-row" style="margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 1rem;">
+              <div
+                style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem; align-items: start;">
+                <input type="text" class="form-input med-name" placeholder="Medicine Name" required>
+                <input type="text" class="form-input med-dosage" placeholder="Dosage" required>
+                <input type="text" class="form-input med-freq" placeholder="Freq" required>
+                <input type="text" class="form-input med-dur" placeholder="Duration" required>
+                <input type="text" class="form-input med-route" placeholder="Route (Oral)" required>
+                <input type="text" class="form-input med-timing" placeholder="Timing (After Meal)" required>
+              </div>
+              <div class="medicine-notes">
+                <input type="text" class="form-input med-notes" placeholder="Notes (Optional)"
+                  style="font-size: 0.9rem;">
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline" onclick="addMedicineRow()"
+            style="width: 100%; margin-top: 0.5rem; font-size: 0.85rem;">
+            <i class="fa-solid fa-plus"></i> Add Another Medicine
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Instructions</label>
+          <textarea id="finalInstructions" class="form-input" rows="2"></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeFinalizeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Finalize & Print</button>
+        </div>
+      </form>
     </div>
-    </form>
-  </div>
   </div>
 
   <!-- Print Preview Modal -->
