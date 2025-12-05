@@ -29,6 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
       linksHtml += `
                 <a href="../patient/dashboard.html" class="nav-link"><i class="fas fa-user"></i> <span>Dashboard</span></a>
             `;
+    } else if (user.role === 'lab_tech') {
+      linksHtml += `
+                  <a href="../labtech/dashboard.html" class="nav-link"><i class="fas fa-flask"></i> <span>Dashboard</span></a>
+              `;
     }
 
     // Logout Link

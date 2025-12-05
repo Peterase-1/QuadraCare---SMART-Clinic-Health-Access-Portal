@@ -64,3 +64,27 @@ function getApiBaseUrl() {
 }
 
 window.getApiBaseUrl = getApiBaseUrl;
+
+/**
+ * Check Authentication
+ * @param {string} requiredRole - Role required to access the page
+ */
+function checkAuth(requiredRole) {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (!user || !user.token) {
+    window.location.href = '/login.html';
+    return;
+  }
+  if (requiredRole && user.role !== requiredRole) {
+    // Redirect to correct dashboard if logged in but wrong role
+    switch (user.role) {
+      case 'admin': window.location.href = '../admin/dashboard.html'; break;
+      case 'doctor': window.location.href = '../doctor/index.html'; break;
+      case 'nurse': window.location.href = '../nurse/index.html'; break;
+      case 'lab_tech': window.location.href = '../labtech/dashboard.html'; break;
+      case 'patient': window.location.href = '../patient/dashboard.html'; break;
+      default: window.location.href = '../login.html';
+    }
+  }
+}
+window.checkAuth = checkAuth;
