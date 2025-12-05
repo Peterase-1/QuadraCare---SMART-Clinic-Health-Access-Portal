@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api/auth';
+const API_URL = `${window.getApiBaseUrl()}/auth`;
 
 // Login Form
 const loginForm = document.getElementById('loginForm');
@@ -7,6 +7,7 @@ if (loginForm) {
     e.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const role = document.getElementById('role').value;
 
     try {
       const res = await fetch(`${API_URL}/login`, {
@@ -14,7 +15,7 @@ if (loginForm) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password, role })
       });
 
       const data = await res.json();
@@ -35,6 +36,9 @@ if (loginForm) {
             break;
           case 'lab_tech':
             window.location.href = 'labtech/dashboard.html';
+            break;
+          case 'emergency':
+            window.location.href = 'emergency/dashboard.html';
             break;
           case 'patient':
           default:
