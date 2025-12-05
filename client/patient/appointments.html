@@ -18,6 +18,7 @@
     <aside class="sidebar">
       <div class="sidebar-header">
         <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+        <button class="close-sidebar"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <nav class="sidebar-nav">
         <a href="dashboard.html" class="nav-link">
@@ -38,7 +39,9 @@
     <!-- Main Content -->
     <main class="main-content">
       <header class="top-bar">
-        <div></div>
+        <div>
+          <button class="hamburger-menu"><i class="fa-solid fa-bars"></i></button>
+        </div>
         <div class="user-profile">
           <div class="text-right">
             <h4 id="userName" style="font-size: 1rem; margin:0;">Patient</h4>
@@ -52,28 +55,30 @@
           <h1>Appointments</h1>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+        <div class="responsive-grid" style="grid-template-columns: 1fr 2fr;">
           <!-- Booking Form -->
           <div class="card">
             <h3 style="margin-bottom: 1.5rem;">Book New Appointment</h3>
             <form id="bookingForm">
-              <div class="form-group">
-                <label class="form-label" for="doctor">Select Doctor</label>
-                <select id="doctor" class="form-input" required>
-                  <option value="">Loading doctors...</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="date">Date</label>
-                <input type="date" id="date" class="form-input" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="time">Time</label>
-                <input type="time" id="time" class="form-input" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="reason">Reason for Visit</label>
-                <textarea id="reason" rows="3" class="form-input" required></textarea>
+              <div class="booking-grid">
+                <div class="form-group">
+                  <label class="form-label" for="doctor">Select Doctor</label>
+                  <select id="doctor" class="form-input" required>
+                    <option value="">Loading doctors...</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="date">Date</label>
+                  <input type="date" id="date" class="form-input" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="time">Time</label>
+                  <input type="time" id="time" class="form-input" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="reason">Reason for Visit</label>
+                  <textarea id="reason" rows="3" class="form-input" required></textarea>
+                </div>
               </div>
               <button type="submit" class="btn btn-primary" style="width: 100%;">
                 <i class="fa-solid fa-plus" style="margin-right: 0.5rem;"></i> Book Appointment
@@ -95,7 +100,7 @@
 
   <!-- Payment Modal -->
   <div id="paymentModal" class="modal" style="display: none;">
-    <div class="modal-content" style="max-width: 500px;">
+    <div class="modal-content">
       <div class="modal-header">
         <h2 class="modal-title">Secure Payment</h2>
         <button type="button" class="modal-close" onclick="closePaymentModal()">&times;</button>
@@ -128,6 +133,7 @@
       }
     }
   </script>
+  <script src="../js/sidebar.js"></script>
 </body>
 
 </html>

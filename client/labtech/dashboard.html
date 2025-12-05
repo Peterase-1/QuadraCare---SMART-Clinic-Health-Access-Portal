@@ -18,6 +18,7 @@
     <aside class="sidebar">
       <div class="sidebar-header">
         <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+        <button class="close-sidebar"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <nav class="sidebar-nav">
         <a href="dashboard.html" class="nav-link active">
@@ -32,7 +33,9 @@
     <!-- Main Content -->
     <main class="main-content">
       <header class="top-bar">
-        <div></div>
+        <div>
+          <button class="hamburger-menu"><i class="fa-solid fa-bars"></i></button>
+        </div>
         <div class="user-profile">
           <div class="text-right">
             <h4 id="userName" style="font-size: 1rem; margin:0;">Tech Name</h4>
@@ -149,7 +152,7 @@
 
   <!-- Lab Request Details Modal -->
   <div id="labRequestDetailsModal" class="modal" style="display: none;">
-    <div class="modal-content" style="max-width: 600px;">
+    <div class="modal-content">
       <div class="modal-header">
         <h2 class="modal-title">Lab Request Details</h2>
         <button type="button" class="modal-close" onclick="closeLabDetailsModal()">&times;</button>
@@ -170,7 +173,9 @@
   </div>
 
   <script src="../js/utils.js"></script>
+  <script src="../js/utils.js"></script>
   <script src="../js/labtech.js"></script>
+  <script src="../js/sidebar.js"></script>
   <script>
     function closeLabModal() {
       const modal = document.getElementById('labResultModal');

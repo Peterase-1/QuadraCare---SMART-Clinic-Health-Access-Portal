@@ -302,3 +302,79 @@
 }
 2025-12-03T20:35:20.355Z: Medical Record Created Successfully: 69309f08cbd2876398048804
 2025-12-03T20:35:20.363Z: Appointment marked as completed: 69309e96cbd28763980487e6
+2025-12-04T23:47:12.098Z: --- createConsultation START ---
+2025-12-04T23:47:12.102Z: Request Body: {
+  "patientId": "692d530da903dd853e4a6043",
+  "patientDetails": {
+    "age": "26",
+    "weight": "85",
+    "bloodPressure": "13/89",
+    "symptoms": "Head Ace, Stomach"
+  },
+  "labRequest": {
+    "required": true,
+    "testType": "CBC (Complete Blood Count), HbA1c, HIV 1 & 2, Stool Routine, Ultrasound Abdomen",
+    "requestDescription": "Treat Carfully",
+    "assignedTo": null
+  }
+}
+2025-12-04T23:47:12.103Z: User ID: 692ca544ea9c9e8172f1ad84
+2025-12-04T23:47:12.106Z: Processing Lab Request...
+2025-12-04T23:47:12.107Z: No specific Lab Tech assigned (assignedTo is null/undefined)
+2025-12-04T23:47:12.109Z: Creating Medical Record with data: {
+  "doctor": "692ca544ea9c9e8172f1ad84",
+  "patient": "692d530da903dd853e4a6043",
+  "patientDetails": {
+    "age": "26",
+    "weight": "85",
+    "bloodPressure": "13/89",
+    "symptoms": "Head Ace, Stomach"
+  },
+  "status": "lab_test",
+  "labRequest": {
+    "required": true,
+    "testType": "CBC (Complete Blood Count), HbA1c, HIV 1 & 2, Stool Routine, Ultrasound Abdomen",
+    "requestDescription": "Treat Carfully",
+    "requestDate": 1764892032107
+  }
+}
+2025-12-04T23:47:12.123Z: Medical Record Created Successfully: 69321d80a1d74fa8bed551b0
+2025-12-04T23:47:12.129Z: Appointment marked as completed: 692d5329a903dd853e4a604d
+2025-12-05T16:51:08.330Z: --- createConsultation START ---
+2025-12-05T16:51:08.362Z: Request Body: {
+  "patientId": "69330c0ddc3be31af39838c0",
+  "patientDetails": {
+    "age": "25",
+    "weight": "80",
+    "bloodPressure": "120/80",
+    "symptoms": "Head Ache, Flu"
+  },
+  "labRequest": {
+    "required": true,
+    "testType": "CBC (Complete Blood Count), Liver Function Test, Kidney Function Test, HBsAg, Urine Routine, Stool Routine",
+    "requestDescription": "Specifically this Blood",
+    "assignedTo": null
+  }
+}
+2025-12-05T16:51:08.363Z: User ID: 692ca544ea9c9e8172f1ad84
+2025-12-05T16:51:08.364Z: Processing Lab Request...
+2025-12-05T16:51:08.365Z: No specific Lab Tech assigned (assignedTo is null/undefined)
+2025-12-05T16:51:08.365Z: Creating Medical Record with data: {
+  "doctor": "692ca544ea9c9e8172f1ad84",
+  "patient": "69330c0ddc3be31af39838c0",
+  "patientDetails": {
+    "age": "25",
+    "weight": "80",
+    "bloodPressure": "120/80",
+    "symptoms": "Head Ache, Flu"
+  },
+  "status": "lab_test",
+  "labRequest": {
+    "required": true,
+    "testType": "CBC (Complete Blood Count), Liver Function Test, Kidney Function Test, HBsAg, Urine Routine, Stool Routine",
+    "requestDescription": "Specifically this Blood",
+    "requestDate": 1764953468365
+  }
+}
+2025-12-05T16:51:08.400Z: Medical Record Created Successfully: 69330d7cdc3be31af398390a
+2025-12-05T16:51:08.408Z: Appointment marked as completed: 69330d18dc3be31af39838f3

@@ -19,6 +19,7 @@
     <aside class="sidebar">
       <div class="sidebar-header">
         <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+        <button class="close-sidebar"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <nav class="sidebar-nav">
         <a href="dashboard.html" class="nav-link active">
@@ -41,6 +42,7 @@
       <!-- Top Bar -->
       <header class="top-bar">
         <div class="search-bar">
+          <button class="hamburger-menu"><i class="fa-solid fa-bars"></i></button>
           <!-- Optional Search -->
         </div>
         <div class="user-profile">
@@ -97,6 +99,19 @@
               </div>
             </div>
           </div>
+          <!-- Ambulance Card -->
+          <div class="card" style="background: #fef2f2; border: 1px solid #fee2e2; cursor: pointer;"
+            onclick="openAmbulanceModal()">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div>
+                <p style="color: #b91c1c; font-size: 0.9rem; font-weight: 600;">Emergency</p>
+                <h3 style="color: #ef4444; margin-top: 0.2rem;">Order Ambulance</h3>
+              </div>
+              <div style="background: #fee2e2; padding: 0.5rem; border-radius: 8px; color: #ef4444;">
+                <i class="fa-solid fa-truck-medical"></i>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Recent Activity -->
@@ -109,7 +124,54 @@
       </div>
     </main>
   </div>
+
+  <!-- Ambulance Modal -->
+  <div id="ambulanceModal" class="modal" style="display: none;">
+    <div class="modal-content modal-lg">
+      <div class="modal-header" style="background: #fef2f2; border-bottom-color: #fee2e2;">
+        <h2 class="modal-title" style="color: #b91c1c;"><i class="fa-solid fa-truck-medical"></i> Request Ambulance</h2>
+        <button type="button" class="modal-close" onclick="closeAmbulanceModal()">&times;</button>
+      </div>
+      <form id="ambulanceForm">
+        <div
+          style="background: #fff5f5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid #fed7d7;">
+          <p style="color: #c53030; font-weight: 500; margin: 0;">
+            <i class="fa-solid fa-triangle-exclamation"></i> Only use this for medical emergencies. False requests may
+            lead to account suspension.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Current Location / Address</label>
+          <textarea id="ambulanceLocation" class="form-input" rows="3"
+            placeholder="Enter detailed address or landmarks..." required></textarea>
+          <button type="button" class="btn btn-outline" onclick="getLocation()"
+            style="margin-top: 0.5rem; font-size: 0.85rem;">
+            <i class="fa-solid fa-location-crosshairs"></i> Use My Current Location
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Urgency Level</label>
+          <select id="ambulanceUrgency" class="form-input">
+            <option value="Critical">Critical (Life Threatening)</option>
+            <option value="Non-Critical">Non-Critical (Transport Only)</option>
+          </select>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeAmbulanceModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary"
+            style="background: #ef4444; border-color: #ef4444; color: white;">
+            Confirm Request
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="../js/utils.js"></script>
   <script src="../js/patient.js"></script>
+  <script src="../js/sidebar.js"></script>
 </body>
 
 </html>

@@ -49,3 +49,18 @@ function showToast(message, type = 'info') {
 
 // Expose to window
 window.showToast = showToast;
+
+/**
+ * Get API Base URL based on environment
+ * - If running on Live Server (Port 5500/5501), point to localhost:8000
+ * - If running in Docker (Port 80), use relative path /api
+ */
+function getApiBaseUrl() {
+  const port = window.location.port;
+  if (port === '5500' || port === '5501') {
+    return 'http://localhost:8000/api';
+  }
+  return '/api';
+}
+
+window.getApiBaseUrl = getApiBaseUrl;

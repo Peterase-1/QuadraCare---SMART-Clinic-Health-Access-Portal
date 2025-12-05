@@ -51,7 +51,7 @@ exports.generateDiagnosis = async (req, res) => {
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
-        'HTTP-Referer': 'http://localhost:5000', // Required by OpenRouter
+        'HTTP-Referer': 'http://localhost:8000', // Required by OpenRouter
         'X-Title': 'QuadraCare' // Required by OpenRouter
       }
     });
