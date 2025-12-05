@@ -12,11 +12,7 @@ if (userInfoEl) userInfoEl.textContent = user.name;
 const userNameEl = document.getElementById('userName');
 if (userNameEl) userNameEl.textContent = user.name;
 
-document.getElementById('logoutBtn').addEventListener('click', (e) => {
-  e.preventDefault();
-  localStorage.removeItem('user');
-  window.location.href = '../login.html';
-});
+// Logout logic is handled by sidebar.js
 
 const headers = {
   'Content-Type': 'application/json',
@@ -679,4 +675,86 @@ window.askAI = async () => {
     btn.innerHTML = originalText;
   }
 };
+
+// ---------------------------------------------------------
+// ADMISSION LOGIC
+// ---------------------------------------------------------
+
+window.openAdmissionModal = () => {
+  // 1. Get Room List
+  const roomSelect = document.getElementById('admitRoomSelect');
+  if (!roomSelect) return;
+
+  roomSelect.innerHTML = '<option value="">Loading...</option>';
+
+  fetch(`${API_URL}/rooms`, { headers })
+    .then(res => res.json())
+    .then(rooms => {
+      if (rooms.length === 0) {
+        roomSelect.innerHTML = '<option value="">No rooms available</option>';
+        return;
+      }
+
+      roomSelect.innerHTML = '<option value="">Select Room</option>' +
+        rooms.map(r => `
+                  <option value="${r._id}">
+                      Room ${r.roomNumber} (${r.ward.name} - ${r.ward.type}) [Status: ${r.status}]
+                  </option>
+              `).join('');
+    })
+    .catch(err => {
+      console.error(err);
+      roomSelect.innerHTML = '<option value="">Error loading rooms</option>';
+    });
+
+  const modal = document.getElementById('admissionModal');
+  modal.style.display = 'flex';
+  setTimeout(() => modal.classList.add('show'), 10);
+};
+
+window.closeAdmissionModal = () => {
+  const modal = document.getElementById('admissionModal');
+  modal.classList.remove('show');
+  setTimeout(() => modal.style.display = 'none', 300);
+};
+
+const admissionForm = document.getElementById('admissionForm');
+if (admissionForm) {
+  admissionForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const recordId = document.getElementById('finalizeRecordId').value;
+    if (!recordId) {
+      showToast('Error: No patient context found', 'error');
+      return;
+    }
+
+    fetch(`${API_URL}/records/${recordId}`, { headers })
+      .then(res => res.json())
+      .then(record => {
+        const patientId = record.patient._id || record.patient;
+
+        const roomId = document.getElementById('admitRoomSelect').value;
+        const diagnosis = document.getElementById('admitDiagnosis').value;
+        const notes = document.getElementById('admitNotes').value;
+
+        return fetch(`${API_URL}/admit`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ patientId, roomId, diagnosis, notes })
+        });
+      })
+      .then(async res => {
+        if (res.ok) {
+          showToast('Patient Admitted Successfully', 'success');
+          closeAdmissionModal();
+          closeFinalizeModal();
+        } else {
+          const data = await res.json();
+          showToast(data.message || 'Error admitting patient', 'error');
+        }
+      })
+      .catch(err => showToast('Error: ' + err.message, 'error'));
+  });
+}
 
