@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api/pharmacist';
+const API_URL = `${window.getApiBaseUrl()}/pharmacist`;
 const user = JSON.parse(localStorage.getItem('user'));
 
 if (!user || user.role !== 'pharmacist') {
