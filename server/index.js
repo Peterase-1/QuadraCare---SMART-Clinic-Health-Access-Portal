@@ -32,6 +32,7 @@ app.use('/api/ai', require('./routes/aiRoutes'));
 app.use('/api/pharmacist', require('./routes/pharmacistRoutes'));
 app.use('/api/ambulance', require('./routes/ambulanceRoutes'));
 app.use('/api/emergency', require('./routes/emergencyRoutes'));
+app.use('/api/nurse', require('./routes/nurseRoutes'));
 
 app.get('/', (req, res) => {
   res.send('QuadraCare API is running');
