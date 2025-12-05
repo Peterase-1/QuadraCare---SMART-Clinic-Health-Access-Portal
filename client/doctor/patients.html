@@ -15,26 +15,8 @@
 <body>
   <div class="dashboard-layout">
     <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <i class="fa-solid fa-heart-pulse"></i> QuadraCare
-        <button class="close-sidebar"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-link">
-          <i class="fa-solid fa-house"></i> Dashboard
-        </a>
-        <a href="appointments.html" class="nav-link">
-          <i class="fa-solid fa-calendar-check"></i> Appointments
-        </a>
-        <a href="patients.html" class="nav-link active">
-          <i class="fa-solid fa-user-injured"></i> Patients
-        </a>
-        <a href="#" id="logoutBtn" class="nav-link" style="margin-top: auto;">
-          <i class="fa-solid fa-right-from-bracket"></i> Logout
-        </a>
-      </nav>
-    </aside>
+    <!-- Sidebar -->
+    <div id="sidebar-container"></div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -158,9 +140,15 @@
           <textarea id="finalInstructions" class="form-input" rows="2"></textarea>
         </div>
 
-        <div class="modal-footer">
+        <div class="modal-footer" style="justify-content: space-between;">
           <button type="button" class="btn btn-outline" onclick="closeFinalizeModal()">Cancel</button>
-          <button type="submit" class="btn btn-primary">Finalize & Print</button>
+          <div>
+            <button type="button" class="btn btn-warning" onclick="openAdmissionModal()"
+              style="margin-right: 10px; background-color: #f59e0b; color: white; border: none;">
+              <i class="fa-solid fa-bed-pulse"></i> Admit to Ward
+            </button>
+            <button type="submit" class="btn btn-primary">Finalize & Print</button>
+          </div>
         </div>
       </form>
     </div>
@@ -188,6 +176,37 @@
           </button>
         </div>
       </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Admission Modal -->
+  <div id="admissionModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Admit Patient to Ward</h2>
+        <button type="button" class="modal-close" onclick="closeAdmissionModal()">&times;</button>
+      </div>
+      <form id="admissionForm">
+        <div class="form-group">
+          <label class="form-label">Select Ward & Room</label>
+          <select id="admitRoomSelect" class="form-input" required>
+            <option value="">Loading available rooms...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Admission Diagnosis/Reason</label>
+          <input type="text" id="admitDiagnosis" class="form-input" required placeholder="e.g. Post-op recovery">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Initial Notes</label>
+          <textarea id="admitNotes" class="form-input" rows="3" placeholder="Instructions to nurse..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeAdmissionModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Confirm Admission</button>
+        </div>
+      </form>
     </div>
   </div>
 
