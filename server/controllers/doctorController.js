@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const Appointment = require('../models/Appointment');
 const MedicalRecord = require('../models/MedicalRecord');
 const User = require('../models/User');
+const Room = require('../models/Room');
+const InpatientRecord = require('../models/InpatientRecord');
 
 // ... (existing code)
 
@@ -294,6 +296,64 @@ exports.getRecordById = async (req, res) => {
       return res.status(404).json({ message: 'Record not found' });
     }
     res.json(record);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Admit patient to a room
+// @route   POST /api/doctor/admit
+// @access  Private (Doctor)
+exports.admitPatient = async (req, res) => {
+  const { patientId, roomId, diagnosis, notes } = req.body;
+  try {
+    const room = await Room.findById(roomId);
+    if (!room) {
+      return res.status(404).json({ message: 'Room not found' });
+    }
+
+    if (room.status !== 'Available') {
+      return res.status(400).json({ message: 'Room is not available' });
+    }
+
+    if (room.currentOccupancy >= room.capacity) {
+      return res.status(400).json({ message: 'Room is full' });
+    }
+
+    const inpatientRecord = await InpatientRecord.create({
+      patient: patientId,
+      doctor: req.user._id,
+      room: roomId,
+      diagnosis,
+      dailyLogs: [{
+        notes: notes || 'Patient admitted',
+        nurse: null // No nurse assigned to log yet
+      }]
+    });
+
+    // Update Room
+    room.currentOccupancy += 1;
+    if (room.currentOccupancy >= room.capacity) {
+      room.status = 'Full';
+    } else {
+      room.status = 'Occupied';
+    }
+    await room.save();
+
+    res.status(201).json(inpatientRecord);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Get available rooms
+// @route   GET /api/doctor/rooms
+// @access  Private (Doctor)
+exports.getAvailableRooms = async (req, res) => {
+  try {
+    const rooms = await Room.find({ status: { $ne: 'Full' } })
+      .populate('ward', 'name type');
+    res.json(rooms);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
