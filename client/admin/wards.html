@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Wards & Rooms - Admin - QuadraCare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <div id="sidebar-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div>
+          <button class="hamburger-menu"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div class="user-profile">
+          <div class="text-right">
+            <h4 id="userName" style="font-size: 1rem; margin:0;">Admin</h4>
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">Administrator</span>
+          </div>
+          <div class="avatar" style="background: #334155;"><i class="fa-solid fa-user-shield"></i></div>
+        </div>
+      </header>
+
+      <div class="container-fluid">
+        <div
+          style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h1>Wards & Rooms</h1>
+            <p style="color: var(--text-secondary);">Manage hospital infrastructure.</p>
+          </div>
+          <div>
+            <button onclick="document.getElementById('addWardModal').style.display='flex'" class="btn btn-primary"><i
+                class="fa-solid fa-plus"></i> Add Ward</button>
+            <button onclick="openAddRoomModal()" class="btn btn-secondary"><i class="fa-solid fa-plus"></i> Add
+              Room</button>
+          </div>
+        </div>
+
+        <!-- Wards List -->
+        <div id="wardsContainer" style="display: grid; gap: 20px;">
+          <!-- Wards will be loaded here -->
+          <p>Loading wards...</p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Ward Modal -->
+  <div id="addWardModal" class="modal">
+    <div class="modal-content">
+      <h2 class="modal-title">Add New Ward</h2>
+      <form id="addWardForm">
+        <div class="form-group">
+          <label class="form-label">Ward Name</label>
+          <input type="text" id="wardName" placeholder="e.g. Surgical A" class="form-control form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Type</label>
+          <select id="wardType" class="form-control form-select">
+            <option value="General">General</option>
+            <option value="Surgical">Surgical</option>
+            <option value="Pediatric">Pediatric</option>
+            <option value="Maternity">Maternity</option>
+            <option value="ICU">ICU</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Capacity</label>
+          <input type="number" id="wardCapacity" placeholder="Capacity" class="form-control form-input" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Create Ward</button>
+        <button type="button" onclick="document.getElementById('addWardModal').style.display='none'"
+          style="margin-top:10px; width:100%; background:none; border:none; cursor:pointer; color: var(--text-muted);">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Room Modal -->
+  <div id="addRoomModal" class="modal">
+    <div class="modal-content">
+      <h2 class="modal-title">Add New Room</h2>
+      <form id="addRoomForm">
+        <div class="form-group">
+          <label class="form-label">Room Number</label>
+          <input type="text" id="roomNumber" placeholder="e.g. 101" class="form-control form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ward</label>
+          <select id="roomWard" class="form-control form-select" required>
+            <option value="">Select Ward</option>
+            <!-- Populated by JS -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Type</label>
+          <select id="roomType" class="form-control form-select">
+            <option value="General">General</option>
+            <option value="Private">Private</option>
+            <option value="Semi-Private">Semi-Private</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Capacity</label>
+          <input type="number" id="roomCapacity" placeholder="Capacity (default 1)" value="1"
+            class="form-control form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Assign Nurses (Optional)</label>
+          <select id="roomNurses" class="form-control form-select" multiple style="height: 120px;">
+            <!-- Populated by JS -->
+          </select>
+          <small style="color: var(--text-secondary); font-size: 0.8em; display:block; margin-top:5px;">Hold Ctrl (Cmd)
+            to select multiple</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;">Create Room</button>
+        <button type="button" onclick="document.getElementById('addRoomModal').style.display='none'"
+          style="margin-top:10px; width:100%; background:none; border:none; cursor:pointer; color: var(--text-muted);">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Ward Modal -->
+  <div id="editWardModal" class="modal">
+    <div class="modal-content">
+      <h2 class="modal-title">Edit Ward</h2>
+      <form id="editWardForm">
+        <input type="hidden" id="editWardId">
+        <div class="form-group">
+          <label class="form-label">Ward Name</label>
+          <input type="text" id="editWardName" placeholder="Ward Name" class="form-control form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Type</label>
+          <select id="editWardType" class="form-control form-select">
+            <option value="General">General</option>
+            <option value="Surgical">Surgical</option>
+            <option value="Pediatric">Pediatric</option>
+            <option value="Maternity">Maternity</option>
+            <option value="ICU">ICU</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Capacity</label>
+          <input type="number" id="editWardCapacity" placeholder="Capacity" class="form-control form-input" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Update Ward</button>
+        <button type="button" onclick="document.getElementById('editWardModal').style.display='none'"
+          style="margin-top:10px; width:100%; background:none; border:none; cursor:pointer; color: var(--text-muted);">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Room Modal -->
+  <div id="editRoomModal" class="modal">
+    <div class="modal-content">
+      <h2 class="modal-title">Edit Room</h2>
+      <form id="editRoomForm">
+        <input type="hidden" id="editRoomId">
+        <div class="form-group">
+          <label class="form-label">Room Number</label>
+          <input type="text" id="editRoomNumber" placeholder="Room Number" class="form-control form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ward</label>
+          <select id="editRoomWard" class="form-control form-select" required>
+            <option value="">Select Ward</option>
+            <!-- Populated by JS -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Type</label>
+          <select id="editRoomType" class="form-control form-select">
+            <option value="General">General</option>
+            <option value="Private">Private</option>
+            <option value="Semi-Private">Semi-Private</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select id="editRoomStatus" class="form-control form-select">
+            <option value="Available">Available</option>
+            <option value="Occupied">Occupied</option>
+            <option value="Maintenance">Maintenance</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Capacity</label>
+          <input type="number" id="editRoomCapacity" placeholder="Capacity" class="form-control form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Assign Nurses</label>
+          <select id="editRoomNurses" class="form-control form-select" multiple style="height: 120px;">
+            <!-- Populated by JS -->
+          </select>
+          <small style="color: var(--text-secondary); font-size: 0.8em; display:block; margin-top:5px;">Hold Ctrl (Cmd)
+            to select multiple</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;">Update Room</button>
+        <button type="button" onclick="document.getElementById('editRoomModal').style.display='none'"
+          style="margin-top:10px; width:100%; background:none; border:none; cursor:pointer; color: var(--text-muted);">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/admin.js"></script>
+  <script src="../js/sidebar.js"></script>
+</body>
+
+</html>
