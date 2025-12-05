@@ -12,11 +12,7 @@ if (userInfoEl) userInfoEl.textContent = user.name;
 const userNameEl = document.getElementById('userName');
 if (userNameEl) userNameEl.textContent = user.name;
 
-document.getElementById('logoutBtn').addEventListener('click', (e) => {
-  e.preventDefault();
-  localStorage.removeItem('user');
-  window.location.href = '../login.html';
-});
+// Logout logic is handled by sidebar.js
 
 const headers = {
   'Content-Type': 'application/json',
