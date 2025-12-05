@@ -146,6 +146,25 @@ body {
   color: white;
 }
 
+.btn-secondary {
+  padding: 0.7rem 1.5rem;
+  background: var(--text-muted);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: inline-block;
+}
+
+.btn-secondary:hover {
+  background: var(--text-main);
+  transform: translateY(-2px);
+}
+
 .btn-outline:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -832,7 +851,7 @@ footer {
   /* Use Flexbox for centering */
   justify-content: center;
   align-items: center;
-  opacity: 0;
+  /* opacity: 0; Removed to fix visibility issue when toggling display directly */
   transition: opacity 0.3s ease;
 }
 
@@ -954,7 +973,72 @@ footer {
 }
 
 .lab-checklist-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1.5rem;
 }
+
+/* Admin Specific Responsive Layouts */
+.admin-split-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+@media (max-width: 968px) {
+  .admin-split-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* =========================================
+   Modals
+   ========================================= */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.modal[style*='display: flex'],
+.modal[style*='display:flex'] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: var(--bg-white);
+  padding: 2rem;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal[style*='display: flex'] .modal-content,
+.modal[style*='display:flex'] .modal-content {
+  transform: translateY(0);
+}
+
+.modal-header {
+  margin-bottom: 1.5rem;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
