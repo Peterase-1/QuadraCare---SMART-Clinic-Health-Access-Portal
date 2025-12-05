@@ -15,27 +15,15 @@
 <body>
   <div class="dashboard-layout">
     <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <i class="fa-solid fa-heart-pulse"></i> QuadraCare
-      </div>
-      <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-link">
-          <i class="fa-solid fa-chart-line"></i> Dashboard
-        </a>
-        <a href="users.html" class="nav-link active">
-          <i class="fa-solid fa-users-gear"></i> User Management
-        </a>
-        <a href="#" id="logoutBtn" class="nav-link" style="margin-top: auto;">
-          <i class="fa-solid fa-right-from-bracket"></i> Logout
-        </a>
-      </nav>
-    </aside>
+    <!-- Sidebar -->
+    <div id="sidebar-container"></div>
 
     <!-- Main Content -->
     <main class="main-content">
       <header class="top-bar">
-        <div></div>
+        <div>
+          <button class="hamburger-menu"><i class="fa-solid fa-bars"></i></button>
+        </div>
         <div class="user-profile">
           <div class="text-right">
             <h4 id="userName" style="font-size: 1rem; margin:0;">Admin Name</h4>
@@ -45,7 +33,7 @@
       </header>
 
       <div class="container-fluid">
-        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+        <div class="admin-split-grid">
           <!-- Add User Form -->
           <div class="card">
             <h3 style="margin-bottom: 1.5rem;">Add New User</h3>
@@ -66,8 +54,10 @@
                 <label class="form-label" for="role">Role</label>
                 <select id="role" class="form-input" required>
                   <option value="doctor">Doctor</option>
+                  <option value="nurse">Nurse</option>
                   <option value="pharmacist">Pharmacist</option>
                   <option value="lab_tech">Lab Technician</option>
+                  <option value="emergency">Emergency Staff</option>
                   <option value="admin">Admin</option>
                 </select>
               </div>
@@ -83,6 +73,9 @@
             <div id="usersList" style="display: grid; gap: 1rem;">
               <p>Loading users...</p>
             </div>
+            <div style="text-align: center; margin-top: 20px;">
+              <button id="loadMoreUsersBtn" class="btn btn-outline" style="display: none;">Load More</button>
+            </div>
           </div>
         </div>
       </div>
@@ -90,6 +83,7 @@
   </div>
   <script src="../js/utils.js"></script>
   <script src="../js/admin.js"></script>
+  <script src="../js/sidebar.js"></script>
 </body>
 
 </html>
