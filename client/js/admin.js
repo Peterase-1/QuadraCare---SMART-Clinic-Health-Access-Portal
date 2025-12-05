@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api/admin';
+const API_URL = `${window.getApiBaseUrl()}/admin`;
 const user = JSON.parse(localStorage.getItem('user'));
 
 if (!user || user.role !== 'admin') {
