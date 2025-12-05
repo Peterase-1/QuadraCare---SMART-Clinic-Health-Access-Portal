@@ -69,8 +69,12 @@
 
           <!-- Users List -->
           <div>
-            <h3 style="margin-bottom: 1rem;">System Users</h3>
-            <div id="usersList" style="display: grid; gap: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h3 style="margin: 0;">System Users</h3>
+                <input type="text" id="userSearch" placeholder="Search users..." class="form-input" style="width: 200px; padding: 0.5rem;">
+            </div>
+            
+            <div id="usersList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem;">
               <p>Loading users...</p>
             </div>
             <div style="text-align: center; margin-top: 20px;">

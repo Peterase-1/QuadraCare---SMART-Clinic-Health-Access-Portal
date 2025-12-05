@@ -1,4 +1,6 @@
-const API_URL = `${window.getApiBaseUrl()}/auth`;
+// Safe fallback if utils.js hasn't loaded (though it should have)
+const getBaseUrl = () => window.getApiBaseUrl ? window.getApiBaseUrl() : '/api';
+const API_URL = `${getBaseUrl()}/auth`;
 
 // Login Form
 const loginForm = document.getElementById('loginForm');

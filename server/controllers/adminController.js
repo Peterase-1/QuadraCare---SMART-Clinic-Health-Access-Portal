@@ -32,10 +32,20 @@ exports.getAllUsers = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
+    const search = req.query.search || '';
+
+    const query = {};
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } }
+      ];
+    }
+
     const skip = (page - 1) * limit;
 
-    const users = await User.find().select('-password').sort({ createdAt: -1 }).skip(skip).limit(limit);
-    const total = await User.countDocuments();
+    const users = await User.find(query).select('-password').sort({ createdAt: -1 }).skip(skip).limit(limit);
+    const total = await User.countDocuments(query);
 
     res.json({
       users,

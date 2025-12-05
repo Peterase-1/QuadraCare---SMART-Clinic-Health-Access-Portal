@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const limit = 10;
     let totalPages = 1;
 
-    const loadUsers = (page = 1) => {
-      fetch(`${API_URL}/users?page=${page}&limit=${limit}`, { headers })
+    const loadUsers = (page = 1, search = '') => {
+      fetch(`${API_URL}/users?page=${page}&limit=${limit}&search=${search}`, { headers })
         .then(res => res.json())
         .then(response => {
           let users = [];
@@ -106,11 +106,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadUsers();
 
+
+    // Search input listener
+    const searchInput = document.getElementById('userSearch');
+    if (searchInput) {
+      let timeout = null;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          loadUsers(1, e.target.value);
+        }, 500);
+      });
+    }
+
     const loadMoreBtn = document.getElementById('loadMoreUsersBtn');
     if (loadMoreBtn) {
       loadMoreBtn.addEventListener('click', () => {
+        const currentSearch = document.getElementById('userSearch') ? document.getElementById('userSearch').value : '';
         if (currentPage < totalPages) {
-          loadUsers(currentPage + 1);
+          loadUsers(currentPage + 1, currentSearch);
         }
       });
     }
