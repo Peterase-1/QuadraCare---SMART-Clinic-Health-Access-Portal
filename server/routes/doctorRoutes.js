@@ -9,7 +9,9 @@ const {
   finalizeRecord,
   getPatientRecords,
   getActiveRecords,
-  getRecordById
+  getRecordById,
+  admitPatient,
+  getAvailableRooms
 } = require('../controllers/doctorController');
 const { protect } = require('../middleware/authMiddleware');
 
@@ -32,5 +34,7 @@ router.get('/patients/:id/records', protect, doctorOnly, getPatientRecords);
 
 router.get('/records/active', protect, doctorOnly, getActiveRecords);
 router.get('/records/:id', protect, doctorOnly, getRecordById);
+router.post('/admit', protect, doctorOnly, admitPatient);
+router.get('/rooms', protect, doctorOnly, getAvailableRooms);
 
 module.exports = router;
