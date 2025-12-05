@@ -18,6 +18,7 @@
     <aside class="sidebar">
       <div class="sidebar-header">
         <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+        <button class="close-sidebar"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <nav class="sidebar-nav">
         <a href="dashboard.html" class="nav-link">
@@ -38,7 +39,9 @@
     <!-- Main Content -->
     <main class="main-content">
       <header class="top-bar">
-        <div></div>
+        <div>
+          <button class="hamburger-menu"><i class="fa-solid fa-bars"></i></button>
+        </div>
         <div class="user-profile">
           <div class="text-right">
             <h4 id="userName" style="font-size: 1rem; margin:0;">Dr. Name</h4>
@@ -49,7 +52,7 @@
       </header>
 
       <div class="container-fluid">
-        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+        <div class="responsive-grid" style="grid-template-columns: 1fr 2fr;">
           <!-- Pending Reviews -->
           <div class="card">
             <h3 style="margin-bottom: 1.5rem;">Pending Reviews & Active Cases</h3>
@@ -69,6 +72,9 @@
               style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem;">
               <p>Loading patients...</p>
             </div>
+            <div style="text-align: center; margin-top: 1.5rem;">
+              <button id="loadMorePatientsBtn" class="btn btn-outline" style="display: none;">Load More</button>
+            </div>
           </div>
         </div>
       </div>
@@ -77,7 +83,7 @@
 
   <!-- History Modal -->
   <div id="historyModal" class="modal" style="display: none;">
-    <div class="modal-content" style="max-width: 800px; max-height: 85vh; overflow-y: auto;">
+    <div class="modal-content modal-lg">
       <div class="modal-header">
         <h2 class="modal-title">Medical History</h2>
         <button type="button" class="modal-close" onclick="closeHistoryModal()">&times;</button>
@@ -127,8 +133,7 @@
           <div id="medicineList">
             <!-- Medicine items will be added here -->
             <div class="medicine-row" style="margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 1rem;">
-              <div
-                style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem; align-items: start;">
+              <div class="medicine-grid">
                 <input type="text" class="form-input med-name" placeholder="Medicine Name" required>
                 <input type="text" class="form-input med-dosage" placeholder="Dosage" required>
                 <input type="text" class="form-input med-freq" placeholder="Freq" required>
@@ -208,7 +213,7 @@
       const container = document.createElement('div');
       container.innerHTML = `
         <div class="medicine-row" style="margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 1rem;">
-            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem; align-items: start;">
+            <div class="medicine-grid">
                 <input type="text" class="form-input med-name" placeholder="Medicine Name" required>
                 <input type="text" class="form-input med-dosage" placeholder="Dosage" required>
                 <input type="text" class="form-input med-freq" placeholder="Freq" required>
@@ -234,6 +239,7 @@
     }
   </script>
 
+  <script src="../js/sidebar.js"></script>
 </body>
 
 </html>
