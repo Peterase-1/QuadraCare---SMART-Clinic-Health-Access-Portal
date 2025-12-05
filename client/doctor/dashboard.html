@@ -18,6 +18,7 @@
     <aside class="sidebar">
       <div class="sidebar-header">
         <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+        <button class="close-sidebar"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <nav class="sidebar-nav">
         <a href="dashboard.html" class="nav-link active">
@@ -38,7 +39,9 @@
     <!-- Main Content -->
     <main class="main-content">
       <header class="top-bar">
-        <div></div>
+        <div>
+          <button class="hamburger-menu"><i class="fa-solid fa-bars"></i></button>
+        </div>
         <div class="user-profile">
           <div class="text-right">
             <h4 id="userName" style="font-size: 1rem; margin:0;">Dr. Name</h4>
@@ -92,6 +95,16 @@
           </div>
         </div>
 
+        <!-- Emergency Cases -->
+        <div class="card" style="border-left: 5px solid #ef4444;">
+          <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem; color: #ef4444;">
+            <i class="fa-solid fa-truck-medical"></i> Assigned Emergency Cases
+          </h3>
+          <div id="emergencyList">
+            <p style="color: var(--text-secondary);">Loading emergency cases...</p>
+          </div>
+        </div>
+
         <!-- Recent Activity -->
         <div class="card">
           <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Upcoming Appointments</h3>
@@ -102,7 +115,9 @@
       </div>
     </main>
   </div>
+  <script src="../js/utils.js"></script>
   <script src="../js/doctor.js"></script>
+  <script src="../js/sidebar.js"></script>
 </body>
 
 </html>
