@@ -44,6 +44,52 @@
     }
   </style>
 </head>
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - QuadraCare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      padding: 2.5rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .auth-header h1 {
+      font-size: 1.75rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .auth-header p {
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
 
 <body>
   <div class="auth-card">
@@ -60,6 +106,17 @@
         <label class="form-label" for="password">Password</label>
         <input type="password" id="password" class="form-input" placeholder="••••••••" required>
       </div>
+      <div class="form-group">
+        <label class="form-label" for="role">Login as...</label>
+        <select id="role" class="form-input" required>
+          <option value="patient">Patient</option>
+          <option value="doctor">Doctor</option>
+          <option value="admin">Admin</option>
+          <option value="pharmacist">Pharmacist</option>
+          <option value="lab_tech">Lab Technician</option>
+          <option value="emergency">Emergency Room</option>
+        </select>
+      </div>
       <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">Login</button>
       <p style="text-align: center; font-size: 0.9rem; color: var(--text-secondary);">
         Don't have an account? <a href="register.html"
@@ -67,6 +124,7 @@
       </p>
     </form>
   </div>
+  <script src="js/utils.js"></script>
   <script src="js/auth.js"></script>
 </body>
 
