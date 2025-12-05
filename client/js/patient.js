@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api/patient';
+const API_URL = `${window.getApiBaseUrl()}/patient`;
 const user = JSON.parse(localStorage.getItem('user'));
 
 if (!user || user.role !== 'patient') {
@@ -291,3 +291,54 @@ if (window.location.pathname.includes('records.html')) {
     }
   };
 }
+
+// Ambulance Functions
+function openAmbulanceModal() {
+  const modal = document.getElementById('ambulanceModal');
+  modal.style.display = 'flex';
+  setTimeout(() => modal.classList.add('show'), 10);
+}
+
+function closeAmbulanceModal() {
+  const modal = document.getElementById('ambulanceModal');
+  modal.classList.remove('show');
+  setTimeout(() => modal.style.display = 'none', 300);
+}
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+      document.getElementById('ambulanceLocation').value = `Lat: ${latitude}, Long: ${longitude}`;
+    }, () => {
+      alert('Unable to retrieve your location. Please enter manually.');
+    });
+  } else {
+    alert('Geolocation is not supported by this browser.');
+  }
+}
+
+document.getElementById('ambulanceForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const location = document.getElementById('ambulanceLocation').value;
+  const urgency = document.getElementById('ambulanceUrgency').value;
+
+  try {
+    const res = await fetch('http://localhost:5000/api/ambulance/request', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({ location, urgency })
+    });
+
+    if (res.ok) {
+      alert('Ambulance requested successfully! Help is on the way.');
+      closeAmbulanceModal();
+    } else {
+      const data = await res.json();
+      alert(data.message || 'Failed to request ambulance');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred');
+  }
+});
