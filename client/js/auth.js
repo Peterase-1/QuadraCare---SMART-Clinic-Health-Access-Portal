@@ -24,7 +24,8 @@ if (loginForm) {
 
       if (res.ok) {
         localStorage.setItem('user', JSON.stringify(data));
-        alert('Login Successful');
+        // alert(`LOGIN DEBUG: Server says you are a '${data.role}'. Redirecting...`);
+        // alert('Login Successful');
 
         switch (data.role) {
           case 'admin':

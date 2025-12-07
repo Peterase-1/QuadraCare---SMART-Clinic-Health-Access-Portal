@@ -5,6 +5,7 @@ const {
   getAllUsers,
   createUser,
   deleteUser,
+  updateUser,
   getAllWards,
   createWard,
   updateWard,
@@ -29,6 +30,7 @@ const adminOnly = (req, res, next) => {
 router.get('/dashboard', protect, adminOnly, getAdminDashboard);
 router.get('/users', protect, adminOnly, getAllUsers);
 router.post('/users', protect, adminOnly, createUser);
+router.put('/users/:id', protect, adminOnly, updateUser);
 router.delete('/users/:id', protect, adminOnly, deleteUser);
 
 router.get('/wards', protect, adminOnly, getAllWards);

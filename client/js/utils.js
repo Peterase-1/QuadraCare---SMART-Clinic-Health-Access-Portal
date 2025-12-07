@@ -70,20 +70,41 @@ window.getApiBaseUrl = getApiBaseUrl;
  * @param {string} requiredRole - Role required to access the page
  */
 function checkAuth(requiredRole) {
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (!user || !user.token) {
-    window.location.href = '/login.html';
-    return;
-  }
-  if (requiredRole && user.role !== requiredRole) {
-    // Redirect to correct dashboard if logged in but wrong role
-    switch (user.role) {
-      case 'admin': window.location.href = '../admin/dashboard.html'; break;
-      case 'doctor': window.location.href = '../doctor/index.html'; break;
-      case 'nurse': window.location.href = '../nurse/index.html'; break;
-      case 'lab_tech': window.location.href = '../labtech/dashboard.html'; break;
-      case 'patient': window.location.href = '../patient/dashboard.html'; break;
-      default: window.location.href = '../login.html';
+  try {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (!user || !user.token) {
+      alert('CRITICAL DEBUG: Session Lost! No User/Token in localStorage. Redirecting to Login.');
+      console.warn('Debug: No User or Token found in localStorage! Redirecting to login.');
+      if (window.location.pathname !== '/login.html' && !window.location.pathname.includes('login.html')) {
+        window.location.href = '/login.html';
+      }
+      return;
+    }
+
+    const userRole = user.role ? user.role.toLowerCase() : '';
+    const reqRole = requiredRole ? requiredRole.toLowerCase() : '';
+
+    if (reqRole && userRole !== reqRole) {
+      alert(`CRITICAL Role Mismatch! User='${userRole}' | Required='${reqRole}'. Redirecting...`);
+      console.warn(`Role mismatch: User='${userRole}' | Required='${reqRole}'. Redirecting...`);
+
+      switch (userRole) {
+        case 'admin': window.location.href = '../admin/dashboard.html'; break;
+        case 'doctor': window.location.href = '../doctor/dashboard.html'; break;
+        case 'nurse': window.location.href = '../nurse/index.html'; break;
+        case 'lab_tech': window.location.href = '../labtech/dashboard.html'; break;
+        case 'patient': window.location.href = '../patient/dashboard.html'; break;
+        case 'emergency': window.location.href = '../emergency/dashboard.html'; break;
+        default:
+          console.error('Unknown role, redirecting to login');
+          window.location.href = '/login.html';
+      }
+    }
+  } catch (error) {
+    console.error('Auth Check Failed', error);
+    if (window.location.pathname !== '/login.html') {
+      window.location.href = '/login.html';
     }
   }
 }

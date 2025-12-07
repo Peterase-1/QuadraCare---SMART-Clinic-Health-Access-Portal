@@ -139,16 +139,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
         const role = document.getElementById('role').value;
 
+        const payload = { name, email, password, role };
+        alert(`DEBUG FRONTEND: Sending Role: ${role} | Payload: ${JSON.stringify(payload)}`);
+        console.log('Sending User Payload:', payload);
+
         fetch(`${API_URL}/users`, {
           method: 'POST',
           headers,
-          body: JSON.stringify({ name, email, password, role })
+          body: JSON.stringify(payload)
         })
           .then(res => {
             if (res.ok) {
-              showToast('User Created Successfully');
-              loadUsers();
-              e.target.reset();
+              return res.json().then(createdUser => {
+                showToast(`User Created Successfully: ${createdUser.name} (${createdUser.role})`);
+                loadUsers();
+                e.target.reset();
+              });
             } else {
               res.json().then(data => showToast(data.message || 'Error creating user'));
             }

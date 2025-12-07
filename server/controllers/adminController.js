@@ -77,6 +77,9 @@ exports.createUser = async (req, res) => {
       role
     });
 
+    console.log(`[DEBUG] CreateUser Payload: Role=${role}`);
+    console.log(`[DEBUG] CreateUser Saved: Role=${user.role}`);
+
     if (user) {
       res.status(201).json({
         _id: user.id,
@@ -110,6 +113,36 @@ exports.deleteUser = async (req, res) => {
 
     await user.deleteOne();
     res.json({ message: 'User removed' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Update user (including role)
+// @route   PUT /api/admin/users/:id
+// @access  Private (Admin)
+exports.updateUser = async (req, res) => {
+  const { name, email, role } = req.body;
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.name = name || user.name;
+    user.email = email || user.email;
+    user.role = role || user.role;
+    // Password update handled separately usually, or add here if needed (hashed)
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      role: updatedUser.role
+    });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

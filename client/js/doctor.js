@@ -48,7 +48,7 @@ if (window.location.pathname.includes('dashboard.html')) {
     .catch(err => console.error(err));
 
   // Load Emergency Assignments
-  fetch('http://localhost:5000/api/emergency/my-requests', { headers })
+  fetch(`${window.getApiBaseUrl()}/emergency/my-requests`, { headers })
     .then(res => res.json())
     .then(requests => {
       const list = document.getElementById('emergencyList');
@@ -627,8 +627,8 @@ window.askAI = async () => {
 
     // 3. Call AI Service
     // Note: We need to call the AI route, which is under /api/ai, not /api/doctor
-    // So we construct the URL manually or assume a global AI_URL
-    const aiRes = await fetch('http://localhost:5000/api/ai/generate', {
+    // So we construct the URL manually using getApiBaseUrl()
+    const aiRes = await fetch(`${window.getApiBaseUrl()}/ai/generate`, {
       method: 'POST',
       headers,
       body: JSON.stringify(payload)

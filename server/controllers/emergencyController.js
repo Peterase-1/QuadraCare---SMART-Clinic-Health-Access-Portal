@@ -67,6 +67,7 @@ exports.getDoctorRequests = async (req, res) => {
       .sort({ createdAt: -1 });
     res.json(requests);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error fetching doctor requests:', error);
+    res.status(500).json({ message: error.message, stack: error.stack });
   }
 };

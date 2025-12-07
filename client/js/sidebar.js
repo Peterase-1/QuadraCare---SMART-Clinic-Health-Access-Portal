@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (user.role === 'doctor') {
       linksHtml += `
                 <a href="../doctor/dashboard.html" class="nav-link"><i class="fas fa-user-md"></i> <span>Dashboard</span></a>
+                <a href="../doctor/appointments.html" class="nav-link"><i class="fas fa-calendar-check"></i> <span>Appointments</span></a>
                 <a href="../doctor/patients.html" class="nav-link"><i class="fas fa-procedures"></i> <span>Patients</span></a>
             `;
     } else if (user.role === 'nurse') {
