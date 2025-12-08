@@ -33,43 +33,42 @@
       </header>
 
       <div class="container-fluid">
-        <div style="margin-bottom: 2rem;">
+        <div class="dashboard-header-section">
           <h1>Doctor Dashboard</h1>
           <p style="color: var(--text-secondary);">Overview of your practice.</p>
         </div>
 
         <!-- Stats Grid -->
-        <div
-          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+        <div class="stats-grid">
           <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div class="card-header-flex">
               <div>
                 <p style="color: var(--text-secondary); font-size: 0.9rem;">Total Appointments</p>
                 <h2 id="totalAppts" style="color: var(--primary-color);">0</h2>
               </div>
-              <div style="background: #eff6ff; padding: 0.5rem; border-radius: 8px; color: var(--primary-color);">
+              <div class="card-icon-wrapper icon-blue-bg">
                 <i class="fa-solid fa-calendar"></i>
               </div>
             </div>
           </div>
           <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div class="card-header-flex">
               <div>
                 <p style="color: var(--text-secondary); font-size: 0.9rem;">Pending Requests</p>
-                <h2 id="pendingAppts" style="color: #d97706;">0</h2>
+                <h2 id="pendingAppts" class="text-yellow">0</h2>
               </div>
-              <div style="background: #fffbeb; padding: 0.5rem; border-radius: 8px; color: #d97706;">
+              <div class="card-icon-wrapper icon-yellow-bg">
                 <i class="fa-solid fa-clock"></i>
               </div>
             </div>
           </div>
           <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div class="card-header-flex">
               <div>
                 <p style="color: var(--text-secondary); font-size: 0.9rem;">Total Patients</p>
-                <h2 id="totalPatients" style="color: #16a34a;">0</h2>
+                <h2 id="totalPatients" class="text-green">0</h2>
               </div>
-              <div style="background: #dcfce7; padding: 0.5rem; border-radius: 8px; color: #16a34a;">
+              <div class="card-icon-wrapper icon-green-bg">
                 <i class="fa-solid fa-users"></i>
               </div>
             </div>
@@ -77,8 +76,8 @@
         </div>
 
         <!-- Emergency Cases -->
-        <div class="card" style="border-left: 5px solid #ef4444;">
-          <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem; color: #ef4444;">
+        <div class="card card-emergency">
+          <h3>
             <i class="fa-solid fa-truck-medical"></i> Assigned Emergency Cases
           </h3>
           <div id="emergencyList">
