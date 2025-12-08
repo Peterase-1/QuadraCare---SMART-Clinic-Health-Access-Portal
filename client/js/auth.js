@@ -29,26 +29,26 @@ if (loginForm) {
 
         switch (data.role) {
           case 'admin':
-            window.location.href = 'admin/dashboard.html';
+            window.location.href = '../admin/dashboard.html';
             break;
           case 'doctor':
-            window.location.href = 'doctor/dashboard.html';
+            window.location.href = '../doctor/dashboard.html';
             break;
           case 'pharmacist':
-            window.location.href = 'pharmacist/dashboard.html';
+            window.location.href = '../pharmacist/dashboard.html';
             break;
           case 'lab_tech':
-            window.location.href = 'labtech/dashboard.html';
+            window.location.href = '../labtech/dashboard.html';
             break;
           case 'emergency':
-            window.location.href = 'emergency/dashboard.html';
+            window.location.href = '../emergency/dashboard.html';
             break;
           case 'nurse':
-            window.location.href = 'nurse/dashboard.html';
+            window.location.href = '../nurse/dashboard.html';
             break;
           case 'patient':
           default:
-            window.location.href = 'patient/dashboard.html';
+            window.location.href = '../patient/dashboard.html';
             break;
         }
       } else {
@@ -88,20 +88,20 @@ if (registerForm) {
 
         switch (data.role) {
           case 'admin':
-            window.location.href = 'admin/dashboard.html';
+            window.location.href = '../admin/dashboard.html';
             break;
           case 'doctor':
-            window.location.href = 'doctor/dashboard.html';
+            window.location.href = '../doctor/dashboard.html';
             break;
           case 'pharmacist':
-            window.location.href = 'pharmacist/dashboard.html';
+            window.location.href = '../pharmacist/dashboard.html';
             break;
           case 'lab_tech':
-            window.location.href = 'labtech/dashboard.html';
+            window.location.href = '../labtech/dashboard.html';
             break;
           case 'patient':
           default:
-            window.location.href = 'patient/dashboard.html';
+            window.location.href = '../patient/dashboard.html';
             break;
         }
       } else {
