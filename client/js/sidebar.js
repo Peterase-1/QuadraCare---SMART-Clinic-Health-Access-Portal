@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
     } else if (user.role === 'nurse') {
       linksHtml += `
-                <a href="../nurse/index.html" class="nav-link"><i class="fas fa-user-nurse"></i> <span>Dashboard</span></a>
+                <a href="../nurse/dashboard.html" class="nav-link"><i class="fas fa-user-nurse"></i> <span>Dashboard</span></a>
             `;
     } else if (user.role === 'patient') {
       linksHtml += `
