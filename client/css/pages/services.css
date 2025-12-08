@@ -1,0 +1,69 @@
+/* =========================================
+   Services Split Section
+   ========================================= */
+.services-split {
+  padding: 4rem 5%;
+  background: var(--section-blue);
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 4rem;
+  align-items: center;
+  color: white;
+}
+
+.services-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  color: white;
+}
+
+.services-text p {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+}
+
+.services-grid-right {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.service-box {
+  background: var(--bg-white);
+  padding: 1.5rem;
+  border-radius: 15px;
+  color: var(--text-main);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.service-box-icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(89, 159, 172, 0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.service-box h4 {
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.service-box p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+@media (max-width: 968px) {
+  .services-split {
+    grid-template-columns: 1fr;
+  }
+}
