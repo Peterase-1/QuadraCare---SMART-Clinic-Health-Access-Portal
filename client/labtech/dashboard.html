@@ -34,32 +34,31 @@
       </header>
 
       <div class="container-fluid">
-        <div style="margin-bottom: 2rem;">
+        <div class="dashboard-header-section">
           <h1>Laboratory Dashboard</h1>
           <p style="color: var(--text-secondary);">Manage lab requests and results.</p>
         </div>
 
         <!-- Stats Grid -->
-        <div
-          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+        <div class="stats-grid">
           <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div class="card-header-flex">
               <div>
                 <p style="color: var(--text-secondary); font-size: 0.9rem;">Pending Requests</p>
-                <h2 id="pendingCount" style="color: #d97706;">0</h2>
+                <h2 id="pendingCount" class="text-yellow">0</h2>
               </div>
-              <div style="background: #fffbeb; padding: 0.5rem; border-radius: 8px; color: #d97706;">
+              <div class="card-icon-wrapper icon-yellow-bg">
                 <i class="fa-solid fa-hourglass-half"></i>
               </div>
             </div>
           </div>
           <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div class="card-header-flex">
               <div>
                 <p style="color: var(--text-secondary); font-size: 0.9rem;">Completed Results</p>
-                <h2 id="completedCount" style="color: #16a34a;">0</h2>
+                <h2 id="completedCount" class="text-green">0</h2>
               </div>
-              <div style="background: #dcfce7; padding: 0.5rem; border-radius: 8px; color: #16a34a;">
+              <div class="card-icon-wrapper icon-green-bg">
                 <i class="fa-solid fa-check-circle"></i>
               </div>
             </div>
@@ -68,8 +67,8 @@
 
         <!-- Requests List -->
         <div class="card">
-          <h3 style="margin-bottom: 1.5rem;">Lab Requests Queue</h3>
-          <div id="requestsList" style="display: grid; gap: 1rem;">
+          <h3 class="mb-3">Lab Requests Queue</h3>
+          <div id="requestsList" class="d-grid gap-2">
             <p>Loading requests...</p>
           </div>
         </div>
@@ -78,7 +77,7 @@
   </div>
 
   <!-- Lab Result Modal -->
-  <div id="labResultModal" class="modal" style="display: none;">
+  <div id="labResultModal" class="modal">
     <div class="modal-content" style="max-width: 800px;">
       <div class="modal-header">
         <h2 class="modal-title">Enter Lab Results</h2>
