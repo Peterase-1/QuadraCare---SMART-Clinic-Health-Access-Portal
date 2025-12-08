@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         localStorage.removeItem('user');
         localStorage.removeItem('token');
-        window.location.href = '../login.html';
+        window.location.href = '../pages/login.html';
       });
     }
   }
