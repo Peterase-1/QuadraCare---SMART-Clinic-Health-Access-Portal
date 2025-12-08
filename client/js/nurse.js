@@ -77,7 +77,8 @@ function renderRooms(rooms) {
     const hasPatients = room.patients && room.patients.length > 0;
 
     const card = document.createElement('div');
-    card.className = 'glass-panel';
+    card.className = 'card';
+    card.style.height = '100%'; // Ensure full height consistency
     card.style.padding = '1.5rem';
     card.style.transition = 'transform 0.3s';
     card.onmouseover = () => card.style.transform = 'translateY(-5px)';
