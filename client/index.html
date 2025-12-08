@@ -24,18 +24,18 @@
     </div>
     <div class="nav-links">
       <a href="index.html">Home</a>
-      <a href="services.html">Service</a>
-      <a href="about.html">About Us</a>
-      <a href="contact.html">Contact Us</a>
-      <button class="theme-toggle" onclick="toggleTheme()">
+      <a href="pages/services.html">Service</a>
+      <a href="pages/about.html">About Us</a>
+      <a href="pages/contact.html">Contact Us</a>
+      <button class="theme-toggle">
         <i class="fa-solid fa-moon"></i>
       </button>
     </div>
-    <div style="display: flex; gap: 1rem; align-items: center;">
-      <button class="theme-toggle mobile-toggle" onclick="toggleTheme()" style="display: none;">
+    <div class="d-flex gap-2 align-items-center">
+      <button class="theme-toggle mobile-toggle d-none">
         <i class="fa-solid fa-moon"></i>
       </button>
-      <a href="login.html" class="btn-primary">Book Appointment</a>
+      <a href="pages/login.html" class="btn-primary">Book Appointment</a>
     </div>
   </nav>
 
@@ -46,7 +46,7 @@
         <h1 class="hero-title">QuadraCare: Your Partner in Smart Health</h1>
         <p class="hero-subtitle">Experience the future of healthcare with our AI-powered clinic management system.
           Seamless appointments, instant lab results, and personalized care—all in one secure platform.</p>
-        <a href="login.html" class="hero-btn">
+        <a href="pages/login.html" class="hero-btn">
           View Our Hospital <i class="fa-solid fa-play-circle"></i>
         </a>
       </div>
@@ -54,15 +54,14 @@
         <div class="hero-image-bg"></div>
         <img src="assets/hero_hospital.png" alt="Hospital Vector" class="hero-img">
         <!-- Floating Badge Placeholder -->
-        <div
-          style="position: absolute; top: 20px; right: 20px; background: white; color: black; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <div class="hero-floating-badge">
           <i class="fa-solid fa-circle" style="color: #22c55e; font-size: 0.6rem; margin-right: 5px;"></i> 2500+ Doctors
           Online
         </div>
       </div>
     </div>
 
-    <!-- Stats Row -->
+    <!-- ... stats row ... -->
     <div class="stats-row" data-aos="fade-up">
       <div class="stat-box">
         <div class="stat-number">4500+</div>
@@ -133,7 +132,7 @@
       <h2>World-Class Healthcare Services for you and your loved ones</h2>
       <p>Advanced diagnostic imaging services including X-ray, CT scan, MRI, and ultrasound to assist in accurate and
         efficient diagnosis of medical conditions.</p>
-      <a href="#" class="hero-btn" style="background: transparent; border: 1px solid white; color: white;">More Service
+      <a href="#" class="hero-btn btn-transparent-white">More Service
         <i class="fa-solid fa-arrow-right"></i></a>
     </div>
 
@@ -165,7 +164,7 @@
   <footer>
     <div class="footer-content">
       <div class="footer-col">
-        <div class="logo" style="margin-bottom: 1rem;">
+        <div class="logo mb-2">
           <i class="fa-solid fa-heart-pulse"></i> QuadraCare
         </div>
         <p style="color: var(--text-muted); font-size: 0.9rem;">
@@ -176,8 +175,8 @@
         <h4>Quick Links</h4>
         <ul>
           <li><a href="#">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Services</a></li>
+          <li><a href="pages/about.html">About Us</a></li>
+          <li><a href="pages/services.html">Services</a></li>
           <li><a href="#">Blog</a></li>
         </ul>
       </div>
@@ -205,24 +204,13 @@
   </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/theme.js"></script>
   <script>
     AOS.init({
       duration: 800,
       once: true,
       offset: 100
     });
-
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-      const icon = document.querySelector('.theme-toggle i');
-      if (document.body.classList.contains('dark-mode')) {
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-      } else {
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
-      }
-    }
   </script>
 </body>
 
