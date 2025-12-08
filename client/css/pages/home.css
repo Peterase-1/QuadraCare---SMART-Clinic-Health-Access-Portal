@@ -1,0 +1,86 @@
+/* =========================================
+   Stats & Features (Home Page)
+   ========================================= */
+.stats-row {
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem 0;
+  margin-top: 2rem;
+  background: var(--bg-white);
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* =========================================
+   Search Bar Section (Home Page)
+   ========================================= */
+.search-bar-section {
+  padding: 2rem 5%;
+  margin-top: -2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.search-bar-container {
+  background: var(--section-blue);
+  padding: 1.5rem;
+  border-radius: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.search-input-group {
+  position: relative;
+}
+
+.search-select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: white;
+  appearance: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.search-select option {
+  color: var(--text-main);
+  background: var(--bg-white);
+}
+
+.search-select::placeholder {
+  color: white;
+}
+
+.search-btn {
+  background: white;
+  color: var(--primary);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-btn:hover {
+  background: var(--bg-light);
+}
