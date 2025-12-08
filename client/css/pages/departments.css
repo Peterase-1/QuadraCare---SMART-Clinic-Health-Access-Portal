@@ -1,0 +1,49 @@
+/* =========================================
+   Departments Section
+   ========================================= */
+.departments-section {
+  padding: 4rem 5%;
+  text-align: center;
+}
+
+.dept-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.dept-subtitle {
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+}
+
+.dept-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.dept-card {
+  width: 100px;
+  height: 100px;
+  background: var(--bg-white);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: 0.3s;
+  cursor: pointer;
+  box-shadow: var(--card-shadow);
+}
+
+.dept-card:hover {
+  background: var(--bg-white);
+  color: var(--primary);
+  border-color: var(--primary);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(89, 159, 172, 0.2);
+}
