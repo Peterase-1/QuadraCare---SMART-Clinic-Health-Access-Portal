@@ -51,14 +51,14 @@
 
       <!-- Dashboard Content -->
       <div class="container-fluid">
-        <div style="margin-bottom: 2rem;">
+        <div class="dashboard-header-section">
           <h1>Emergency Room Dashboard</h1>
           <p style="color: var(--text-secondary);">Manage incoming ambulance requests and assign doctors.</p>
         </div>
 
         <!-- Requests List -->
         <div class="card">
-          <h3 style="margin-bottom: 1.5rem;">Incoming Requests</h3>
+          <h3 class="mb-3">Incoming Requests</h3>
           <div id="requestsList">
             <p style="color: var(--text-secondary);">Loading requests...</p>
           </div>
@@ -68,7 +68,7 @@
   </div>
 
   <!-- Assign Doctor Modal -->
-  <div id="assignDoctorModal" class="modal" style="display: none;">
+  <div id="assignDoctorModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
         <h2 class="modal-title">Assign Doctor</h2>
