@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - QuadraCare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+    </div>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="services.html">Service</a>
+      <a href="about.html" class="text-primary">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <button class="theme-toggle">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+    <div class="d-flex gap-2 align-items-center">
+      <button class="theme-toggle mobile-toggle d-none">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <a href="login.html" class="btn-primary">Book Appointment</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header" data-aos="fade-down">
+    <h1>About Us</h1>
+    <p>We are dedicated to revolutionizing healthcare through technology and compassion.</p>
+  </header>
+
+  <!-- Content -->
+  <section class="content-section">
+    <div class="about-grid">
+      <div class="about-text" data-aos="fade-right">
+        <h2>Our Mission</h2>
+        <p>At QuadraCare, our mission is to make high-quality healthcare accessible to everyone. We believe that
+          technology can bridge the gap between patients and doctors, ensuring faster diagnoses and better outcomes.</p>
+        <p>We combine state-of-the-art medical facilities with an intelligent digital platform to provide a seamless
+          experience for our patients.</p>
+
+        <h2 class="mt-4">Our Vision</h2>
+        <p>To be the leading smart healthcare provider, setting new standards for patient care and medical innovation.
+        </p>
+      </div>
+      <div class="about-image" data-aos="fade-left">
+        <img src="../assets/hero_hospital.png" alt="Hospital Building" class="about-img">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <div class="logo" style="margin-bottom: 1rem;">
+          <i class="fa-solid fa-heart-pulse"></i> QuadraCare
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          Empowering healthcare with technology. We are dedicated to providing the best medical experience.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Radiology</a></li>
+          <li><a href="#">Emergency</a></li>
+          <li><a href="#">Laboratory</a></li>
+          <li><a href="#">Pharmacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">support@quadracare.com</a></li>
+          <li><a href="#">+1 234 567 890</a></li>
+        </ul>
+      </div>
+    </div>
+    <div
+      style="text-align: center; color: var(--text-muted); font-size: 0.8rem; padding-top: 2rem; border-top: 1px solid #e2e8f0;">
+      &copy; 2024 QuadraCare. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="../js/theme.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100
+    });
+  </script>
+</body>
+
+</html>
