@@ -1,0 +1,15 @@
+/* =========================================
+   Responsive Grid Utility
+   ========================================= */
+.responsive-grid {
+  display: grid;
+  gap: 2rem;
+  width: 100%;
+}
+
+@media (max-width: 968px) {
+  .responsive-grid {
+    display: flex !important;
+    flex-direction: column;
+  }
+}
