@@ -1,0 +1,38 @@
+/* =========================================
+   Footer
+   ========================================= */
+footer {
+  padding: 4rem 5% 2rem;
+  background: var(--bg-white);
+  margin-top: 2rem;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-col h4 {
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col ul li {
+  margin-bottom: 0.8rem;
+}
+
+.footer-col a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-col a:hover {
+  color: var(--primary);
+}
