@@ -92,7 +92,7 @@ function checkAuth(requiredRole) {
       switch (userRole) {
         case 'admin': window.location.href = '../admin/dashboard.html'; break;
         case 'doctor': window.location.href = '../doctor/dashboard.html'; break;
-        case 'nurse': window.location.href = '../nurse/index.html'; break;
+        case 'nurse': window.location.href = '../nurse/dashboard.html'; break;
         case 'lab_tech': window.location.href = '../labtech/dashboard.html'; break;
         case 'patient': window.location.href = '../patient/dashboard.html'; break;
         case 'emergency': window.location.href = '../emergency/dashboard.html'; break;
