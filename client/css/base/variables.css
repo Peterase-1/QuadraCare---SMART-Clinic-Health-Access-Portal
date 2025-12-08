@@ -1,0 +1,32 @@
+:root {
+  /* Colors extracted from reference image */
+  --primary: #599fac;
+  --primary-dark: #3d7a85;
+  --accent: #599fac;
+  --bg-light: #f0f6f9;
+  --bg-white: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  --section-blue: #6faab5;
+
+  /* Dashboard Specific Variables (Mapped to Theme) */
+  --primary-color: var(--primary);
+  --text-secondary: var(--text-muted);
+  --bg-sidebar: #1e293b;
+  --radius-lg: 1rem;
+  --shadow-lg: var(--card-shadow);
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+  --bg-light: #0f172a;
+  --bg-white: #1e293b;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --section-blue: #1e293b;
+
+  /* Dashboard Dark Mode Overrides */
+  --bg-sidebar: #0f172a;
+}
