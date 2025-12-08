@@ -1,0 +1,81 @@
+/* About Page Styles */
+
+/* Navbar Specifics if any (reusing global but keeping structure) */
+/* Reusing global nav styles from base/header.css */
+
+/* Page Header */
+.page-header {
+  padding: 4rem 5%;
+  text-align: center;
+  background: var(--section-blue, #6faab5);
+  color: white;
+  border-radius: 0 0 50px 50px;
+  margin-bottom: 4rem;
+}
+
+.page-header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.page-header p {
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+/* Content Section */
+.content-section {
+  padding: 0 5% 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+  position: relative;
+  display: inline-block;
+}
+
+.about-text h2::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 4px;
+  background: var(--primary);
+  margin-top: 0.5rem;
+  border-radius: 2px;
+}
+
+.about-text p {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.about-img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease;
+}
+
+.about-img:hover {
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+}
