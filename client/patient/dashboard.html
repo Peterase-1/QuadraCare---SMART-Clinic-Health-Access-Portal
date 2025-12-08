@@ -31,7 +31,7 @@
         <a href="records.html" class="nav-link">
           <i class="fa-solid fa-file-medical"></i> Medical Records
         </a>
-        <a href="#" id="logoutBtn" class="nav-link" style="margin-top: auto;">
+        <a href="#" id="logoutBtn" class="nav-link mt-auto">
           <i class="fa-solid fa-right-from-bracket"></i> Logout
         </a>
       </nav>
@@ -58,56 +58,54 @@
 
       <!-- Dashboard Content -->
       <div class="container-fluid">
-        <div style="margin-bottom: 2rem;">
+        <div class="dashboard-header-section">
           <h1>Overview</h1>
           <p style="color: var(--text-secondary);">Welcome back! Here's your health summary.</p>
         </div>
 
         <!-- Stats Grid -->
-        <div
-          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+        <div class="stats-grid">
           <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div class="card-header-flex">
               <div>
                 <p style="color: var(--text-secondary); font-size: 0.9rem;">Total Appointments</p>
                 <h2 id="totalAppts" style="color: var(--primary-color);">0</h2>
               </div>
-              <div style="background: #eff6ff; padding: 0.5rem; border-radius: 8px; color: var(--primary-color);">
+              <div class="card-icon-wrapper icon-blue-bg">
                 <i class="fa-solid fa-calendar"></i>
               </div>
             </div>
           </div>
           <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div class="card-header-flex">
               <div>
                 <p style="color: var(--text-secondary); font-size: 0.9rem;">Pending Requests</p>
-                <h2 id="pendingAppts" style="color: #d97706;">0</h2>
+                <h2 id="pendingAppts" class="text-yellow">0</h2>
               </div>
-              <div style="background: #fffbeb; padding: 0.5rem; border-radius: 8px; color: #d97706;">
+              <div class="card-icon-wrapper icon-yellow-bg">
                 <i class="fa-solid fa-clock"></i>
               </div>
             </div>
           </div>
           <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div class="card-header-flex">
               <div>
                 <p style="color: var(--text-secondary); font-size: 0.9rem;">Medical Records</p>
-                <h2 id="totalRecords" style="color: #16a34a;">0</h2>
+                <h2 id="totalRecords" class="text-green">0</h2>
               </div>
-              <div style="background: #dcfce7; padding: 0.5rem; border-radius: 8px; color: #16a34a;">
+              <div class="card-icon-wrapper icon-green-bg">
                 <i class="fa-solid fa-file-waveform"></i>
               </div>
             </div>
           </div>
           <!-- Ambulance Card -->
-          <div class="card" style="background: #fef2f2; border: 1px solid #fee2e2; cursor: pointer;"
-            onclick="openAmbulanceModal()">
-            <div style="display: flex; justify-content: space-between; align-items: start;">
+          <div class="card card-emergency" style="cursor: pointer; border-width: 1px;" onclick="openAmbulanceModal()">
+            <div class="card-header-flex">
               <div>
                 <p style="color: #b91c1c; font-size: 0.9rem; font-weight: 600;">Emergency</p>
                 <h3 style="color: #ef4444; margin-top: 0.2rem;">Order Ambulance</h3>
               </div>
-              <div style="background: #fee2e2; padding: 0.5rem; border-radius: 8px; color: #ef4444;">
+              <div class="card-icon-wrapper icon-red-bg">
                 <i class="fa-solid fa-truck-medical"></i>
               </div>
             </div>
@@ -116,7 +114,7 @@
 
         <!-- Recent Activity -->
         <div class="card">
-          <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Recent Activity</h3>
+          <h3 class="mb-3" style="font-size: 1.25rem;">Recent Activity</h3>
           <div id="recentActivity">
             <p style="color: var(--text-secondary);">Loading...</p>
           </div>
@@ -126,15 +124,14 @@
   </div>
 
   <!-- Ambulance Modal -->
-  <div id="ambulanceModal" class="modal" style="display: none;">
+  <div id="ambulanceModal" class="modal">
     <div class="modal-content modal-lg">
       <div class="modal-header" style="background: #fef2f2; border-bottom-color: #fee2e2;">
         <h2 class="modal-title" style="color: #b91c1c;"><i class="fa-solid fa-truck-medical"></i> Request Ambulance</h2>
         <button type="button" class="modal-close" onclick="closeAmbulanceModal()">&times;</button>
       </div>
       <form id="ambulanceForm">
-        <div
-          style="background: #fff5f5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid #fed7d7;">
+        <div class="alert-box alert-danger">
           <p style="color: #c53030; font-weight: 500; margin: 0;">
             <i class="fa-solid fa-triangle-exclamation"></i> Only use this for medical emergencies. False requests may
             lead to account suspension.
