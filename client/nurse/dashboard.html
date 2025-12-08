@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nurse Dashboard - QuadraCare</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .nurse-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .room-card {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-left: 5px solid #2ecc71;
+    }
+
+    .room-card h3 {
+      margin-top: 0;
+      color: #2c3e50;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .patient-info {
+      background: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+
+    .action-btn {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    .action-btn:hover {
+      background: #2980b9;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .log-form input,
+    .log-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <div id="sidebar-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div>
+          <button class="hamburger-menu"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div class="user-profile">
+          <div class="text-right">
+            <h4 id="nurseName" style="font-size: 1rem; margin:0;">Nurse Name</h4>
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">Nurse Account</span>
+          </div>
+          <div class="avatar"><i class="fas fa-user-nurse"></i></div>
+        </div>
+      </header>
+
+      <div class="container-fluid">
+        <div style="margin-bottom: 2rem;">
+          <h1>Nurse Dashboard</h1>
+          <p style="color: var(--text-secondary);">Overview of your assigned units.</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Assigned Rooms</p>
+                <h2 id="totalRooms" style="color: var(--primary-color);">0</h2>
+              </div>
+              <div style="background: #eff6ff; padding: 0.5rem; border-radius: 8px; color: var(--primary-color);">
+                <i class="fas fa-procedures"></i>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Active Patients</p>
+                <h2 id="activePatients" style="color: #16a34a;">0</h2>
+              </div>
+              <div style="background: #dcfce7; padding: 0.5rem; border-radius: 8px; color: #16a34a;">
+                <i class="fas fa-user-injured"></i>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Critical Cases</p>
+                <h2 style="color: #ef4444;">0</h2>
+              </div>
+              <div style="background: #fee2e2; padding: 0.5rem; border-radius: 8px; color: #ef4444;">
+                <i class="fas fa-heartbeat"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rooms Grid -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <h2 style="color: var(--text-main);">Assigned Units</h2>
+          <div class="search-bar glass-panel" style="padding: 0.5rem 1rem; border-radius: 50px;">
+            <i class="fas fa-search" style="color: var(--text-muted);"></i>
+            <input type="text" placeholder="Search Room or Patient..."
+              style="border: none; background: transparent; outline: none; margin-left: 0.5rem; width: 200px;">
+          </div>
+        </div>
+
+        <div class="nurse-grid" id="roomsContainer"
+          style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem;">
+          <!-- Loading State -->
+          <div class="glass-panel" style="grid-column: 1 / -1; padding: 4rem; text-align: center;">
+            <i class="fas fa-spinner fa-spin fa-3x" style="color: var(--primary); margin-bottom: 1rem;"></i>
+            <p>Syncing Inpatient Data...</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Daily Log Modal -->
+  <div id="logModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Daily Patient Log</h2>
+      <div id="modalPatientInfo" style="margin-bottom: 15px; font-weight: bold;"></div>
+      <form id="dailyLogForm" class="log-form">
+        <input type="hidden" id="currentRecordId">
+
+        <h3>Vitals</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div>
+            <label>BP (mmHg)</label>
+            <input type="text" id="logBP" placeholder="120/80" required>
+          </div>
+          <div>
+            <label>Temp (°C)</label>
+            <input type="text" id="logTemp" placeholder="36.5" required>
+          </div>
+          <div>
+            <label>Heart Rate (bpm)</label>
+            <input type="text" id="logHR" placeholder="72" required>
+          </div>
+          <div>
+            <label>O2 Sat (%)</label>
+            <input type="text" id="logO2" placeholder="98" required>
+          </div>
+        </div>
+
+        <h3>Medications</h3>
+        <div id="medicationSection">
+          <input type="text" id="medName" placeholder="Medicine Name">
+          <input type="text" id="medDosage" placeholder="Dosage">
+          <button type="button" onclick="addMedEntry()" style="margin-bottom: 10px; width: auto; padding: 5px 10px;">Add
+            Med</button>
+          <div id="medList" style="font-size: 0.9em; color: #666;"></div>
+        </div>
+
+        <h3>Notes</h3>
+        <textarea id="logNotes" rows="3" placeholder="Patient condition observations..."></textarea>
+
+        <button type="submit" class="action-btn">Save Daily Log</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/nurse.js"></script>
+</body>
+
+</html>
