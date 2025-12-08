@@ -43,6 +43,9 @@ if (loginForm) {
           case 'emergency':
             window.location.href = 'emergency/dashboard.html';
             break;
+          case 'nurse':
+            window.location.href = 'nurse/dashboard.html';
+            break;
           case 'patient':
           default:
             window.location.href = 'patient/dashboard.html';
