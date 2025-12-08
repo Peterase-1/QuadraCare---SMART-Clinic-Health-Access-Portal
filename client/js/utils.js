@@ -76,8 +76,8 @@ function checkAuth(requiredRole) {
     if (!user || !user.token) {
       alert('CRITICAL DEBUG: Session Lost! No User/Token in localStorage. Redirecting to Login.');
       console.warn('Debug: No User or Token found in localStorage! Redirecting to login.');
-      if (window.location.pathname !== '/login.html' && !window.location.pathname.includes('login.html')) {
-        window.location.href = '/login.html';
+      if (window.location.pathname !== '/pages/login.html' && !window.location.pathname.includes('login.html')) {
+        window.location.href = '../pages/login.html';
       }
       return;
     }
@@ -98,13 +98,13 @@ function checkAuth(requiredRole) {
         case 'emergency': window.location.href = '../emergency/dashboard.html'; break;
         default:
           console.error('Unknown role, redirecting to login');
-          window.location.href = '/login.html';
+          window.location.href = '../pages/login.html';
       }
     }
   } catch (error) {
     console.error('Auth Check Failed', error);
-    if (window.location.pathname !== '/login.html') {
-      window.location.href = '/login.html';
+    if (window.location.pathname !== '/pages/login.html') {
+      window.location.href = '../pages/login.html';
     }
   }
 }
