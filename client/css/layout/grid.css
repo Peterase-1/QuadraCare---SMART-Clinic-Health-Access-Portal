@@ -7,6 +7,22 @@
   width: 100%;
 }
 
+/* Admin Split Layout (Sidebar Form + Main Content) */
+.admin-split-grid {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  /* Fixed width for form, remaining for list */
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 1200px) {
+  .admin-split-grid {
+    grid-template-columns: 1fr;
+    /* Stack on smaller screens */
+  }
+}
+
 @media (max-width: 968px) {
   .responsive-grid {
     display: flex !important;
