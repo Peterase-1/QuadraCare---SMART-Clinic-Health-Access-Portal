@@ -48,3 +48,17 @@
 .dashboard-header-section {
   margin-bottom: 2rem;
 }
+
+.page-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.page-actions {
+  display: flex;
+  gap: 1rem;
+}
