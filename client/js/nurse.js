@@ -170,13 +170,14 @@ function setupEventListeners() {
       };
       const notes = document.getElementById('logNotes').value;
 
+      const user = JSON.parse(localStorage.getItem('user'));
+
       try {
-        // Submit logic... (Keep existing logic or simplified for now)
         const resLog = await fetch(`${API_URL}/nurse/records/${recordId}/log`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            'Authorization': `Bearer ${user.token}`
           },
           body: JSON.stringify({ vitals, notes })
         });
