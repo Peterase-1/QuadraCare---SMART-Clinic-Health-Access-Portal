@@ -15,6 +15,14 @@ const AmbulanceRequestSchema = new mongoose.Schema({
     enum: ['Critical', 'Non-Critical'],
     default: 'Critical'
   },
+  phoneNumber: {
+    type: String,
+    required: true
+  },
+  caseDescription: {
+    type: String,
+    required: true
+  },
   status: {
     type: String,
     enum: ['Pending', 'Dispatched', 'Completed'],
