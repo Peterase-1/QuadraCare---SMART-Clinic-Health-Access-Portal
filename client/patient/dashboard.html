@@ -31,9 +31,7 @@
         <a href="records.html" class="nav-link">
           <i class="fa-solid fa-file-medical"></i> Medical Records
         </a>
-        <a href="#" id="logoutBtn" class="nav-link mt-auto">
-          <i class="fa-solid fa-right-from-bracket"></i> Logout
-        </a>
+
       </nav>
     </aside>
 
@@ -99,15 +97,19 @@
             </div>
           </div>
           <!-- Ambulance Card -->
-          <div class="card card-emergency" style="cursor: pointer; border-width: 1px;" onclick="openAmbulanceModal()">
+          <div class="card card-emergency ripple-effect" style="cursor: pointer; border-width: 1px;"
+            onclick="openAmbulanceModal()">
             <div class="card-header-flex">
               <div>
                 <p style="color: #b91c1c; font-size: 0.9rem; font-weight: 600;">Emergency</p>
                 <h3 style="color: #ef4444; margin-top: 0.2rem;">Order Ambulance</h3>
               </div>
-              <div class="card-icon-wrapper icon-red-bg">
+              <div class="card-icon-wrapper icon-red-bg heartbeat-animation">
                 <i class="fa-solid fa-truck-medical"></i>
               </div>
+            </div>
+            <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #b91c1c;">
+              <i class="fa-solid fa-hand-pointer"></i> Click to Request
             </div>
           </div>
         </div>
@@ -141,11 +143,22 @@
         <div class="form-group">
           <label class="form-label">Current Location / Address</label>
           <textarea id="ambulanceLocation" class="form-input" rows="3"
-            placeholder="Enter detailed address or landmarks..." required></textarea>
+            placeholder="e.g. 123 Main St, Near Central Park (Be specific for faster response)" required></textarea>
           <button type="button" class="btn btn-outline" onclick="getLocation()"
             style="margin-top: 0.5rem; font-size: 0.85rem;">
             <i class="fa-solid fa-location-crosshairs"></i> Use My Current Location
           </button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" id="ambulancePhone" class="form-input" placeholder="e.g. +251 911 234 567" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Case Description</label>
+          <textarea id="ambulanceCase" class="form-input" rows="2" placeholder="Briefly describe the emergency..."
+            required></textarea>
         </div>
 
         <div class="form-group">
