@@ -7,6 +7,11 @@ body.auth-page {
   justify-content: center;
   min-height: 100vh;
   background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  transition: background 0.3s ease;
+}
+
+body.auth-page.dark-mode {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }
 
 .auth-card {
@@ -16,6 +21,13 @@ body.auth-page {
   padding: 2.5rem;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .auth-card {
+  background: #1e293b;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  border: 1px solid #334155;
 }
 
 .auth-header {
@@ -29,8 +41,16 @@ body.auth-page {
   margin-bottom: 0.5rem;
 }
 
+body.dark-mode .auth-header h1 {
+  color: #38bdf8;
+}
+
 .auth-header p {
   color: var(--text-secondary);
+}
+
+body.dark-mode .auth-header p {
+  color: #94a3b8;
 }
 
 .btn-full-width {
@@ -44,7 +64,46 @@ body.auth-page {
   color: var(--text-secondary);
 }
 
+body.dark-mode .text-center-small {
+  color: #94a3b8;
+}
+
 .link-highlight {
   color: var(--primary-color);
   font-weight: 600;
+}
+
+body.dark-mode .link-highlight {
+  color: #38bdf8;
+}
+
+/* Theme Toggle Button Specifics for Auth Page */
+.auth-page .theme-toggle {
+  color: var(--text-secondary);
+  transition: color 0.3s;
+}
+
+.auth-page .theme-toggle:hover {
+  color: var(--primary-color);
+}
+
+body.dark-mode .auth-page .theme-toggle {
+  color: #94a3b8;
+}
+
+body.dark-mode .auth-page .theme-toggle:hover {
+  color: #38bdf8;
+}
+
+/* Back Link */
+.auth-page a[href*="index.html"] {
+  color: var(--text-secondary) !important;
+}
+
+body.dark-mode .auth-page a[href*="index.html"] {
+  color: #94a3b8 !important;
+}
+
+body.dark-mode .auth-page a[href*="index.html"]:hover {
+  color: #38bdf8 !important;
 }
