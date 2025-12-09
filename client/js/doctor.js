@@ -1,9 +1,7 @@
 const API_URL = `${window.getApiBaseUrl()}/doctor`;
 const user = JSON.parse(localStorage.getItem('user'));
 
-if (!user || user.role !== 'doctor') {
-  window.location.href = '../login.html';
-}
+checkAuth('doctor');
 
 // Common: Display User Info & Logout
 const userInfoEl = document.getElementById('userInfo');
@@ -12,7 +10,7 @@ if (userInfoEl) userInfoEl.textContent = user.name;
 const userNameEl = document.getElementById('userName');
 if (userNameEl) userNameEl.textContent = user.name;
 
-// Logout logic is handled by sidebar.js
+// Logout logic is handled by sidebar.js and utils.js (Profile Dropdown)
 
 const headers = {
   'Content-Type': 'application/json',
