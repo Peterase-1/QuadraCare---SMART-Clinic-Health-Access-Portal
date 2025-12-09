@@ -16,6 +16,10 @@
 <body class="auth-page">
   <div class="auth-card">
     <div class="auth-header">
+      <a href="../index.html"
+        style="position: absolute; top: 20px; left: 20px; color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">
+        <i class="fa-solid fa-arrow-left"></i> Back to Home
+      </a>
       <h1><i class="fa-solid fa-heart-pulse"></i> QuadraCare</h1>
       <p>Create your account today.</p>
     </div>
@@ -31,6 +35,13 @@
       <div class="form-group">
         <label class="form-label" for="password">Password</label>
         <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+        <div class="validation-error" id="passwordError"></div>
+        <div class="password-strength-container" id="strengthContainer" style="display: none;">
+          <div class="strength-meter">
+            <div class="strength-bar" id="strengthBar"></div>
+          </div>
+          <div class="strength-text" id="strengthText"></div>
+        </div>
       </div>
 
       <button type="submit" class="btn btn-primary btn-full-width">Register</button>
@@ -38,9 +49,19 @@
         Already have an account? <a href="login.html" class="link-highlight">Login</a>
       </p>
     </form>
+
+    <!-- Theme Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px;">
+      <button class="theme-toggle" onclick="toggleTheme()"
+        style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-secondary);">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+
   </div>
   <script src="../js/utils.js"></script>
   <script src="../js/auth.js"></script>
+  <script src="../js/theme.js"></script>
 </body>
 
 </html>
