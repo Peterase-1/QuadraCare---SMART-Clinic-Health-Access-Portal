@@ -1,9 +1,7 @@
 const API_URL = `${window.getApiBaseUrl()}/labtech`;
 const user = JSON.parse(localStorage.getItem('user'));
 
-if (!user || user.role !== 'lab_tech') {
-  window.location.href = '../login.html';
-}
+checkAuth('lab_tech');
 
 // Common: Display User Info & Logout
 const userInfoEl = document.getElementById('userInfo');
@@ -43,31 +41,31 @@ if (window.location.pathname.includes('dashboard.html')) {
           return;
         }
         list.innerHTML = requests.map(r => `
-                    <div style="padding: 1rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
-                        <div style="flex: 1;">
-                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
-                                <h4 style="margin: 0;">${r.patient ? r.patient.name : 'Unknown Patient'}</h4>
+                    <div class="lab-queue-item">
+                        <div class="lab-queue-details">
+                            <div class="lab-patient-header">
+                                <h4 class="lab-patient-name">${r.patient ? r.patient.name : 'Unknown Patient'}</h4>
                                 <span class="badge badge-${r.status === 'lab_test' ? 'warning' : 'success'}">${r.status === 'lab_test' ? 'Pending' : 'Completed'}</span>
                             </div>
-                            <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">
+                            <p class="lab-test-info">
                                 <strong>Test:</strong> ${r.labRequest ? r.labRequest.testType : 'N/A'}
                             </p>
-                            <p style="margin: 0.5rem 0 0 0; color: var(--text-main); font-size: 0.9rem; background: #f8fafc; padding: 0.5rem; border-radius: 4px;">
+                            <p class="lab-desc-box">
                                 ${r.labRequest && r.labRequest.requestDescription ? r.labRequest.requestDescription : 'No details provided.'}
                             </p>
-                            <p style="margin: 0; color: var(--text-secondary); font-size: 0.8rem;">
+                            <p class="lab-meta-info">
                                 Dr. ${r.doctor ? r.doctor.name : 'Unknown'} • ${new Date(r.date).toLocaleDateString()}
                             </p>
-                            <button onclick='viewRequestDetails(${JSON.stringify(r.labRequest || {})})' class="btn btn-outline" style="margin-top: 0.5rem; padding: 0.25rem 0.5rem; font-size: 0.75rem;">
+                            <button onclick='viewRequestDetails(${JSON.stringify(r.labRequest || {})})' class="btn btn-outline btn-lab-details">
                                 <i class="fa-solid fa-eye"></i> View Full Details
                             </button>
                         </div>
                         ${r.status === 'lab_test' ? `
-                            <button onclick="uploadResult('${r._id}')" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                            <button onclick="uploadResult('${r._id}')" class="btn btn-primary btn-lab-action">
                                 <i class="fa-solid fa-upload"></i> Enter Results
                             </button>
                         ` : `
-                            <button disabled class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem; opacity: 0.6; cursor: not-allowed;">
+                            <button disabled class="btn btn-outline btn-lab-completed">
                                 Completed
                             </button>
                         `}
