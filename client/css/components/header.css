@@ -67,6 +67,75 @@
   color: var(--primary);
 }
 
+/* Desktop Actions (visible on large screens) */
+.desktop-actions {
+  display: flex !important;
+}
+
+/* Mobile Button styling */
+.mobile-only-btn {
+  display: none !important;
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Mobile Menu Button (Hamburger) */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-main);
+  cursor: pointer;
+  z-index: 1001;
+  /* Above menu */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .nav-links {
+    display: flex;
+    /* Needed for toggle to work from none */
+    position: fixed;
+    top: 0;
+    right: -100%;
+    /* Hidden by default */
+    width: 70%;
+    height: 100vh;
+    background: white;
+    /* Or dark mode color via theme overrides if needed */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    transition: right 0.3s ease-in-out;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  /* Dark Mode mobile menu background - needs to be handled via body class */
+  body.dark-mode .nav-links {
+    background: #1e293b;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .desktop-actions {
+    display: none !important;
+  }
+
+  .mobile-only-btn {
+    display: block !important;
+  }
+}
+
 /* =========================================
    Page Headers (About, Contact, Services)
    ========================================= */
