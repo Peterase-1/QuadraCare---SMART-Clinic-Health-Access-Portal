@@ -1,9 +1,7 @@
 const API_URL = `${window.getApiBaseUrl()}/patient`;
 const user = JSON.parse(localStorage.getItem('user'));
 
-if (!user || user.role !== 'patient') {
-  window.location.href = '../login.html';
-}
+checkAuth('patient');
 
 // Common: Display User Info & Logout
 const userInfoEl = document.getElementById('userInfo');
@@ -12,11 +10,7 @@ if (userInfoEl) userInfoEl.textContent = user.name;
 const userNameEl = document.getElementById('userName');
 if (userNameEl) userNameEl.textContent = user.name;
 
-document.getElementById('logoutBtn').addEventListener('click', (e) => {
-  e.preventDefault();
-  localStorage.removeItem('user');
-  window.location.href = '../login.html';
-});
+// Logout logic is handled by sidebar.js and utils.js (Profile Dropdown)
 
 const headers = {
   'Content-Type': 'application/json',
@@ -114,7 +108,7 @@ if (window.location.pathname.includes('appointments.html')) {
 
       // 2. Create Payment Intent
       try {
-        const res = await fetch('http://localhost:5000/api/payment/create-intent', {
+        const res = await fetch(`${window.getApiBaseUrl()}/payment/create-intent`, {
           method: 'POST',
           headers: { ...headers, 'Content-Type': 'application/json' },
           body: JSON.stringify({ type: 'appointment' })
@@ -239,7 +233,7 @@ if (window.location.pathname.includes('records.html')) {
     setTimeout(() => modal.classList.add('show'), 10);
 
     try {
-      const res = await fetch('http://localhost:5000/api/payment/create-intent', {
+      const res = await fetch(`${window.getApiBaseUrl()}/payment/create-intent`, {
         method: 'POST',
         headers: { ...headers, 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: 'lab_test' })
@@ -273,7 +267,7 @@ if (window.location.pathname.includes('records.html')) {
       btn.textContent = 'Pay & Proceed';
     } else {
       // Confirm with Backend
-      await fetch('http://localhost:5000/api/payment/confirm', {
+      await fetch(`${window.getApiBaseUrl()}/payment/confirm`, {
         method: 'POST',
         headers: { ...headers, 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -318,27 +312,135 @@ function getLocation() {
   }
 }
 
+// Ambulance Form Handler
 document.getElementById('ambulanceForm')?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const location = document.getElementById('ambulanceLocation').value;
   const urgency = document.getElementById('ambulanceUrgency').value;
+  const phoneNumber = document.getElementById('ambulancePhone').value;
+  const caseDescription = document.getElementById('ambulanceCase').value;
 
   try {
-    const res = await fetch('http://localhost:5000/api/ambulance/request', {
+    const res = await fetch(`${window.getApiBaseUrl()}/ambulance/request`, {
       method: 'POST',
       headers: headers,
-      body: JSON.stringify({ location, urgency })
+      body: JSON.stringify({ location, urgency, phoneNumber, caseDescription })
     });
 
     if (res.ok) {
-      alert('Ambulance requested successfully! Help is on the way.');
+      const data = await res.json();
+      showToast('Ambulance requested successfully! Help is on the way.', 'success');
       closeAmbulanceModal();
+      e.target.reset();
+      // Start tracking status
+      trackAmbulanceStatus(data.request._id);
     } else {
       const data = await res.json();
-      alert(data.message || 'Failed to request ambulance');
+      showToast(data.message || 'Failed to request ambulance', 'error');
     }
   } catch (error) {
     console.error('Error:', error);
-    alert('An error occurred');
+    showToast('An error occurred', 'error');
+  }
+});
+
+// Function to track ambulance status
+let ambulancePollInterval = null;
+
+function trackAmbulanceStatus(requestId) {
+  if (ambulancePollInterval) {
+    clearInterval(ambulancePollInterval); // Clear existing to prevent duplicates
+  }
+
+  let statusContainer = document.getElementById('ambulanceStatusContainer');
+
+  // Create container if it doesn't exist
+  if (!statusContainer) {
+    const containerFluid = document.querySelector('.container-fluid');
+    if (containerFluid) {
+      statusContainer = document.createElement('div');
+      statusContainer.id = 'ambulanceStatusContainer';
+      statusContainer.className = 'glass-panel';
+      statusContainer.style.marginBottom = '1rem';
+      statusContainer.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0; color: #ef4444;"><i class="fa-solid fa-truck-medical fa-beat"></i> Ambulance Requested</h3>
+                    <span id="ambStatusBadge" class="badge badge-warning">Pending</span>
+                </div>
+                <p style="margin: 0.5rem 0; color: var(--text-secondary);">We are processing your request. Please wait...</p>
+                <div style="margin-top: 1rem; height: 4px; background: #fee2e2; border-radius: 2px; overflow: hidden;">
+                    <div style="height: 100%; background: #ef4444; width: 30%; animation: loading 2s infinite ease-in-out;"></div>
+                </div>
+            `;
+      // Insert at the top of the container-fluid, before the welcome header
+      const dashboardHeader = document.querySelector('.dashboard-header-section');
+      if (dashboardHeader) {
+        containerFluid.insertBefore(statusContainer, dashboardHeader);
+      } else {
+        containerFluid.insertBefore(statusContainer, containerFluid.firstChild);
+      }
+    } else {
+      console.error('Frontend Error: .container-fluid not found, cannot display ambulance status.');
+      return; // Exit if we can't show UI
+    }
+  }
+
+  // Polling function
+  ambulancePollInterval = setInterval(async () => {
+    try {
+      const res = await fetch(`${window.getApiBaseUrl()}/ambulance/my-request`, { headers });
+      if (!res.ok) { // Handle 404 or errors gracefully
+        if (res.status === 404) {
+          // No request found
+          if (statusContainer) statusContainer.remove();
+          clearInterval(ambulancePollInterval);
+          return;
+        }
+        return; // Just skip this poll on other errors
+      }
+
+      const data = await res.json();
+
+      if (!data) {
+        // Request might have been deleted or completed
+        if (statusContainer) statusContainer.remove();
+        clearInterval(ambulancePollInterval);
+        return;
+      }
+
+      const badge = document.getElementById('ambStatusBadge');
+      if (badge) {
+        badge.className = `badge badge-${data.status === 'Pending' ? 'warning' : data.status === 'Dispatched' ? 'primary' : 'success'}`;
+        badge.textContent = data.status;
+      }
+
+      if (data.status === 'Completed') {
+        clearInterval(ambulancePollInterval);
+        showToast('Ambulance request completed.', 'success');
+        setTimeout(() => {
+          if (statusContainer) statusContainer.remove();
+        }, 5000);
+      }
+    } catch (e) {
+      console.error('Error polling status:', e);
+    }
+  }, 5000); // Check every 5 seconds
+}
+
+// Check on load if there are active requests
+document.addEventListener('DOMContentLoaded', async () => {
+  // Only run on dashboard
+  if (!window.location.pathname.includes('dashboard.html')) return;
+
+  try {
+    const res = await fetch(`${window.getApiBaseUrl()}/ambulance/my-request`, { headers });
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.status !== 'Completed') {
+        trackAmbulanceStatus(data._id);
+      }
+    }
+  } catch (e) {
+    console.log('No active ambulance request found');
   }
 });
