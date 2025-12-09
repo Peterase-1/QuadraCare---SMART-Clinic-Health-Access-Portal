@@ -7,9 +7,22 @@ const loginForm = document.getElementById('loginForm');
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    // const role = document.getElementById('role').value;
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const errorDiv = document.getElementById('loginError');
+
+    // Basic Validation
+    if (!emailInput.value || !passwordInput.value) {
+      if (errorDiv) {
+        errorDiv.textContent = 'Please fill in all fields';
+        errorDiv.style.display = 'block';
+        passwordInput.classList.add('error');
+      }
+      return;
+    }
+
+    const email = emailInput.value;
+    const password = passwordInput.value;
 
     try {
       const res = await fetch(`${API_URL}/login`, {
@@ -24,52 +37,78 @@ if (loginForm) {
 
       if (res.ok) {
         localStorage.setItem('user', JSON.stringify(data));
-        // alert(`LOGIN DEBUG: Server says you are a '${data.role}'. Redirecting...`);
-        // alert('Login Successful');
-
-        switch (data.role) {
-          case 'admin':
-            window.location.href = '../admin/dashboard.html';
-            break;
-          case 'doctor':
-            window.location.href = '../doctor/dashboard.html';
-            break;
-          case 'pharmacist':
-            window.location.href = '../pharmacist/dashboard.html';
-            break;
-          case 'lab_tech':
-            window.location.href = '../labtech/dashboard.html';
-            break;
-          case 'emergency':
-            window.location.href = '../emergency/dashboard.html';
-            break;
-          case 'nurse':
-            window.location.href = '../nurse/dashboard.html';
-            break;
-          case 'patient':
-          default:
-            window.location.href = '../patient/dashboard.html';
-            break;
-        }
+        window.location.href = getRedirectPath(data.role);
       } else {
-        alert(data.message);
+        if (errorDiv) {
+          errorDiv.textContent = data.message;
+          errorDiv.style.display = 'block';
+        } else {
+          alert(data.message);
+        }
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Login failed');
+      if (errorDiv) {
+        errorDiv.textContent = 'Connection error. Please try again.';
+        errorDiv.style.display = 'block';
+      }
     }
   });
+}
+
+function getRedirectPath(role) {
+  switch (role) {
+    case 'admin': return '../admin/dashboard.html';
+    case 'doctor': return '../doctor/dashboard.html';
+    case 'pharmacist': return '../pharmacist/dashboard.html';
+    case 'lab_tech': return '../labtech/dashboard.html';
+    case 'emergency': return '../emergency/dashboard.html';
+    case 'nurse': return '../nurse/dashboard.html';
+    default: return '../patient/dashboard.html';
+  }
 }
 
 // Register Form
 const registerForm = document.getElementById('registerForm');
 if (registerForm) {
+  const passwordInput = document.getElementById('password');
+  const strengthContainer = document.getElementById('strengthContainer');
+  const strengthBar = document.getElementById('strengthBar');
+  const strengthText = document.getElementById('strengthText');
+  const passwordError = document.getElementById('passwordError');
+
+  // Password Strength Checker
+  if (passwordInput) {
+    passwordInput.addEventListener('input', () => {
+      const password = passwordInput.value;
+      if (password.length > 0) {
+        strengthContainer.style.display = 'block';
+        const strength = checkStrength(password);
+        updateStrengthUI(strength);
+      } else {
+        strengthContainer.style.display = 'none';
+      }
+    });
+  }
+
   registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const role = 'patient'; // Default role for public registration
+    const password = passwordInput.value;
+    const role = 'patient';
+
+    // Validation
+    const strength = checkStrength(password);
+    if (strength.score < 2) { // Require at least Medium
+      passwordError.textContent = 'Password is too weak. Please use a stronger password.';
+      passwordError.style.display = 'block';
+      passwordInput.classList.add('error');
+      return;
+    } else {
+      passwordError.style.display = 'none';
+      passwordInput.classList.remove('error');
+    }
 
     try {
       const res = await fetch(`${API_URL}/register`, {
@@ -85,25 +124,7 @@ if (registerForm) {
       if (res.ok) {
         localStorage.setItem('user', JSON.stringify(data));
         alert('Registration Successful');
-
-        switch (data.role) {
-          case 'admin':
-            window.location.href = '../admin/dashboard.html';
-            break;
-          case 'doctor':
-            window.location.href = '../doctor/dashboard.html';
-            break;
-          case 'pharmacist':
-            window.location.href = '../pharmacist/dashboard.html';
-            break;
-          case 'lab_tech':
-            window.location.href = '../labtech/dashboard.html';
-            break;
-          case 'patient':
-          default:
-            window.location.href = '../patient/dashboard.html';
-            break;
-        }
+        window.location.href = getRedirectPath(data.role);
       } else {
         alert(data.message);
       }
@@ -112,4 +133,49 @@ if (registerForm) {
       alert('Registration failed');
     }
   });
+}
+
+function checkStrength(password) {
+  let score = 0;
+  if (password.length >= 8) score++;
+  if (/[A-Z]/.test(password)) score++;
+  if (/[0-9]/.test(password)) score++;
+  if (/[^A-Za-z0-9]/.test(password)) score++;
+
+  return {
+    score: score, // 0-4
+    label: getLabel(score)
+  };
+}
+
+function getLabel(score) {
+  if (score < 2) return 'Weak';
+  if (score < 3) return 'Medium';
+  return 'Strong';
+}
+
+function updateStrengthUI(strength) {
+  const strengthBar = document.getElementById('strengthBar');
+  const strengthText = document.getElementById('strengthText');
+
+  // Reset classes
+  strengthBar.className = 'strength-bar';
+
+  let width = '0%';
+  let colorClass = '';
+
+  if (strength.label === 'Weak') {
+    width = '33%';
+    colorClass = 'strength-weak';
+  } else if (strength.label === 'Medium') {
+    width = '66%';
+    colorClass = 'strength-medium';
+  } else {
+    width = '100%';
+    colorClass = 'strength-strong';
+  }
+
+  strengthBar.style.width = width;
+  strengthBar.classList.add(colorClass);
+  strengthText.textContent = strength.label;
 }
