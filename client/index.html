@@ -11,151 +11,273 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="css/style.css">
-</head>
+  <link rel="stylesheet" href="css/pages/home.css">
 </head>
 
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar">
+  <nav class="navbar" id="navbar">
     <div class="logo">
       <i class="fa-solid fa-heart-pulse"></i> QuadraCare
     </div>
+
+    <!-- Mobile Hamburger -->
+    <button class="mobile-menu-btn" aria-label="Toggle Menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
     <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="pages/services.html">Service</a>
+      <a href="index.html" class="active">Home</a>
+      <a href="pages/services.html">Services</a>
       <a href="pages/about.html">About Us</a>
       <a href="pages/contact.html">Contact Us</a>
-      <button class="theme-toggle">
+      <button class="theme-toggle desktop-toggle">
         <i class="fa-solid fa-moon"></i>
       </button>
+
+      <!-- Mobile Only Button inside menu -->
+      <a href="pages/login.html" class="btn-primary mobile-only-btn">Login / Portal</a>
     </div>
-    <div class="d-flex gap-2 align-items-center">
-      <button class="theme-toggle mobile-toggle d-none">
-        <i class="fa-solid fa-moon"></i>
-      </button>
-      <a href="pages/login.html" class="btn-primary">Book Appointment</a>
+
+    <div class="d-flex gap-2 align-items-center desktop-actions">
+      <a href="pages/login.html" class="btn-primary">Login / Portal</a>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <div class="hero-container">
-    <div class="hero-wrapper">
-      <div class="hero-text" data-aos="fade-right">
-        <h1 class="hero-title">QuadraCare: Your Partner in Smart Health</h1>
-        <p class="hero-subtitle">Experience the future of healthcare with our AI-powered clinic management system.
-          Seamless appointments, instant lab results, and personalized care—all in one secure platform.</p>
-        <a href="pages/login.html" class="hero-btn">
-          View Our Hospital <i class="fa-solid fa-play-circle"></i>
-        </a>
-      </div>
-      <div class="hero-image-container" data-aos="fade-left">
-        <div class="hero-image-bg"></div>
-        <img src="assets/hero_hospital.png" alt="Hospital Vector" class="hero-img">
-        <!-- Floating Badge Placeholder -->
-        <div class="hero-floating-badge">
-          <i class="fa-solid fa-circle" style="color: #22c55e; font-size: 0.6rem; margin-right: 5px;"></i> 2500+ Doctors
-          Online
+  <!-- 1. Premium Hero Section -->
+  <header class="premium-hero">
+    <div class="container-premium">
+      <div class="hero-grid">
+        <!-- Content -->
+        <div class="hero-content" data-aos="fade-right">
+          <div class="badge-new">
+            <i class="fa-solid fa-star"></i> #1 Voted Healthcare Platform
+          </div>
+          <h1 class="hero-title-enormous">
+            Healthcare <br>
+            <span class="text-gradient">reimagined.</span>
+          </h1>
+          <p class="hero-desc">
+            Experience the future of medicine. Connecting top-tier professionals with hospitals in seconds, powered by
+            AI.
+          </p>
+          <div class="d-flex gap-4">
+            <a href="pages/login.html" class="btn-premium">
+              Get Started <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <!-- Updated Button Class to btn-dark -->
+            <a href="#video" class="btn-dark">
+              <i class="fa-solid fa-play"></i> Watch Demo
+            </a>
+          </div>
+        </div>
+
+        <!-- Visual / Image -->
+        <div class="hero-visual-wrapper" data-aos="fade-left">
+          <img src="assets/doctor.png" alt="QuadraCare Doctor" class="hero-main-img">
+
+          <!-- Floating Cards -->
+          <div class="glass-float-card card-top-right">
+            <div class="float-icon-box">
+              <i class="fa-solid fa-user-doctor"></i>
+            </div>
+            <div>
+              <h4 style="margin:0; font-size: 1rem;">Verified</h4>
+              <small style="color: var(--text-grey);">Top Rated</small>
+            </div>
+          </div>
+
+          <div class="glass-float-card card-bottom-left">
+            <div class="float-icon-box">
+              <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <div>
+              <h4 style="margin:0; font-size: 1rem;">98%</h4>
+              <small style="color: var(--text-grey);">Patient Satisfaction</small>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  </header>
 
-    <!-- ... stats row ... -->
-    <div class="stats-row" data-aos="fade-up">
-      <div class="stat-box">
-        <div class="stat-number">4500+</div>
-        <div class="stat-label">Happy Patients</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number">200</div>
-        <div class="stat-label">Hospital Room</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number">500+</div>
-        <div class="stat-label">Award Win</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number">20+</div>
-        <div class="stat-label">Ambulance</div>
-      </div>
-    </div>
-  </div>
+  <!-- 2. Services / Features SPLIT Layout (MOVED UP) -->
+  <section class="section-pad premium-features" id="features">
+    <div class="container-premium">
+      <div class="features-split-grid">
 
-  <!-- Search Bar Section -->
-  <div class="search-bar-section" data-aos="fade-up">
-    <div class="search-bar-container">
-      <div class="search-input-group">
-        <select class="search-select">
-          <option>Select Department</option>
-        </select>
-      </div>
-      <div class="search-input-group">
-        <select class="search-select">
-          <option>Select Doctor</option>
-        </select>
-      </div>
-      <div class="search-input-group">
-        <select class="search-select">
-          <option>Select Date</option>
-        </select>
-      </div>
-      <div class="search-input-group">
-        <select class="search-select">
-          <option>Select Location</option>
-        </select>
-      </div>
-      <button class="search-btn">
-        <i class="fa-solid fa-magnifying-glass"></i> Search
-      </button>
-    </div>
-  </div>
+        <!-- Left: Text Title -->
+        <div class="features-text" data-aos="fade-right">
+          <h2>Everything you need, <br><span class="text-gradient">All in one place.</span></h2>
+          <p>We provide comprehensive healthcare solutions designed for your well-being. Browse our departments.</p>
+          <a href="pages/services.html" class="btn-premium">View All Services</a>
+        </div>
 
-  <!-- Department Category -->
-  <section class="departments-section">
-    <h2 class="dept-title">Department Category</h2>
-    <p class="dept-subtitle">Browse by department for tailored services and expert solutions</p>
-
-    <div class="dept-grid" data-aos="fade-up">
-      <div class="dept-card"><i class="fa-solid fa-kidneys"></i></div> <!-- Kidney -->
-      <div class="dept-card"><i class="fa-solid fa-heart-pulse"></i></div> <!-- Heart -->
-      <div class="dept-card"><i class="fa-solid fa-lungs"></i></div> <!-- Lungs -->
-      <div class="dept-card"><i class="fa-solid fa-tooth"></i></div> <!-- Tooth -->
-      <div class="dept-card"><i class="fa-solid fa-brain"></i></div> <!-- Brain -->
-      <div class="dept-card"><i class="fa-solid fa-bone"></i></div> <!-- Bone -->
+        <!-- Right: Cards Grid (2 per row) -->
+        <div class="bento-grid-right">
+          <!-- Card 1: Radiology -->
+          <div class="bento-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="bento-icon"><i class="fa-solid fa-x-ray"></i></div>
+            <div>
+              <h3>Radiology & Imaging</h3>
+              <p>Advanced diagnostic imaging including X-ray, CT scan, and MRI.</p>
+            </div>
+          </div>
+          <!-- Card 2: Emergency -->
+          <div class="bento-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="bento-icon"><i class="fa-solid fa-truck-medical"></i></div>
+            <div>
+              <h3>Emergency Services</h3>
+              <p>24/7 immediate medical care for critical and accident conditions.</p>
+            </div>
+          </div>
+          <!-- Card 3: Laboratory -->
+          <div class="bento-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="bento-icon"><i class="fa-solid fa-flask"></i></div>
+            <div>
+              <h3>Laboratory Services</h3>
+              <p>Comprehensive lab testing for precise and fast diagnosis.</p>
+            </div>
+          </div>
+          <!-- Card 4: Pharmacy -->
+          <div class="bento-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="bento-icon"><i class="fa-solid fa-pills"></i></div>
+            <div>
+              <h3>Pharmacy</h3>
+              <p>In-house medical store with fully stocked prescriptions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Services Split Section -->
-  <section class="services-split">
-    <div class="services-text" data-aos="fade-right">
-      <h2>World-Class Healthcare Services for you and your loved ones</h2>
-      <p>Advanced diagnostic imaging services including X-ray, CT scan, MRI, and ultrasound to assist in accurate and
-        efficient diagnosis of medical conditions.</p>
-      <a href="#" class="hero-btn btn-transparent-white">More Service
-        <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
+  <!-- 3. About Us Section (Reverted to SPLIT Layout w/ 4 BOXES) -->
+  <section class="section-pad premium-about" id="about">
+    <div class="container-premium">
+      <div class="about-split">
+        <!-- Visual (Left) - NOW JUST 4 BOXES -->
+        <div class="about-visual" data-aos="zoom-in">
+          <!-- Removed .about-visual-box -->
+          <div class="about-stats-grid">
+            <div class="stat-card">
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">Emergency Care</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">50+</span>
+              <span class="stat-label">Specialist Doctors</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">10k+</span>
+              <span class="stat-label">Happy Patients</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Quality Support</span>
+            </div>
+          </div>
+        </div>
 
-    <div class="services-grid-right" data-aos="fade-left">
-      <div class="service-box">
-        <div class="service-box-icon"><i class="fa-solid fa-x-ray"></i></div>
-        <h4>Radiology & Imaging</h4>
-        <p>Advanced diagnostic imaging services including X-ray, CT scan, MRI.</p>
+        <!-- Content (Right) -->
+        <div class="about-content" data-aos="fade-left">
+          <h2>
+            <span class="smaller">Who We Are</span>
+            Committed to Your <span class="text-gradient">Health & <br>Wellness.</span>
+          </h2>
+          <p>
+            QuadraCare is a pioneering healthcare platform dedicated to bridging the gap between patients and
+            world-class medical services.
+            We combine compassion with cutting-edge technology to ensure that quality care is accessible to everyone,
+            everywhere.
+          </p>
+          <a href="pages/about.html" class="btn-premium">
+            Learn More About Us
+          </a>
+        </div>
       </div>
-      <div class="service-box">
-        <div class="service-box-icon"><i class="fa-solid fa-truck-medical"></i></div>
-        <h4>Emergency Services</h4>
-        <p>24/7 immediate medical care for critical conditions, accidents, and life-threatening situations.</p>
+    </div>
+  </section>
+
+  <!-- 4. Interactive Map (GRID: Map Left, Text Right) -->
+  <section class="section-pad premium-map">
+    <div class="container-premium">
+      <div class="map-split-container">
+
+        <!-- Left: Visual/Map -->
+        <div class="map-visual-container" data-aos="fade-right">
+          <img src="assets/ethiopia_map.png" alt="Map of Ethiopia" class="map-img-ethiopia">
+          <!-- Hotspots -->
+          <div class="hotspot hs-1"></div>
+          <div class="hotspot hs-2"></div>
+          <div class="hotspot hs-3"></div>
+        </div>
+
+        <!-- Right: Text Content -->
+        <div class="map-text-side" data-aos="fade-left">
+          <h2>Connecting Care <br><span class="text-gradient">Nationwide</span></h2>
+          <p>Seamless medical access across Ethiopia. We are bridging the gap between urban centers and rural
+            communities.</p>
+          <p style="margin-top: 1rem; font-weight: 600;">Join the network today.</p>
+        </div>
+
       </div>
-      <div class="service-box">
-        <div class="service-box-icon"><i class="fa-solid fa-flask"></i></div>
-        <h4>Laboratory Services</h4>
-        <p>Comprehensive lab testing for blood, urine, and other samples supporting fast diagnosis.</p>
+    </div>
+  </section>
+
+  <!-- 5. NEW: Contact Us Section (Centered) -->
+  <section class="premium-contact" id="contact">
+    <div class="container-premium">
+      <div class="contact-cta-card" data-aos="fade-up">
+        <!-- Orbs -->
+        <div class="contact-orb"></div>
+        <div class="contact-orb-2"></div>
+
+        <div style="position:relative; z-index:2;">
+          <h2>We're Here to Help</h2>
+          <p>
+            Have questions or need assistance? Our support team is available 24/7 to assist you with any inquiries.
+          </p>
+          <div class="d-flex justify-content-center gap-3" style="flex-wrap:wrap; justify-content:center;">
+            <a href="pages/contact.html" class="btn-premium">
+              Contact Support <i class="fa-solid fa-headset"></i>
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="service-box">
-        <div class="service-box-icon"><i class="fa-solid fa-pills"></i></div>
-        <h4>Pharmacy</h4>
-        <p>In-house medical store providing prescribed medications and health essentials.</p>
+    </div>
+  </section>
+
+  <!-- 6. App / CTA Section (FULL WIDTH) -->
+  <section class="premium-app">
+    <!-- Inner container for content width -->
+    <div class="container-premium app-content-wrapper" data-aos="zoom-in">
+
+      <div class="app-text">
+        <h2>Take QuadraCare <br>with you.</h2>
+        <p style="margin-bottom: 2rem; opacity: 0.9;">Manage your shifts, payments, and profile from anywhere.</p>
+
+        <ul>
+          <li><i class="fa-solid fa-check"></i> Real-time notifications</li>
+          <li><i class="fa-solid fa-check"></i> Easy scheduling</li>
+          <li><i class="fa-solid fa-check"></i> Direct chat support</li>
+        </ul>
+
+        <!-- QR Code instead of buttons -->
+        <div class="qr-box" data-aos="flip-up" data-aos-delay="200">
+          <img src="assets/app_qr.png" alt="Download App QR Code" class="qr-code-img">
+          <div
+            style="text-align:center; color: var(--text-dark); margin-top: 5px; font-weight: 700; font-size: 0.9rem;">
+            Scan to Download</div>
+        </div>
+      </div>
+
+      <div class="app-image">
+        <!-- Generated Nurse/Phone Image -->
+        <img src="assets/nurse_phone.png" alt="QuadraCare App" class="app-nurse-img">
       </div>
     </div>
   </section>
@@ -163,7 +285,7 @@
   <!-- Footer -->
   <footer>
     <div class="footer-content">
-      <div class="footer-col">
+      <div class="footer-col" data-aos="fade-up">
         <div class="logo mb-2">
           <i class="fa-solid fa-heart-pulse"></i> QuadraCare
         </div>
@@ -171,7 +293,7 @@
           Empowering healthcare with technology. We are dedicated to providing the best medical experience.
         </p>
       </div>
-      <div class="footer-col">
+      <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
         <h4>Quick Links</h4>
         <ul>
           <li><a href="#">Home</a></li>
@@ -180,7 +302,7 @@
           <li><a href="#">Blog</a></li>
         </ul>
       </div>
-      <div class="footer-col">
+      <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
         <h4>Services</h4>
         <ul>
           <li><a href="#">Radiology</a></li>
@@ -189,22 +311,26 @@
           <li><a href="#">Pharmacy</a></li>
         </ul>
       </div>
-      <div class="footer-col">
+      <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
         <h4>Contact</h4>
         <ul>
           <li><a href="#">support@quadracare.com</a></li>
-          <li><a href="#">+1 234 567 890</a></li>
+          <li><a href="#">+251945801419</a></li>
         </ul>
       </div>
     </div>
     <div
-      style="text-align: center; color: var(--text-muted); font-size: 0.8rem; padding-top: 2rem; border-top: 1px solid #e2e8f0;">
-      &copy; 2024 QuadraCare. All rights reserved.
+      style="text-align: center; color: var(--text-muted); font-size: 0.8rem; padding-top: 2rem; border-top: 0.5px solid #e2e8f0;">
+      &copy; 2025 QuadraCare. All rights reserved.
     </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
   <script src="js/theme.js"></script>
+  <script src="js/main.js"></script>
   <script>
     AOS.init({
       duration: 800,
