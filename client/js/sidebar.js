@@ -36,12 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
               `;
     }
 
-    // Logout Link
-    linksHtml += `
-            <a href="#" id="sidebarLogout" class="nav-link" style="margin-top: auto;">
-                <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
-            </a>
-        `;
+    // Logout Link Removed - Moved to Header Profile Dropdown
 
     sidebarContainer.innerHTML = `
             <aside class="sidebar">
