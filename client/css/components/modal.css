@@ -16,12 +16,40 @@
 
 .modal-content {
   background-color: var(--bg-white);
-  padding: 20px;
-  border-radius: 10px;
+  padding: 2.5rem;
+  border-radius: 12px;
   width: 90%;
-  max-width: 500px;
+  max-width: 600px;
+  /* Increased from 500px */
   position: relative;
   box-shadow: var(--shadow-lg);
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 992px) {
+  .modal-content.payment-modal-content {
+    max-width: 800px;
+  }
+
+  /* Horizontal layout for payment modal on large screens */
+  .payment-modal-body {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .payment-modal-body #payment-element {
+    flex: 1;
+  }
+
+  .payment-modal-actions {
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .close-modal {
