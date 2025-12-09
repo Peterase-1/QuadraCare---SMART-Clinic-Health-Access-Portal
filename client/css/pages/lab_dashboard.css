@@ -1,0 +1,94 @@
+/* Lab Dashboard Specific Styles */
+
+.lab-queue-item {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  transition: background-color 0.2s;
+}
+
+.lab-queue-item:hover {
+  background-color: #f8fafc;
+}
+
+.lab-queue-details {
+  flex: 1;
+}
+
+.lab-patient-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.lab-patient-name {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.lab-test-info {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.lab-desc-box {
+  margin: 0.5rem 0 0 0;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  background: #f1f5f9;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border-left: 3px solid var(--primary-color);
+}
+
+.lab-meta-info {
+  margin: 0.5rem 0 0 0;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.btn-lab-details {
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+/* The Target Button */
+.btn-lab-action {
+  padding: 0.6rem 1.25rem;
+  /* Increased padding */
+  font-size: 0.9rem;
+  min-width: 140px;
+  /* Ensure strictly defined width */
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Completed Label Logic */
+.btn-lab-completed {
+  padding: 0.6rem 1.25rem;
+  font-size: 0.9rem;
+  opacity: 0.6;
+  cursor: not-allowed;
+  min-width: 140px;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .lab-queue-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-lab-action,
+  .btn-lab-completed {
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
