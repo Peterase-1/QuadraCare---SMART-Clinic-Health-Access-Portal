@@ -1,17 +1,11 @@
 const API_URL = window.getApiBaseUrl();
 const user = JSON.parse(localStorage.getItem('user'));
 
-if (!user || user.role !== 'emergency') {
-  window.location.href = '../login.html';
-}
+checkAuth('emergency');
 
 // Display User Info & Logout
 document.getElementById('userName').textContent = user.name;
-document.getElementById('logoutBtn').addEventListener('click', (e) => {
-  e.preventDefault();
-  localStorage.removeItem('user');
-  window.location.href = '../login.html';
-});
+// Logout logic is handled by sidebar.js and utils.js (Profile Dropdown)
 
 const headers = {
   'Content-Type': 'application/json',
