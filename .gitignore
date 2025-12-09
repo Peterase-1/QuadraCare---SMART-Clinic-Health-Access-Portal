@@ -4,5 +4,4 @@ node_modules/
 dist/
 coverage/
 .vscode/
-docker-compose.yml
-push_images.ps1
+
