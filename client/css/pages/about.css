@@ -5,7 +5,8 @@
 
 /* Page Header */
 .page-header {
-  padding: 4rem 5%;
+  padding: 10rem 5% 4rem;
+  /* Added top padding for fixed nav */
   text-align: center;
   background: var(--section-blue, #6faab5);
   color: white;
