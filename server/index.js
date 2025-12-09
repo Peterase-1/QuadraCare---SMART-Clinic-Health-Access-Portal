@@ -1,4 +1,5 @@
 require('dotenv').config();
+console.log('SANITY CHECK: I AM RUNNING THE NEW CODE');
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
