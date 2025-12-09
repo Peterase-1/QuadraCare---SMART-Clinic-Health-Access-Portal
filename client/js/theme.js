@@ -21,7 +21,9 @@ const themeConfig = {
 
 // Toggle theme function
 function toggleTheme() {
+  console.log('Toggle Theme Clicked');
   const isDark = document.body.classList.toggle(themeConfig.darkClass);
+  console.log('New Theme:', isDark ? 'dark' : 'light');
   localStorage.setItem(themeConfig.storageKey, isDark ? 'dark' : 'light');
   updateThemeIcons();
 }
