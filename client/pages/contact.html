@@ -49,20 +49,20 @@
     <div class="contact-grid">
       <div class="contact-form" data-aos="fade-right">
         <h2 class="mb-3">Send us a Message</h2>
-        <form>
+        <form id="contactForm" onsubmit="sendEmail(event)">
           <div class="form-group">
             <label class="form-label">Name</label>
-            <input type="text" class="form-input" placeholder="Your Name">
+            <input type="text" id="contactName" class="form-input" placeholder="Your Name" required>
           </div>
           <div class="form-group">
             <label class="form-label">Email</label>
-            <input type="email" class="form-input" placeholder="Your Email">
+            <input type="email" id="contactEmail" class="form-input" placeholder="Your Email" required>
           </div>
           <div class="form-group">
             <label class="form-label">Message</label>
-            <textarea class="form-textarea" placeholder="How can we help?"></textarea>
+            <textarea id="contactMessage" class="form-textarea" placeholder="How can we help?" required></textarea>
           </div>
-          <button type="button" class="btn-primary w-100">Send Message</button>
+          <button type="submit" class="btn-primary w-100">Send Message</button>
         </form>
       </div>
 
@@ -145,6 +145,33 @@
       once: true,
       offset: 100
     });
+
+    function sendEmail(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('contactName').value;
+      const email = document.getElementById('contactEmail').value;
+      const message = document.getElementById('contactMessage').value;
+
+      // Construct Mailto Link
+      const subject = encodeURIComponent(`Contact Request from ${name}`);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+
+      // Open Mail Client
+      window.location.href = `mailto:pasegid@gmail.com?subject=${subject}&body=${body}`;
+
+      // Visual Feedback
+      const btn = document.querySelector('#contactForm button');
+      const originalText = btn.innerText;
+      btn.innerText = 'Opening Mail Client...';
+      btn.style.opacity = '0.7';
+
+      setTimeout(() => {
+        btn.innerText = originalText;
+        btn.style.opacity = '1';
+        document.getElementById('contactForm').reset();
+      }, 2000);
+    }
   </script>
 </body>
 
