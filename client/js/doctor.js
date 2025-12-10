@@ -383,7 +383,55 @@ if (window.location.pathname.includes('patients.html')) {
           return;
         }
 
-        content.innerHTML = records.map(r => `
+        content.innerHTML = records.map(r => {
+          if (r.recordType === 'inpatient') {
+            // Render Inpatient Record (Daily Logs)
+            const logsHtml = r.dailyLogs && r.dailyLogs.length > 0 ? r.dailyLogs.map(log => `
+              <div style="background: white; padding: 10px; margin-top: 8px; border-radius: 6px; border-left: 3px solid var(--info);">
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px;">
+                  <span><i class="fa-solid fa-user-nurse"></i> ${log.nurse ? log.nurse.name : 'Unknown'}</span>
+                  <span>${new Date(log.date).toLocaleString()}</span>
+                </div>
+                ${log.vitals ? `
+                  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; font-size: 0.85rem; background: #f1f5f9; padding: 5px; border-radius: 4px; margin-bottom: 5px;">
+                    <div><strong>BP:</strong> ${log.vitals.bloodPressure || '-'}</div>
+                    <div><strong>HR:</strong> ${log.vitals.heartRate || '-'}</div>
+                    <div><strong>Temp:</strong> ${log.vitals.temperature || '-'}</div>
+                    <div><strong>O2:</strong> ${log.vitals.oxygenSaturation || '-'}%</div>
+                  </div>
+                ` : ''}
+                <div style="font-size: 0.9rem;">${log.notes || 'No notes'}</div>
+                ${log.medicationsAdministered && log.medicationsAdministered.length > 0 ? `
+                  <div style="margin-top: 5px; font-size: 0.85rem; color: var(--primary);">
+                    <i class="fa-solid fa-pills"></i> ${log.medicationsAdministered.map(m => `${m.name} (${m.dosage})`).join(', ')}
+                  </div>
+                ` : ''}
+              </div>
+            `).join('') : '<p style="font-style: italic; color: #999;">No daily logs yet.</p>';
+
+            return `
+              <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; background: #f0f9ff; border-left: 5px solid var(--primary);">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                      <div>
+                        <strong><i class="fa-solid fa-hospital-user"></i> Inpatient Admission</strong>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">Room: ${r.room || 'Unknown'}</div>
+                      </div>
+                      <div style="text-align: right;">
+                        <span class="badge badge-${r.status === 'Discharged' ? 'success' : 'primary'}">${r.status.toUpperCase()}</span>
+                        <div style="color: var(--text-secondary); font-size: 0.8rem;">${new Date(r.date).toLocaleDateString()}</div>
+                      </div>
+                  </div>
+                  ${r.diagnosis ? `<p><strong>Admission Reason:</strong> ${r.diagnosis}</p>` : ''}
+                  
+                  <div style="margin-top: 1rem; border-top: 1px solid #e2e8f0; padding-top: 0.5rem;">
+                    <h5 style="margin: 0 0 0.5rem 0; color: var(--text-secondary);">Daily Logs & Vitals</h5>
+                    ${logsHtml}
+                  </div>
+              </div>
+            `;
+          } else {
+            // Render Consultation Record (Existing Logic)
+            return `
                 <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; background: #f8fafc;">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                         <span class="badge badge-${r.status === 'closed' ? 'success' : 'warning'}">${r.status.toUpperCase()}</span>
@@ -405,7 +453,9 @@ if (window.location.pathname.includes('patients.html')) {
                         </div>
                     ` : ''}
                 </div>
-            `).join('');
+            `;
+          }
+        }).join('');
       })
       .catch(err => {
         content.innerHTML = `<p style="color: red;">Error loading history: ${err.message}</p>`;
