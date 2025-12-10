@@ -28,8 +28,14 @@
 .nav-links {
   display: flex;
   gap: 2rem;
-  display: none;
   align-items: center;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    /* Hidden by default on mobile */
+  }
 }
 
 @media (min-width: 768px) {
