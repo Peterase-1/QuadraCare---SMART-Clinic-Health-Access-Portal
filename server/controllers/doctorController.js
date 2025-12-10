@@ -255,12 +255,35 @@ exports.getPatientRecords = async (req, res) => {
       return res.status(400).json({ message: 'Invalid Patient ID' });
     }
 
-    const records = await MedicalRecord.find({ patient: req.params.id })
+    // Fetch Medical Records (Consultations)
+    const medicalRecords = await MedicalRecord.find({ patient: req.params.id })
       .populate('doctor', 'name')
       .populate('labRequest.assignedTo', 'name')
-      .sort({ date: -1 });
-    console.log(`Found ${records.length} records`);
-    res.json(records);
+      .sort({ date: -1 })
+      .lean();
+
+    // Fetch Inpatient Records (Daily Logs)
+    const inpatientRecords = await InpatientRecord.find({ patient: req.params.id })
+      .populate('dailyLogs.nurse', 'name')
+      .populate('doctor', 'name')
+      .sort({ admissionDate: -1 })
+      .lean();
+
+    // Tag records with type for frontend distinguishing
+    const taggedMedical = medicalRecords.map(r => ({ ...r, recordType: 'consultation' }));
+    const taggedInpatient = inpatientRecords.map(r => ({
+      ...r,
+      recordType: 'inpatient',
+      date: r.admissionDate // Normalize date field for sorting
+    }));
+
+    // Merge and Sort
+    const allRecords = [...taggedMedical, ...taggedInpatient].sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+
+    console.log(`Found ${allRecords.length} combined records`);
+    res.json(allRecords);
   } catch (error) {
     console.error('Error in getPatientRecords:', error);
     res.status(500).json({ message: error.message });
